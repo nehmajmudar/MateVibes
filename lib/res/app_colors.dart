@@ -7,4 +7,6 @@ class AppColors{
   static Color colorHintText=Color(0xFFe5e5e5);
   static Color colorSignInButton=Color(0xFF8e35ff);
   static Color colorWhite=Color(0xFFffffff);
+  static Color colorLetsGetStarted=Color(0xFF101c3d);
+  static Color colorCreateAccountToConnect=Color(0xFFaeaeae);
 }

@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
+import 'package:matevibes/ui/text_fields_ui.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -38,37 +39,11 @@ class _SignInState extends State<SignIn> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height/18,
                   ),
-                  Material(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(13),
-                        hintText: AppString.txtEmailAddress,
-                        hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: AppColors.colorHintText,fontFamily: 'Manrope'),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                        ),
-                      ),
-                    ),
-                    shadowColor: AppColors.colorHintText,
-                    elevation: 4,
-                  ),
+                  TextFieldsUi(textFieldItem: AppString.txtEmailAddress),
                   SizedBox(
                     height: MediaQuery.of(context).size.height/33.76,
                   ),
-                  Material(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(13),
-                        hintText: AppString.txtPassword,
-                        hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: AppColors.colorHintText,fontFamily: 'Manrope'),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(50))
-                        ),
-                      ),
-                    ),
-                    shadowColor: AppColors.colorHintText,
-                    elevation: 4,
-                  ),
+                  TextFieldsUi(textFieldItem: AppString.txtPassword),
                   SizedBox(
                     height: MediaQuery.of(context).size.height/22.2,
                   ),
