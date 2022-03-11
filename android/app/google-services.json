@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "478617418066",
+    "project_id": "matevibes-e17da",
+    "storage_bucket": "matevibes-e17da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:478617418066:android:f06fb87ed49758d12be28b",
+        "android_client_info": {
+          "package_name": "com.example.matevibes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "478617418066-h3li0v2r49je8e1dkv2dbl2ah3rvnpkv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.matevibes",
+            "certificate_hash": "e4f00f50b1ba21298b14de856e8eff3adcc485ce"
+          }
+        },
+        {
+          "client_id": "478617418066-75sc73issil8crq2cqrnqkav1qa07jfd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkU2cfihtuuKcPxHOJmHI8dPn_3EfMJo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "478617418066-75sc73issil8crq2cqrnqkav1qa07jfd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
