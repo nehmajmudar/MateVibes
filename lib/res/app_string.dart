@@ -7,6 +7,18 @@ class AppString {
   static String txtSignIn = "Sign In";
   static String txtDontHaveAnAccount = "Don't have an account?";
   static String txtSignUp = "Sign Up";
+  static String txtLetsGetStarted = "Let's Get Started!";
+  static String txtCreateAccountToConnect =
+      "Create account to connect with people";
+  static String txtUsername = "Username";
+  static String txtPhoneNumber = "Phone number";
+  static String txtConfirmPassword = "Confirm Password";
+  static String txtByCreatingAccount = "By creating account, I agree with ";
+  static String txtTAndC = "Terms \n & Conditions";
+  static String txtAnd = "And";
+  static String txtPrivacyPolicy = "Privacy Policy";
+  static String txtCreateAccount = "Create account";
+  static String txtContinueTo = "Continue to ";
   static String txtyouaresuccessfullyloggedin =
       "You Are Successfully logged in";
   static String txtwelcometohomepage = "Welcome to Homepage";
