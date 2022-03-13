@@ -14,7 +14,7 @@ class _TextFieldsUiState extends State<TextFieldsUi> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: TextField(
+      child: TextFormField(
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(13),
           hintText: widget.textFieldItem,

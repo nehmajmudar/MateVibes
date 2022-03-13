@@ -31,28 +31,25 @@ class _SignInState extends State<SignIn> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(AppString.txtWelcome,style: TextStyle(fontSize: 24,fontWeight: FontWeight.w800,fontFamily: 'Manrope'),),
-                  SizedBox(
-                    height: 5,
+                  Container(
+                    child: Text(AppString.txtWelcome,style: TextStyle(fontSize: 24,fontWeight: FontWeight.w800,fontFamily: 'Manrope'),),
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/168),
                   ),
-                  Text(AppString.txtSignInToContinue,style: TextStyle(color: AppColors.colorSignInToContinue,fontSize: 14,fontWeight: FontWeight.w800,fontFamily: 'Manrope'),),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height/18,
+                  Container(
+                    child: Text(AppString.txtSignInToContinue,style: TextStyle(color: AppColors.colorSignInToContinue,fontSize: 14,fontWeight: FontWeight.w800,fontFamily: 'Manrope'),),
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/18,),
                   ),
                   TextFieldsUi(textFieldItem: AppString.txtEmailAddress),
                   SizedBox(
                     height: MediaQuery.of(context).size.height/33.76,
                   ),
                   TextFieldsUi(textFieldItem: AppString.txtPassword),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height/22.2,
-                  ),
                   GestureDetector(
                     onTap: (){},
-                    child: Text(AppString.txtForgotPassword,style: TextStyle(fontSize: 12,color: AppColors.colorForgotPassword,fontWeight: FontWeight.w400,fontFamily: 'Manrope'),),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height/11.1,
+                    child: Container(
+                      child: Text(AppString.txtForgotPassword,style: TextStyle(fontSize: 12,color: AppColors.colorForgotPassword,fontWeight: FontWeight.w400,fontFamily: 'Manrope'),),
+                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/22.2,bottom: MediaQuery.of(context).size.height/11.1,),
+                    ),
                   ),
                   Center(
                     child: GestureDetector(
@@ -60,6 +57,7 @@ class _SignInState extends State<SignIn> {
                       child: Container(
                         width: MediaQuery.of(context).size.width/1.68,
                         height: MediaQuery.of(context).size.height/18.75,
+                        margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/9.27,),
                         decoration: BoxDecoration(
                           color: AppColors.colorSignInButton,
                           borderRadius: BorderRadius.all(Radius.circular(50))
@@ -68,9 +66,6 @@ class _SignInState extends State<SignIn> {
                         child: Text(AppString.txtSignIn.toUpperCase(),style: TextStyle(fontSize: 14,color: AppColors.colorWhite,fontWeight: FontWeight.w700,fontFamily: 'Manrope'),),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height/9.27,
                   ),
                   Center(
                     child: RichText(
