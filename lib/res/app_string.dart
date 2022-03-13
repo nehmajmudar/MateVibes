@@ -18,4 +18,9 @@ class AppString{
   static String txtPrivacyPolicy="Privacy Policy";
   static String txtCreateAccount="Create account";
   static String txtContinueTo="Continue to ";
+  static String txtPleaseEnterSomeText="Please enter some text ";
+  static String txtEnterValidEmailId="Enter valid Email id";
+  static String txtPasswordLengthMoreThan6="Password length should be more than 6 characters";
+  static String txtEnterValidPhoneNo="Enter valid phone number";
+  static String txtPleaseSelectCheckBox="Please select the checkbox.";
 }
