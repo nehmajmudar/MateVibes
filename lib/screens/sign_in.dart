@@ -61,169 +61,198 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
     return user;
   }
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     //textFieldController
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            color: AppColors.colorRed,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 4,
-            margin: EdgeInsets.only(bottom: 64),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width / 12,
-                right: MediaQuery.of(context).size.width / 10,
-                bottom: MediaQuery.of(context).size.height / 18.75),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppString.txtWelcome,
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w800,
-                      fontFamily: 'Manrope'),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  AppString.txtSignInToContinue,
-                  style: TextStyle(
-                      color: AppColors.colorSignInToContinue,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w800,
-                      fontFamily: 'Manrope'),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 18,
-                ),
-                Material(
-                  child: TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(13),
-                      hintText: AppString.txtEmailAddress,
-                      hintStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,
-                          fontFamily: 'Manrope'),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                      ),
-                    ),
-                  ),
-                  shadowColor: AppColors.colorHintText,
-                  elevation: 4,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 33.76,
-                ),
-                Material(
-                  child: TextField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(13),
-                      hintText: AppString.txtPassword,
-                      hintStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,
-                          fontFamily: 'Manrope'),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                    ),
-                  ),
-                  shadowColor: AppColors.colorHintText,
-                  elevation: 4,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 22.2,
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    AppString.txtForgotPassword,
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: AppColors.colorForgotPassword,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Manrope'),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 11.1,
-                ),
-                Center(
-                  child: GestureDetector(
-                    onTap: () async {
-                      User? user = await loginUsingEmailPassword(
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                          context: context);
-                      print(user);
-                      if (user != null) {
-                        Navigator.pushNamed(context, "/home");
-                      }
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 1.68,
-                      height: MediaQuery.of(context).size.height / 18.75,
-                      decoration: BoxDecoration(
-                          color: AppColors.colorSignInButton,
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      alignment: Alignment.center,
+    return Form(
+      key: _formKey,
+      child: Scaffold(
+        backgroundColor: AppColors.colorWhite,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                color: AppColors.colorRed,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 4,
+                margin: EdgeInsets.only(bottom: 64),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width / 12,
+                    right: MediaQuery.of(context).size.width / 10,
+                    bottom: MediaQuery.of(context).size.height / 18.75),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
                       child: Text(
-                        AppString.txtSignIn.toUpperCase(),
+                        AppString.txtWelcome,
                         style: TextStyle(
-                            fontSize: 14,
-                            color: AppColors.colorWhite,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
                             fontFamily: 'Manrope'),
+                      ),
+                      margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height / 168),
+                    ),
+                    Container(
+                      child: Text(
+                        AppString.txtSignInToContinue,
+                        style: TextStyle(
+                            color: AppColors.colorSignInToContinue,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: 'Manrope'),
+                      ),
+                      margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height / 18,
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 9.27,
-                ),
-                Center(
-                  child: RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
-                        text: AppString.txtDontHaveAnAccount,
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: AppColors.colorForgotPassword,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'Manrope'),
-                      ),
-                      TextSpan(
-                          text: AppString.txtSignUp,
-                          style: TextStyle(
+                    Material(
+                      child: TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(13),
+                          hintText: AppString.txtEmailAddress,
+                          hintStyle: TextStyle(
                               fontSize: 14,
-                              color: AppColors.colorSignInButton,
-                              fontWeight: FontWeight.w800,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.colorHintText,
                               fontFamily: 'Manrope'),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.pushReplacementNamed(
-                                  context, "/signUp");
-                            })
-                    ]),
-                  ),
-                )
-              ],
-            ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty ||
+                              !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(value)) {
+                            return AppString.txtEnterValidEmailId;
+                          }
+                          return null;
+                        },
+                      ),
+                      shadowColor: AppColors.colorHintText,
+                      elevation: 4,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 33.76,
+                    ),
+                    Material(
+                      child: TextFormField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(13),
+                          hintText: AppString.txtPassword,
+                          hintStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.colorHintText,
+                              fontFamily: 'Manrope'),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.length <= 6 || value.isEmpty) {
+                            return AppString.txtPasswordLengthMoreThan6;
+                          }
+                          return null;
+                        },
+                      ),
+                      shadowColor: AppColors.colorHintText,
+                      elevation: 4,
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        child: Text(
+                          AppString.txtForgotPassword,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: AppColors.colorForgotPassword,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Manrope'),
+                        ),
+                        margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height / 22.2,
+                          bottom: MediaQuery.of(context).size.height / 11.1,
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: GestureDetector(
+                        onTap: () async {
+                          if (_formKey.currentState!.validate()) {
+                            User? user = await loginUsingEmailPassword(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                                context: context);
+                            print(user);
+                            if (user != null) {
+                              Navigator.pushNamed(context, "/home");
+                            }
+                          }
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width / 1.68,
+                          height: MediaQuery.of(context).size.height / 18.75,
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height / 9.27,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColors.colorSignInButton,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50))),
+                          alignment: Alignment.center,
+                          child: Text(
+                            AppString.txtSignIn.toUpperCase(),
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: AppColors.colorWhite,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'Manrope'),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: RichText(
+                        text: TextSpan(children: [
+                          TextSpan(
+                            text: AppString.txtDontHaveAnAccount,
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: AppColors.colorForgotPassword,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Manrope'),
+                          ),
+                          TextSpan(
+                              text: AppString.txtSignUp,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: AppColors.colorSignInButton,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: 'Manrope'),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.pushReplacementNamed(
+                                      context, "/signUp");
+                                })
+                        ]),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

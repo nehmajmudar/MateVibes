@@ -12,11 +12,12 @@ class _SignInConfirmState extends State<SignInConfirm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppString.txtwelcometohomepage),
-        centerTitle: true,
-      ),
-      body: Center(child: Text(AppString.txtyouaresuccessfullyloggedin)),
-    );
+        appBar: AppBar(
+          title: Text("Welcome to home page"),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Text("You're successfully logged in"),
+        ));
   }
 }

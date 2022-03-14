@@ -4,11 +4,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
-import 'package:matevibes/screens/sign_in.dart';
-import 'package:matevibes/ui/text_fields_ui.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:matevibes/user_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -18,23 +13,16 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final _auth = FirebaseAuth.instance;
-  String? errorMessage;
-  //our form key
-  final _formKey = GlobalKey<FormState>();
   bool checkboxTAndC = false;
-  //editio Controller
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _phoneNumberController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  bool showErrorMessage = false;
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
+    return Form(
+      key: _formKey,
+      child: Scaffold(
+        body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
                 left: MediaQuery.of(context).size.width / 12,
@@ -68,36 +56,142 @@ class _SignUpState extends State<SignUp> {
                         fontFamily: 'Manrope'),
                   ),
                 ),
-                TextFieldsUi(
-                  textFieldItem: AppString.txtUsername,
-                  controller: _usernameController,
+                Material(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(13),
+                      hintText: AppString.txtUsername,
+                      hintStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.colorHintText,
+                          fontFamily: 'Manrope'),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return AppString.txtEnterValidEmailId;
+                      }
+                      return null;
+                    },
+                  ),
+                  shadowColor: AppColors.colorHintText,
+                  elevation: 4,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 33.76,
                 ),
-                TextFieldsUi(
-                  textFieldItem: AppString.txtEmailAddress,
-                  controller: _emailController,
+                Material(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(13),
+                      hintText: AppString.txtEmailAddress,
+                      hintStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.colorHintText,
+                          fontFamily: 'Manrope'),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty ||
+                          !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(value)) {
+                        return AppString.txtEnterValidEmailId;
+                      }
+                      return null;
+                    },
+                  ),
+                  shadowColor: AppColors.colorHintText,
+                  elevation: 4,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 33.76,
                 ),
-                TextFieldsUi(
-                  textFieldItem: AppString.txtPhoneNumber,
-                  controller: _phoneNumberController,
+                Material(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(13),
+                      hintText: AppString.txtPhoneNumber,
+                      hintStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.colorHintText,
+                          fontFamily: 'Manrope'),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty ||
+                          !RegExp(r"^[0-9]{10}$").hasMatch(value)) {
+                        return AppString.txtEnterValidPhoneNo;
+                      }
+                      return null;
+                    },
+                  ),
+                  shadowColor: AppColors.colorHintText,
+                  elevation: 4,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 33.76,
                 ),
-                TextFieldsUi(
-                    textFieldItem: AppString.txtPassword,
-                    controller: _passwordController),
+                Material(
+                  child: TextFormField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(13),
+                      hintText: AppString.txtPassword,
+                      hintStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.colorHintText,
+                          fontFamily: 'Manrope'),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value!.length <= 6 || value.isEmpty) {
+                        return AppString.txtPasswordLengthMoreThan6;
+                      }
+                      return null;
+                    },
+                  ),
+                  shadowColor: AppColors.colorHintText,
+                  elevation: 4,
+                ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 33.76,
                 ),
-                TextFieldsUi(
-                  textFieldItem: AppString.txtConfirmPassword,
-                  controller: _confirmPasswordController,
+                Material(
+                  child: TextFormField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(13),
+                      hintText: AppString.txtConfirmPassword,
+                      hintStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.colorHintText,
+                          fontFamily: 'Manrope'),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value!.length <= 6 || value.isEmpty) {
+                        return AppString.txtPasswordLengthMoreThan6;
+                      }
+                      return null;
+                    },
+                  ),
+                  shadowColor: AppColors.colorHintText,
+                  elevation: 4,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 33.76,
@@ -151,11 +245,16 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ],
                 ),
+                showErrorMessage
+                    ? Container(
+                        child: Text(
+                          AppString.txtPleaseSelectCheckBox,
+                          style: TextStyle(color: AppColors.colorRed),
+                        ),
+                      )
+                    : Container(),
                 Center(
                   child: GestureDetector(
-                    onTap: () {
-                      signUp(_emailController.text, _passwordController.text);
-                    },
                     child: Container(
                       margin: EdgeInsets.symmetric(
                           vertical: MediaQuery.of(context).size.height / 12.98),
@@ -174,15 +273,28 @@ class _SignUpState extends State<SignUp> {
                             fontFamily: 'Manrope'),
                       ),
                     ),
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        if (checkboxTAndC != true) {
+                          setState(() {
+                            showErrorMessage = true;
+                          });
+                        } else {
+                          setState(() {
+                            showErrorMessage = false;
+                          });
+                        }
+                      }
+                    },
                   ),
                 ),
                 Center(
                   child: RichText(
                     text: TextSpan(children: [
                       TextSpan(
-                        text: AppString.txtContinueTo,
+                        text: AppString.txtByCreatingAccount,
                         style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 12,
                             color: AppColors.colorForgotPassword,
                             fontWeight: FontWeight.w400,
                             fontFamily: 'Manrope'),
@@ -204,65 +316,5 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
-  }
-
-  void signUp(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        await _auth
-            .createUserWithEmailAndPassword(email: email, password: password)
-            .then((value) => {postDetailsToFirestore()})
-            .catchError((e) {
-          Fluttertoast.showToast(msg: e.message);
-        });
-      } on FirebaseAuthException catch (error) {
-        switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Your email address appears to be malformed.";
-            break;
-          case "wrong-password":
-            errorMessage = "Your password is wrong.";
-            break;
-          case "user-not-found":
-            errorMessage = "User with this email doesn't exist.";
-            break;
-          case "user-disabled":
-            errorMessage = "User with this email has been disabled.";
-            break;
-          case "too-many-requests":
-            errorMessage = "Too many requests";
-            break;
-          case "operation-not-allowed":
-            errorMessage = "Signing in with Email and Password is not enabled.";
-            break;
-          default:
-            errorMessage = "An undefined Error happened.";
-        }
-        Fluttertoast.showToast(msg: errorMessage!);
-        print(error.code);
-      }
-    }
-  }
-
-  postDetailsToFirestore() async {
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    User? user = _auth.currentUser;
-
-    UserModel userModel = UserModel();
-
-    userModel.email = user!.email;
-    userModel.uid = user.uid;
-
-    userModel.username = _usernameController.text;
-    userModel.phoneNumber = _phoneNumberController.text as int?;
-
-    await firebaseFirestore
-        .collection("users")
-        .doc(user.uid)
-        .set(userModel.toMap());
-    Fluttertoast.showToast(msg: "Account created successfully :) ");
-
-    Navigator.pushAndRemoveUntil((context),
-        MaterialPageRoute(builder: (context) => SignIn()), (route) => false);
   }
 }
