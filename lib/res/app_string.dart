@@ -10,7 +10,7 @@ class AppString {
   static String txtLetsGetStarted = "Let's Get Started!";
   static String txtCreateAccountToConnect =
       "Create account to connect with people";
-  static String txtUsername = "Username";
+  static String txtUsername = "username";
   static String txtPhoneNumber = "Phone number";
   static String txtConfirmPassword = "Confirm Password";
   static String txtByCreatingAccount = "By creating account, I agree with ";

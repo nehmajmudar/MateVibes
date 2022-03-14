@@ -212,7 +212,11 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               color: AppColors.colorSignInButton,
                               fontWeight: FontWeight.w800,
                               fontFamily: 'Manrope'),
-                          recognizer: TapGestureRecognizer()..onTap = () {})
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushReplacementNamed(
+                                  context, "/signUp");
+                            })
                     ]),
                   ),
                 )
