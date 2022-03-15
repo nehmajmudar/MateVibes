@@ -9,4 +9,6 @@ class AppColors{
   static Color colorWhite=Color(0xFFffffff);
   static Color colorLetsGetStarted=Color(0xFF101c3d);
   static Color colorCreateAccountToConnect=Color(0xFFaeaeae);
+  static Color colorBackgroundColor=Color(0xFFfdfdff);
+  static LinearGradient colorMateVibes=LinearGradient(colors: [Color(0xFF8e35ff),Color(0xFFffa030)]);
 }

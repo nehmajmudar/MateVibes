@@ -23,4 +23,8 @@ class AppString{
   static String txtPasswordLengthMoreThan6="Password length should be more than 6 characters";
   static String txtEnterValidPhoneNo="Enter valid phone number";
   static String txtPleaseSelectCheckBox="Please select the checkbox.";
+  static String txtMateVibes="MateVibes";
+  static String txtForgotPasswordText="We’ll send a link to reset password over\n below entered email address or phone number.";
+  static String txtOR="OR";
+  static String txtContinue="continue";
 }

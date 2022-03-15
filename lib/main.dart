@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:matevibes/screens/forgot_password.dart';
 import 'package:matevibes/screens/sign_in.dart';
 import 'package:matevibes/screens/sign_up.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => SignUp(),
+        '/': (context) => ForgotPassword(),
       },
     );
   }
