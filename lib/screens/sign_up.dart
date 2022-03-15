@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
+import 'package:matevibes/screens/sign_in.dart';
+import 'package:matevibes/user_model.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -13,9 +17,17 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final _auth = FirebaseAuth.instance;
+  String? errorMessage;
   bool checkboxTAndC = false;
   bool showErrorMessage = false;
   final _formKey = GlobalKey<FormState>();
+//editio Controller
+  final usernameController = new TextEditingController();
+  final phoneNumberController = new TextEditingController();
+  final emailController = new TextEditingController();
+  final passwordController = new TextEditingController();
+  final confirmPasswordController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +70,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Material(
                   child: TextFormField(
+                    controller: usernameController,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
                       hintText: AppString.txtUsername,
@@ -85,6 +98,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Material(
                   child: TextFormField(
+                    controller: emailController,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
                       hintText: AppString.txtEmailAddress,
@@ -114,6 +128,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Material(
                   child: TextFormField(
+                    controller: phoneNumberController,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
                       hintText: AppString.txtPhoneNumber,
@@ -142,6 +157,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Material(
                   child: TextFormField(
+                    controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
@@ -170,6 +186,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Material(
                   child: TextFormField(
+                    controller: confirmPasswordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
@@ -274,6 +291,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                     onTap: () {
+                      print("hello");
                       if (_formKey.currentState!.validate()) {
                         if (checkboxTAndC != true) {
                           setState(() {
@@ -281,6 +299,8 @@ class _SignUpState extends State<SignUp> {
                           });
                         } else {
                           setState(() {
+                            signUp(
+                                emailController.text, passwordController.text);
                             showErrorMessage = false;
                           });
                         }
@@ -306,7 +326,14 @@ class _SignUpState extends State<SignUp> {
                               color: AppColors.colorSignInButton,
                               fontWeight: FontWeight.w800,
                               fontFamily: 'Manrope'),
-                          recognizer: TapGestureRecognizer()..onTap = () {})
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushAndRemoveUntil(
+                                  (context),
+                                  MaterialPageRoute(
+                                      builder: (context) => SignIn()),
+                                  (route) => false);
+                            })
                     ]),
                   ),
                 )
@@ -316,5 +343,65 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  void signUp(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await _auth
+            .createUserWithEmailAndPassword(email: email, password: password)
+            .then((value) => {postDetailsToFirestore()})
+            .catchError((e) {
+          Fluttertoast.showToast(msg: e!.message);
+        });
+      } on FirebaseAuthException catch (error) {
+        switch (error.code) {
+          case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
+            break;
+          case "wrong-password":
+            errorMessage = "Your password is wrong.";
+            break;
+          case "user-not-found":
+            errorMessage = "User with this email doesn't exist.";
+            break;
+          case "user-disabled":
+            errorMessage = "User with this email has been disabled.";
+            break;
+          case "too-many-requests":
+            errorMessage = "Too many requests";
+            break;
+          case "operation-not-allowed":
+            errorMessage = "Signing in with Email and Password is not enabled.";
+            break;
+          default:
+            errorMessage = "An undefined Error happened.";
+        }
+        Fluttertoast.showToast(msg: errorMessage!);
+        print(error.code);
+      }
+    }
+  }
+
+  postDetailsToFirestore() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = _auth.currentUser;
+
+    UserModel userModel = UserModel();
+
+    userModel.email = user!.email;
+    userModel.uid = user.uid;
+
+    userModel.username = usernameController.text;
+    userModel.phoneNumber = phoneNumberController.text;
+
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .set(userModel.toMap());
+    Fluttertoast.showToast(msg: "Account created successfully :) ");
+
+    Navigator.pushAndRemoveUntil((context),
+        MaterialPageRoute(builder: (context) => SignIn()), (route) => false);
   }
 }

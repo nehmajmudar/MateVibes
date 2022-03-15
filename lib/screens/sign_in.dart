@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 
@@ -55,6 +56,8 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
+        Fluttertoast.showToast(
+            msg: "No User Found from this mail,Please Enter Correct Details");
         print("No User Found For that email");
       }
     }
@@ -188,15 +191,13 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                     Center(
                       child: GestureDetector(
                         onTap: () async {
-                          if (_formKey.currentState!.validate()) {
-                            User? user = await loginUsingEmailPassword(
-                                email: _emailController.text,
-                                password: _passwordController.text,
-                                context: context);
-                            print(user);
-                            if (user != null) {
-                              Navigator.pushNamed(context, "/home");
-                            }
+                          User? user = await loginUsingEmailPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              context: context);
+                          print(user);
+                          if (user != null) {
+                            Navigator.pushNamed(context, "/home");
                           }
                         },
                         child: Container(
