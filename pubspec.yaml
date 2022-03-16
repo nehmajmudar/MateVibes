@@ -56,6 +56,8 @@ flutter:
    - lib/assets/images/MateVibes_logo.png
    - lib/assets/images/login_bgimage.png
    - lib/assets/images/forgot_password_img.png
+   - lib/assets/images/profile_image.png
+   - lib/assets/images/create_account_img.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

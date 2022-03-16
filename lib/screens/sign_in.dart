@@ -112,7 +112,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                       child: Text(
                         AppString.txtSignInToContinue,
                         style: TextStyle(
-                            color: AppColors.colorSignInToContinue,
+                            color: AppColors.colorSkipforNow,
                             fontSize: 14,
                             fontWeight: FontWeight.w800,
                             fontFamily: 'Manrope'),
