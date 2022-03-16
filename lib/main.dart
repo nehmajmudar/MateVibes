@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:matevibes/screens/forgot_password.dart';
 import 'package:matevibes/screens/sign_in.dart';
 import 'package:matevibes/screens/sign_up.dart';
 import 'package:matevibes/screens/signin_confirm.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => SignIn(),
         "/home": (context) => SignInConfirm(),
         "/signUp": (context) => SignUp(),
+        '/forgotPassword': (context) => ForgotPassword(),
       },
     );
   }

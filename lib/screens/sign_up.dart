@@ -34,6 +34,7 @@ class _SignUpState extends State<SignUp> {
     return Form(
       key: _formKey,
       child: Scaffold(
+        backgroundColor: AppColors.colorBackgroundColor,
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
@@ -69,6 +70,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Material(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  borderOnForeground: false,
                   child: TextFormField(
                     controller: usernameController,
                     decoration: InputDecoration(
@@ -79,9 +82,6 @@ class _SignUpState extends State<SignUp> {
                           fontWeight: FontWeight.w400,
                           color: AppColors.colorHintText,
                           fontFamily: 'Manrope'),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                      ),
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -97,6 +97,8 @@ class _SignUpState extends State<SignUp> {
                   height: MediaQuery.of(context).size.height / 33.76,
                 ),
                 Material(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  borderOnForeground: false,
                   child: TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
@@ -107,9 +109,6 @@ class _SignUpState extends State<SignUp> {
                           fontWeight: FontWeight.w400,
                           color: AppColors.colorHintText,
                           fontFamily: 'Manrope'),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                      ),
                     ),
                     validator: (value) {
                       if (value!.isEmpty ||
@@ -127,6 +126,8 @@ class _SignUpState extends State<SignUp> {
                   height: MediaQuery.of(context).size.height / 33.76,
                 ),
                 Material(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  borderOnForeground: false,
                   child: TextFormField(
                     controller: phoneNumberController,
                     decoration: InputDecoration(
@@ -137,9 +138,6 @@ class _SignUpState extends State<SignUp> {
                           fontWeight: FontWeight.w400,
                           color: AppColors.colorHintText,
                           fontFamily: 'Manrope'),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                      ),
                     ),
                     validator: (value) {
                       if (value!.isEmpty ||
@@ -156,6 +154,8 @@ class _SignUpState extends State<SignUp> {
                   height: MediaQuery.of(context).size.height / 33.76,
                 ),
                 Material(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  borderOnForeground: false,
                   child: TextFormField(
                     controller: passwordController,
                     obscureText: true,
@@ -167,9 +167,6 @@ class _SignUpState extends State<SignUp> {
                           fontWeight: FontWeight.w400,
                           color: AppColors.colorHintText,
                           fontFamily: 'Manrope'),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                      ),
                     ),
                     validator: (value) {
                       if (value!.length <= 6 || value.isEmpty) {
@@ -185,6 +182,8 @@ class _SignUpState extends State<SignUp> {
                   height: MediaQuery.of(context).size.height / 33.76,
                 ),
                 Material(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  borderOnForeground: false,
                   child: TextFormField(
                     controller: confirmPasswordController,
                     obscureText: true,
@@ -196,13 +195,11 @@ class _SignUpState extends State<SignUp> {
                           fontWeight: FontWeight.w400,
                           color: AppColors.colorHintText,
                           fontFamily: 'Manrope'),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                      ),
                     ),
                     validator: (value) {
-                      if (value!.length <= 6 || value.isEmpty) {
-                        return AppString.txtPasswordLengthMoreThan6;
+                      if (confirmPasswordController.text !=
+                          passwordController.text) {
+                        return AppString.txtPassworddontmatch;
                       }
                       return null;
                     },

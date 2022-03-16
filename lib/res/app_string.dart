@@ -1,28 +1,3 @@
-// class AppString {
-//   static String txtWelcome = "Welcome!";
-//   static String txtSignInToContinue = "Sign in to continue";
-//   static String txtEmailAddress = "Email address";
-//   static String txtPassword = "Password";
-//   static String txtForgotPassword = "Forgot Password?";
-//   static String txtSignIn = "Sign In";
-//   static String txtDontHaveAnAccount = "Don't have an account?";
-//   static String txtSignUp = "Sign Up";
-//   static String txtLetsGetStarted = "Let's Get Started!";
-//   static String txtCreateAccountToConnect =
-//       "Create account to connect with people";
-//   static String txtUsername = "username";
-//   static String txtPhoneNumber = "Phone number";
-//   static String txtConfirmPassword = "Confirm Password";
-//   static String txtByCreatingAccount = "By creating account, I agree with ";
-//   static String txtTAndC = "Terms \n & Conditions";
-//   static String txtAnd = "And";
-//   static String txtPrivacyPolicy = "Privacy Policy";
-//   static String txtCreateAccount = "Create account";
-//   static String txtContinueTo = "Continue to ";
-//   static String txtyouaresuccessfullyloggedin =
-//       "You Are Successfully logged in";
-//   static String txtwelcometohomepage = "Welcome to Homepage";
-// }
 class AppString {
   static String txtWelcome = "Welcome!";
   static String txtSignInToContinue = "Sign in to continue";
@@ -50,4 +25,10 @@ class AppString {
       "Password length should be more than 6 characters";
   static String txtEnterValidPhoneNo = "Enter valid phone number";
   static String txtPleaseSelectCheckBox = "Please select the checkbox.";
+  static String txtMateVibes = "MateVibes";
+  static String txtForgotPasswordText =
+      "We’ll send a link to reset password over\n below entered email address or phone number.";
+  static String txtOR = "OR";
+  static String txtContinue = "continue";
+  static String txtPassworddontmatch = "Password don't match";
 }

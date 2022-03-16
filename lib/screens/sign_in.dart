@@ -57,7 +57,9 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
         Fluttertoast.showToast(
-            msg: "No User Found from this mail,Please Enter Correct Details");
+            msg: "No User Found from this mail,Please Enter Correct Details",
+            textColor: AppColors.colorHintText,
+            backgroundColor: Colors.black);
         print("No User Found For that email");
       }
     }
@@ -73,12 +75,16 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
     return Form(
       key: _formKey,
       child: Scaffold(
-        backgroundColor: AppColors.colorWhite,
+        backgroundColor: AppColors.colorBackgroundColor,
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                color: AppColors.colorRed,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image:
+                            AssetImage('lib/assets/images/login_bgimage.png'),
+                        fit: BoxFit.cover)),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 4,
                 margin: EdgeInsets.only(bottom: 64),
@@ -116,6 +122,8 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                       ),
                     ),
                     Material(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      borderOnForeground: false,
                       child: TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
@@ -126,9 +134,6 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               fontWeight: FontWeight.w400,
                               color: AppColors.colorHintText,
                               fontFamily: 'Manrope'),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
-                          ),
                         ),
                         validator: (value) {
                           if (value!.isEmpty ||
@@ -146,6 +151,8 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                       height: MediaQuery.of(context).size.height / 33.76,
                     ),
                     Material(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      borderOnForeground: false,
                       child: TextFormField(
                         controller: _passwordController,
                         obscureText: true,
@@ -157,9 +164,6 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               fontWeight: FontWeight.w400,
                               color: AppColors.colorHintText,
                               fontFamily: 'Manrope'),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
-                          ),
                         ),
                         validator: (value) {
                           if (value!.length <= 6 || value.isEmpty) {
@@ -172,7 +176,9 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                       elevation: 4,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/forgotPassword');
+                      },
                       child: Container(
                         child: Text(
                           AppString.txtForgotPassword,
