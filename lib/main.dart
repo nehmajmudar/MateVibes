@@ -2,9 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/screens/create_account.dart';
 import 'package:matevibes/screens/forgot_password.dart';
+import 'package:matevibes/screens/home_screen.dart';
 import 'package:matevibes/screens/sign_in.dart';
 import 'package:matevibes/screens/sign_up.dart';
-import 'package:matevibes/screens/signin_confirm.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => CreateAccount(),
-        "/home": (context) => SignInConfirm(),
+        '/': (context) => HomeScreen(),
+        "/home": (context) => HomeScreen(),
         "/signUp": (context) => SignUp(),
         '/forgotPassword': (context) => ForgotPassword(),
       },
