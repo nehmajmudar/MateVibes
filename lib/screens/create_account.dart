@@ -1,6 +1,11 @@
+import 'dart:typed_data';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
+import 'package:matevibes/user_model.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
@@ -10,6 +15,7 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -62,7 +68,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         child: TextFormField(
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(13),
-                            hintText: AppString.txtEmailAddress,
+                            hintText: AppString.txtDisplayName,
                             border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(10)),
@@ -133,7 +139,6 @@ class _CreateAccountState extends State<CreateAccount> {
                           child: Column(
                             children: [
                               GestureDetector(
-                                onTap: () async {},
                                 child: Container(
                                   width:
                                       MediaQuery.of(context).size.width / 1.68,
@@ -180,6 +185,7 @@ class _CreateAccountState extends State<CreateAccount> {
               ]),
             )));
   }
+
 
   Widget buildCoverImage() => Container(
         decoration: BoxDecoration(

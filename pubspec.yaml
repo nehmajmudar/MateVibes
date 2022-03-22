@@ -33,6 +33,8 @@ dependencies:
   firebase_core: ^1.13.1
   firebase_auth: ^3.3.9
   cloud_firestore: ^3.1.10
+  firebase_storage: ^10.2.9
+  image_picker: ^0.8.4+11
   # firebase_core_web: ^1.6.1
 
 
@@ -58,6 +60,7 @@ flutter:
    - lib/assets/images/forgot_password_img.png
    - lib/assets/images/profile_image.png
    - lib/assets/images/create_account_img.png
+   - lib/assets/images/user_profile_img.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
