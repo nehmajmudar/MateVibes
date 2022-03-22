@@ -35,4 +35,11 @@ class AppString {
   static String txtWhatDescribesYouBetter = "What describes you better?";
   static String txtGender = "Gender";
   static String txtSkipForNow = "Skip For Now";
+  static String txtNotifaications = "Notifications";
+  static String txtMarkAllAsRead = "Mark All As Read";
+  static String txtToday = "Today";
+  static String txtDiana = "@diana";
+  static String txtMark = "@mark";
+  static String txtChat = "Chats";
+  static String txtSearch = "Search";
 }
