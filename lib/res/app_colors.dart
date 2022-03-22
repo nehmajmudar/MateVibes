@@ -18,4 +18,9 @@ class AppColors {
 
   static LinearGradient colorMateVibes =
       LinearGradient(colors: [Color(0xFF8e35ff), Color(0xFFffa030)]);
+  static Color colorNotifacations = Color(0xFF101c3d);
+  static Color colorMarkAllAsRead = Color(0xFFBABABA);
+  static Color colorToday = Color(0xFFBABABA);
+  static Color chatName = Color(0xFF101C3D);
+  static Color chatDateColor = Color(0xFFC4C4C4);
 }

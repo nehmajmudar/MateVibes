@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:matevibes/screens/chat_screen.dart';
 import 'package:matevibes/screens/create_account.dart';
 import 'package:matevibes/screens/forgot_password.dart';
 import 'package:matevibes/screens/home_screen.dart';
+import 'package:matevibes/screens/notification_screen.dart';
 import 'package:matevibes/screens/sign_in.dart';
 import 'package:matevibes/screens/sign_up.dart';
 
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => HomeScreen(),
+        '/': (context) => NotificationScreen(),
         "/home": (context) => HomeScreen(),
         "/signUp": (context) => SignUp(),
         '/forgotPassword': (context) => ForgotPassword(),
