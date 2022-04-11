@@ -1,4 +1,8 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:matevibes/Widgets/posts_card.dart';
 import 'package:matevibes/Widgets/story_button_widget.dart';
 import 'package:matevibes/Widgets/storydata.dart';
@@ -13,25 +17,48 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  late StreamSubscription subscription;
 
-  int selectedIndex=0;
-  screenOptions(int index){
-    switch(index){
+  @override
+  initState() {
+    super.initState();
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityToast);
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
+  int selectedIndex = 0;
+  screenOptions(int index) {
+    switch (index) {
       case 0:
-        return HomeScreen();          ///Home screen
+        return HomeScreen();
+
+      ///Home screen
       case 1:
-        return HomeScreen();          ///Notification screen
+        return HomeScreen();
+
+      ///Notification screen
       case 2:
-        return HomeScreen();          ///Add post/story screen
+        return HomeScreen();
+
+      ///Add post/story screen
       case 3:
-        return HomeScreen();          ///Chat screen
+        return HomeScreen();
+
+      ///Chat screen
       case 4:
-        return HomeScreen();          ///Profile screen
+        return HomeScreen();
+
+      ///Profile screen
       default:
         return HomeScreen();
     }
   }
-
 
   List<StoryData> stories = [
     new StoryData(
@@ -59,66 +86,97 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(topRight: Radius.circular(30),topLeft: Radius.circular(30)),
-          boxShadow: [BoxShadow(color: AppColors.colorTimeOfPost,blurRadius: 10)]
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(topRight: Radius.circular(30),topLeft: Radius.circular(30)),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: AppColors.colorBackgroundColor,
-            showUnselectedLabels: false,
-            selectedItemColor: AppColors.colorSelectedItemNavBar,
-            unselectedItemColor: AppColors.colorTimeOfPost,
-            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-            items: [
-              BottomNavigationBarItem(icon: Icon(Icons.wysiwyg_sharp),label: "___"),
-              BottomNavigationBarItem(icon: Icon(Icons.notifications_none_sharp),label: "___"),
-              BottomNavigationBarItem(icon: Icon(Icons.add_circle_outline_sharp),label: "___"),
-              BottomNavigationBarItem(icon: Icon(Icons.messenger_outline_sharp),label: "___"),
-              BottomNavigationBarItem(icon: Icon(Icons.account_circle_sharp),label: "___"),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+              boxShadow: [
+                BoxShadow(color: AppColors.colorTimeOfPost, blurRadius: 10)
+              ]),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            child: BottomNavigationBar(
+              selectedFontSize: 0,
+              // unselectedFontSize: 0,
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: AppColors.colorBackgroundColor,
+              showUnselectedLabels: false,
+              selectedItemColor: AppColors.colorSelectedItemNavBar,
+              unselectedItemColor: AppColors.colorTimeOfPost,
+              selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.wysiwyg_sharp), label: "___"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.notifications_none_sharp), label: "___"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.add_circle_outline_sharp), label: "___"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.messenger_outline_sharp), label: "___"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.account_circle_sharp), label: "___"),
               ],
-            currentIndex: selectedIndex,
-            onTap: (index){
-              setState(() {
-                selectedIndex=index;
-              });
-            },
+              currentIndex: selectedIndex,
+              onTap: (index) {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+            ),
           ),
         ),
-      ),
-      backgroundColor: AppColors.colorBackgroundColor,
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            children: [
-              Container(
-                  width: double.infinity,
-                  height: 150,
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/36.7),
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      storyButton(stories[0], context),
-                      storyButton(stories[1], context),
-                      storyButton(stories[2], context),
-                      storyButton(stories[3], context),
-                      storyButton(stories[4], context),
-                      storyButton(stories[4], context),
-                      storyButton(stories[4], context),
-                      storyButton(stories[4], context),
-                      storyButton(stories[4], context),
-                    ],
-                  )
-              ),
-              PostsCard(),
-              PostsCard(),
-          ],
-        ),
-    ),
-      )
-    );
+        backgroundColor: AppColors.colorBackgroundColor,
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                    width: double.infinity,
+                    height: 150,
+                    margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height / 36.7),
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        storyButton(stories[0], context),
+                        storyButton(stories[1], context),
+                        storyButton(stories[2], context),
+                        storyButton(stories[3], context),
+                        storyButton(stories[4], context),
+                        storyButton(stories[4], context),
+                        storyButton(stories[4], context),
+                        storyButton(stories[4], context),
+                        storyButton(stories[4], context),
+                      ],
+                    )),
+                PostsCard(),
+                PostsCard(),
+              ],
+            ),
+          ),
+        ));
+  }
+
+  void showConnectivityToast(ConnectivityResult result) {
+    if (result == ConnectivityResult.none) {
+      Fluttertoast.showToast(
+          msg: AppString.txtnoInternetToast,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.colorRed,
+          textColor: AppColors.colorWhite);
+      // Got a new connectivity status!
+    } else if (result == ConnectivityResult.mobile ||
+        result == ConnectivityResult.wifi) {
+      Fluttertoast.showToast(
+          msg: AppString.txtConnectedinternetToast,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.greenColor,
+          textColor: AppColors.colorWhite);
+    } else {
+      print(result.toString());
+    }
   }
 }

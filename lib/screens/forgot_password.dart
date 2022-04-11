@@ -1,5 +1,7 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,6 +16,21 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  late StreamSubscription subscription;
+
+  @override
+  initState() {
+    super.initState();
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityToast);
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
   @override
   final emailController = new TextEditingController();
   Widget build(BuildContext context) {
@@ -157,6 +174,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                       ),
                       onTap: () async {
+                        final result = await Connectivity().checkConnectivity();
+                        showConnectivityToast(result);
                         await FirebaseAuth.instance
                             .sendPasswordResetEmail(email: emailController.text)
                             .then((value) {
@@ -196,5 +215,28 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
       ),
     );
+  }
+
+  void showConnectivityToast(ConnectivityResult result) {
+    if (result == ConnectivityResult.none) {
+      Fluttertoast.showToast(
+          msg:
+              "You're not connected with internet,please check your network connections",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.colorRed,
+          textColor: AppColors.colorWhite);
+      // Got a new connectivity status!
+    } else if (result == ConnectivityResult.mobile ||
+        result == ConnectivityResult.wifi) {
+      Fluttertoast.showToast(
+          msg: "You're connected with internet.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.greenColor,
+          textColor: AppColors.colorWhite);
+    } else {
+      print(result.toString());
+    }
   }
 }

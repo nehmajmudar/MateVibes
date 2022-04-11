@@ -22,10 +22,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => NotificationScreen(),
+        '/': (context) => SignIn(),
         "/home": (context) => HomeScreen(),
         "/signUp": (context) => SignUp(),
         '/forgotPassword': (context) => ForgotPassword(),
+        '/createAccount': ((context) => CreateAccount())
       },
     );
   }

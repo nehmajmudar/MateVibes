@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
@@ -6,8 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
+import 'package:matevibes/screens/create_account.dart';
 import 'package:matevibes/screens/sign_in.dart';
 import 'package:matevibes/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -17,6 +22,21 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  late StreamSubscription subscription;
+
+  @override
+  initState() {
+    super.initState();
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityToast);
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
   final _auth = FirebaseAuth.instance;
   String? errorMessage;
   bool checkboxTAndC = false;
@@ -287,8 +307,9 @@ class _SignUpState extends State<SignUp> {
                             fontFamily: 'Manrope'),
                       ),
                     ),
-                    onTap: () {
-                      print("hello");
+                    onTap: () async {
+                      final result = await Connectivity().checkConnectivity();
+                      showConnectivityToast(result);
                       if (_formKey.currentState!.validate()) {
                         if (checkboxTAndC != true) {
                           setState(() {
@@ -381,6 +402,8 @@ class _SignUpState extends State<SignUp> {
   }
 
   postDetailsToFirestore() async {
+    final prefs = await SharedPreferences.getInstance();
+
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
 
@@ -388,7 +411,8 @@ class _SignUpState extends State<SignUp> {
 
     userModel.email = user!.email;
     userModel.uid = user.uid;
-
+    prefs.setString('uid', user.uid);
+    print(prefs.getString('uid'));
     userModel.username = usernameController.text;
     userModel.phoneNumber = phoneNumberController.text;
 
@@ -398,7 +422,31 @@ class _SignUpState extends State<SignUp> {
         .set(userModel.toMap());
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
-    Navigator.pushAndRemoveUntil((context),
-        MaterialPageRoute(builder: (context) => SignIn()), (route) => false);
+    Navigator.pushAndRemoveUntil(
+        (context),
+        MaterialPageRoute(builder: (context) => CreateAccount()),
+        (route) => false);
+  }
+
+  void showConnectivityToast(ConnectivityResult result) {
+    if (result == ConnectivityResult.none) {
+      Fluttertoast.showToast(
+          msg: AppString.txtnoInternetToast,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.colorRed,
+          textColor: AppColors.colorWhite);
+      // Got a new connectivity status!
+    } else if (result == ConnectivityResult.mobile ||
+        result == ConnectivityResult.wifi) {
+      Fluttertoast.showToast(
+          msg: AppString.txtConnectedinternetToast,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.greenColor,
+          textColor: AppColors.colorWhite);
+    } else {
+      print(result.toString());
+    }
   }
 }

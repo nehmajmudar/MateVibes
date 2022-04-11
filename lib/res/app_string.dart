@@ -39,7 +39,8 @@ class AppString {
   static String txtEnterValidDisplayName = "Display name can't be empty";
   static String txtEnterValidGender = "Gender can't be empty";
   static String txtTimeExample = "2 hours ago";
-  static String txtLoremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pulvinar dapibus pulvinar. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis rutrum interdum orci, sit amet viverra enim tincidunt sit amet. Etiam nec enim   ...read more";
+  static String txtLoremIpsum =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pulvinar dapibus pulvinar. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis rutrum interdum orci, sit amet viverra enim tincidunt sit amet. Etiam nec enim   ...read more";
   static String txtNotifaications = "Notifications";
   static String txtMarkAllAsRead = "Mark All As Read";
   static String txtToday = "Today";
@@ -47,4 +48,7 @@ class AppString {
   static String txtMark = "@mark";
   static String txtChat = "Chats";
   static String txtSearch = "Search";
+  static String txtConnectedinternetToast = "You're connected with internet.";
+  static String txtnoInternetToast =
+      "You're not connected with internet,please check your network connections";
 }

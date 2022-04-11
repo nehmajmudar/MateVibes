@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/user_model.dart';
@@ -15,9 +18,24 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
+  late StreamSubscription subscription;
+
+  @override
+  initState() {
+    super.initState();
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityToast);
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Form(
         child: Scaffold(
             backgroundColor: AppColors.colorBackgroundColor,
@@ -39,7 +57,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     children: [
                       Container(
                         child: Text(
-                          "Hi Dan",
+                          "Hi " + user.displayName!,
                           style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w800,
@@ -139,6 +157,10 @@ class _CreateAccountState extends State<CreateAccount> {
                           child: Column(
                             children: [
                               GestureDetector(
+                                onTap: () async {
+                                  final result =
+                                      await Connectivity().checkConnectivity();
+                                },
                                 child: Container(
                                   width:
                                       MediaQuery.of(context).size.width / 1.68,
@@ -186,7 +208,6 @@ class _CreateAccountState extends State<CreateAccount> {
             )));
   }
 
-
   Widget buildCoverImage() => Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -204,4 +225,25 @@ class _CreateAccountState extends State<CreateAccount> {
         width: MediaQuery.of(context).size.width / 9.3,
         height: MediaQuery.of(context).size.height / 9.3,
       );
+  void showConnectivityToast(ConnectivityResult result) {
+    if (result == ConnectivityResult.none) {
+      Fluttertoast.showToast(
+          msg: AppString.txtnoInternetToast,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.colorRed,
+          textColor: AppColors.colorWhite);
+      // Got a new connectivity status!
+    } else if (result == ConnectivityResult.mobile ||
+        result == ConnectivityResult.wifi) {
+      Fluttertoast.showToast(
+          msg: AppString.txtConnectedinternetToast,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.greenColor,
+          textColor: AppColors.colorWhite);
+    } else {
+      print(result.toString());
+    }
+  }
 }

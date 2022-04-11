@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   email_validator: '^1.0.0'
+  shared_preferences: ^2.0.13
   
   fluttertoast: ^8.0.9
 
@@ -35,6 +36,7 @@ dependencies:
   cloud_firestore: ^3.1.10
   firebase_storage: ^10.2.9
   image_picker: ^0.8.4+11
+  connectivity_plus: ^2.2.2
   # firebase_core_web: ^1.6.1
 
 

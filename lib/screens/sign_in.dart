@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -19,7 +22,21 @@ class _SignInState extends State<SignIn> {
     return firebaseApp;
   }
 
+  late StreamSubscription subscription;
+
   @override
+  initState() {
+    super.initState();
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityToast);
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.colorWhite,
@@ -31,6 +48,28 @@ class _SignInState extends State<SignIn> {
               }
               return const Center(child: CircularProgressIndicator());
             }));
+  }
+
+  void showConnectivityToast(ConnectivityResult result) {
+    if (result == ConnectivityResult.none) {
+      Fluttertoast.showToast(
+          msg: AppString.txtnoInternetToast,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.colorRed,
+          textColor: AppColors.colorWhite);
+      // Got a new connectivity status!
+    } else if (result == ConnectivityResult.mobile ||
+        result == ConnectivityResult.wifi) {
+      Fluttertoast.showToast(
+          msg: AppString.txtConnectedinternetToast,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.greenColor,
+          textColor: AppColors.colorWhite);
+    } else {
+      print(result.toString());
+    }
   }
 }
 
@@ -69,7 +108,6 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    //textFieldController
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
     return Form(
@@ -201,9 +239,12 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               email: _emailController.text,
                               password: _passwordController.text,
                               context: context);
+                          final result =
+                              await Connectivity().checkConnectivity();
+                          showConnectivityToast(result);
                           print(user);
                           if (user != null) {
-                            Navigator.pushNamed(context, "/home");
+                            Navigator.pushNamed(context, "/createAccount");
                           }
                         },
                         child: Container(
@@ -262,5 +303,27 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
         ),
       ),
     );
+  }
+
+  void showConnectivityToast(ConnectivityResult result) {
+    if (result == ConnectivityResult.none) {
+      Fluttertoast.showToast(
+          msg: AppString.txtnoInternetToast,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.colorRed,
+          textColor: AppColors.colorWhite);
+      // Got a new connectivity status!
+    } else if (result == ConnectivityResult.mobile ||
+        result == ConnectivityResult.wifi) {
+      Fluttertoast.showToast(
+          msg: AppString.txtConnectedinternetToast,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: AppColors.greenColor,
+          textColor: AppColors.colorWhite);
+    } else {
+      print(result.toString());
+    }
   }
 }
