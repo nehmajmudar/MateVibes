@@ -4,10 +4,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/screens/sign_in.dart';
-import 'package:matevibes/user_model.dart';
+import 'package:matevibes/models/user_model.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -302,6 +303,7 @@ class _SignUpState extends State<SignUp> {
                           });
                         }
                       }
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
                     },
                   ),
                 ),

@@ -76,7 +76,7 @@ class _PostsCardState extends State<PostsCard> {
                 ),
                 IconButton(onPressed: (){}, icon: Icon(Icons.messenger_outline_sharp),color: AppColors.colorTimeOfPost,iconSize: 12),
                 Container(
-                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/65.32,right: 94.8),
+                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/65.32,right: MediaQuery.of(context).size.width/4.875),
                   child: Text("80",style: TextStyle(
                       fontSize: 12,
                       color: AppColors.colorTimeOfPost,

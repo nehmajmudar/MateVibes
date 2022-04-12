@@ -3,8 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
+import 'package:matevibes/screens/sign_up.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -59,7 +61,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
         Fluttertoast.showToast(
             msg: "No User Found from this mail,Please Enter Correct Details",
             textColor: AppColors.colorHintText,
-            backgroundColor: Colors.black);
+            backgroundColor: AppColors.colorBlack);
         print("No User Found For that email");
       }
     }
@@ -203,7 +205,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               context: context);
                           print(user);
                           if (user != null) {
-                            Navigator.pushNamed(context, "/home");
+                            Navigator.pushNamed(context, "/navbar");
                           }
                         },
                         child: Container(
@@ -248,8 +250,8 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                   fontFamily: 'Manrope'),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.pushReplacementNamed(
-                                      context, "/signUp");
+                                  Navigator.push(
+                                      context, MaterialPageRoute(builder: (context)=>SignUp()));
                                 })
                         ]),
                       ),

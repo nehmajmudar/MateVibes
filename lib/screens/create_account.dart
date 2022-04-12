@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
-import 'package:matevibes/user_model.dart';
+import 'package:matevibes/models/user_model.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
@@ -15,6 +15,21 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
+  String username="";
+
+  @override
+  void initState(){
+    super.initState();
+    getUsername();
+  }
+
+  void getUsername()async{
+    DocumentSnapshot snap= await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get();
+
+    setState(() {
+      username=(snap.data() as Map<String, dynamic>)['username'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +54,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     children: [
                       Container(
                         child: Text(
-                          "Hi Dan",
+                          "Hi $username",
                           style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w800,
