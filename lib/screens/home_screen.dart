@@ -152,7 +152,7 @@ class HomeScreenState extends State<HomeScreen> {
                       ],
                     )),
                 PostsCard(),
-                PostsCard(),
+                // PostsCard(),
               ],
             ),
           ),

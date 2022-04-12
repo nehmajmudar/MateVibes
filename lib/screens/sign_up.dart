@@ -322,10 +322,11 @@ class _SignUpState extends State<SignUp> {
                             signUp(
                                 emailController.text, passwordController.text);
                             showErrorMessage = false;
+                            Navigator.pushNamed(
+                                context, "/create_account_screen");
                           });
                         }
                       }
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
                     },
                   ),
                 ),

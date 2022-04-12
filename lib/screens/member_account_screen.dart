@@ -22,49 +22,64 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height/4.22,
+              height: MediaQuery.of(context).size.height / 4.22,
               width: double.infinity,
-              margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/16.23),
+              margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height / 16.23),
             ),
             Center(
-              child: Text(AppString.txtUsername,style: TextStyle(
-                  fontSize: 20,
-                  color: AppColors.colorLetsGetStarted,
-                  fontWeight: FontWeight.w800,
-                  fontFamily: 'Manrope')
+              child: Text(AppString.txtUsername,
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: AppColors.colorLetsGetStarted,
+                      fontWeight: FontWeight.w800,
+                      fontFamily: 'Manrope')),
+            ),
+            Center(
+              child: Container(
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width / 19.5,
+                    right: MediaQuery.of(context).size.width / 19.5),
+                margin: EdgeInsets.only(top: 5, bottom: 5),
+                child: Text(AppString.txtDisplayName,
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: AppColors.colorToday,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: 'Manrope')),
               ),
             ),
             Center(
               child: Container(
-                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
-                margin: EdgeInsets.only(top: 5,bottom: 5),
-                child: Text(AppString.txtDisplayName,style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.colorToday,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'Manrope')
-                ),
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width / 19.5,
+                    right: MediaQuery.of(context).size.width / 19.5),
+                margin: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height / 33.76),
+                child: Text(AppString.txtLoremIpsum,
+                    softWrap: true,
+                    maxLines: 10,
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: AppColors.colorToday,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: 'Manrope')),
               ),
             ),
-            Center(
-              child: Container(
-                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
-                margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/33.76),
-                child: Text(AppString.txtLoremIpsum,softWrap: true,maxLines: 10,style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.colorToday,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'Manrope')
-                ),
-              ),
-            ),
-            RowOfUserProfile(noOfPosts: 100, noOfMedia: 100, noOfFollowing: 100, noOfFollowers: 100),
+            RowOfUserProfile(
+                noOfPosts: 100,
+                noOfMedia: 100,
+                noOfFollowing: 100,
+                noOfFollowers: 100),
             Container(
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/8.86,right: MediaQuery.of(context).size.width/8.86,bottom: MediaQuery.of(context).size.height/50),
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width / 8.86,
+                  right: MediaQuery.of(context).size.width / 8.86,
+                  bottom: MediaQuery.of(context).size.height / 50),
               child: Row(
                 children: [
                   UserProfileButton(userButtonName: AppString.txtEditProfile),
-                  SizedBox(width: MediaQuery.of(context).size.width/19.5),
+                  SizedBox(width: MediaQuery.of(context).size.width / 19.5),
                   UserProfileButton(userButtonName: AppString.txtSignOut),
                 ],
               ),
