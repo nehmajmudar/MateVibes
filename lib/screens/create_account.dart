@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
-import 'package:matevibes/user_model.dart';
+import 'package:matevibes/models/user_model.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
@@ -19,14 +18,28 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
-  late StreamSubscription subscription;
+  String username = "";
 
   @override
-  initState() {
+  void initState() {
     super.initState();
+    getUsername();
     subscription =
         Connectivity().onConnectivityChanged.listen(showConnectivityToast);
   }
+
+  void getUsername() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    setState(() {
+      username = (snap.data() as Map<String, dynamic>)['username'];
+    });
+  }
+
+  late StreamSubscription subscription;
 
   @override
   void dispose() {
@@ -183,20 +196,26 @@ class _CreateAccountState extends State<CreateAccount> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height /
-                                      49.64,
-                                  bottom: MediaQuery.of(context).size.height /
-                                      23.44,
-                                ),
-                                child: Text(
-                                  AppString.txtSkipForNow,
-                                  style: TextStyle(
-                                      color: AppColors.colorSignInToContinue,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w800,
-                                      fontFamily: 'Manrope'),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, "/navbar");
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height /
+                                        49.64,
+                                    bottom: MediaQuery.of(context).size.height /
+                                        23.44,
+                                  ),
+                                  child: Text(
+                                    AppString.txtSkipForNow,
+                                    style: TextStyle(
+                                        color: AppColors.colorSignInToContinue,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w800,
+                                        fontFamily: 'Manrope'),
+                                  ),
                                 ),
                               )
                             ],

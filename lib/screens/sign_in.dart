@@ -5,9 +5,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
+import 'package:matevibes/screens/sign_up.dart';
+import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class SignIn extends StatefulWidget {
@@ -211,7 +212,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/forgotPassword');
+                        Navigator.pushNamed(context, '/forgot_password');
                       },
                       child: Container(
                         child: Text(
@@ -235,12 +236,12 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               email: _emailController.text,
                               password: _passwordController.text,
                               context: context);
-                          // final result =
-                          //     await Connectivity().checkConnectivity();
-                          // showConnectivityToastOnPress(result);
+                          final result =
+                              await Connectivity().checkConnectivity();
+                          showConnectivityToastOnPress(result);
                           print(user);
                           if (user != null) {
-                            Navigator.pushNamed(context, "/homeScreen");
+                            Navigator.pushNamed(context, "/navbar");
                           }
                         },
                         child: Container(
@@ -285,8 +286,10 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                   fontFamily: 'Manrope'),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.pushReplacementNamed(
-                                      context, "/signUp");
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SignUp()));
                                 })
                         ]),
                       ),

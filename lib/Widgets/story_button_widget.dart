@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matevibes/Widgets/storydata.dart';
+import 'package:matevibes/res/app_colors.dart';
 
 Widget storyButton(StoryData story, BuildContext context) {
   return Padding(
@@ -18,7 +19,7 @@ Widget storyButton(StoryData story, BuildContext context) {
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color(0xFF982282), Color(0xFFEEA863)])),
+                    colors: AppColors.colorsOfStories)),
             child: Padding(
               padding: const EdgeInsets.all(3.0),
               child: Container(
@@ -26,7 +27,7 @@ Widget storyButton(StoryData story, BuildContext context) {
                 height: 68,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    border: Border.all(color: Colors.white),
+                    border: Border.all(color: AppColors.colorWhite),
                     image: DecorationImage(
                         image:
                             AssetImage('lib/assets/images/login_bgimage.png'),

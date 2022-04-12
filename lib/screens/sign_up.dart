@@ -6,12 +6,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/screens/create_account.dart';
 import 'package:matevibes/screens/sign_in.dart';
-import 'package:matevibes/user_model.dart';
+import 'package:matevibes/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
@@ -324,6 +325,7 @@ class _SignUpState extends State<SignUp> {
                           });
                         }
                       }
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
                     },
                   ),
                 ),

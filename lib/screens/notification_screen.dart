@@ -95,7 +95,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           child: NotificationData(),
                           key: UniqueKey(),
                           background: Container(
-                            color: Colors.red,
+                            color: AppColors.colorRed,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
