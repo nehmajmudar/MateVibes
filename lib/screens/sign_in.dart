@@ -74,8 +74,26 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
+        print("Hello");
+        print(e.code.toString());
         Fluttertoast.showToast(
             msg: AppString.txtnoUserFoundFromThisMail,
+            textColor: AppColors.colorHintText,
+            backgroundColor: Colors.black);
+      } else if (e.code == "invalid-email") {
+        Fluttertoast.showToast(
+            msg: AppString.txtnoUserFoundFromThisMail,
+            textColor: AppColors.colorHintText,
+            backgroundColor: Colors.black);
+      } else if (e.code == "wrong-password") {
+        Fluttertoast.showToast(
+            msg: AppString.txtcheckYourPassword,
+            textColor: AppColors.colorHintText,
+            backgroundColor: Colors.black);
+        // print("Hello----${e.code.toString()}");
+      } else {
+        Fluttertoast.showToast(
+            msg: AppString.txtcorrectYourMailandPassword,
             textColor: AppColors.colorHintText,
             backgroundColor: Colors.black);
       }
@@ -217,12 +235,12 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               email: _emailController.text,
                               password: _passwordController.text,
                               context: context);
-                          final result =
-                              await Connectivity().checkConnectivity();
-                          showConnectivityToastOnPress(result);
+                          // final result =
+                          //     await Connectivity().checkConnectivity();
+                          // showConnectivityToastOnPress(result);
                           print(user);
                           if (user != null) {
-                            Navigator.pushNamed(context, "/createAccount");
+                            Navigator.pushNamed(context, "/homeScreen");
                           }
                         },
                         child: Container(

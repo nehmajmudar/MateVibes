@@ -31,6 +31,9 @@ class AppString {
   static String txtOR = "OR";
   static String txtContinue = "continue";
   static String txtPassworddontmatch = "Password don't match";
+  static String txtcheckYourPassword = "Please check and correct your password";
+  static String txtcorrectYourMailandPassword =
+      "Please Correcct your username or Password";
   static String txtLetsCompleteProfile = "Let's Complete Profile";
   static String txtWhatDescribesYouBetter = "What describes you better?";
   static String txtGender = "Gender";

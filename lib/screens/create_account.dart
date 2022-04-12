@@ -58,7 +58,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     children: [
                       Container(
                         child: Text(
-                          "Hi " + user.displayName!,
+                          "Hi " + (user.displayName ?? "Dan"),
                           style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w800,
