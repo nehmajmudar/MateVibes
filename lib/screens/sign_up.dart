@@ -44,7 +44,6 @@ class _SignUpState extends State<SignUp> {
   bool checkboxTAndC = false;
   bool showErrorMessage = false;
   final _formKey = GlobalKey<FormState>();
-//editio Controller
   final usernameController = new TextEditingController();
   final phoneNumberController = new TextEditingController();
   final emailController = new TextEditingController();

@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:matevibes/models/user_model.dart';
 import 'package:matevibes/screens/abcd.dart';
 import 'package:matevibes/screens/chat_screen.dart';
 import 'package:matevibes/screens/create_account.dart';
@@ -11,6 +15,7 @@ import 'package:matevibes/screens/notification_screen.dart';
 import 'package:matevibes/screens/sign_in.dart';
 import 'package:matevibes/screens/sign_up.dart';
 import 'package:matevibes/screens/splash_screen.dart';
+import 'package:matevibes/res/Methods/shared.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,13 +23,59 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  // late StreamSubscription<User?> user;
+  // void initState() {
+  //   super.initState();
+  //   user = FirebaseAuth.instance.authStateChanges().listen((user) {
+  //     if (user == null) {
+  //       print('User is currently signed out!');
+  //     } else {
+  //       print('User is signed in!');
+  //     }
+  //   });
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   user.cancel();
+  //   super.dispose();
+  // }
+
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var islogin;
+
+    checkUserLoginState() async {
+      await Shared.getUserSharedPrefernces().then((value) {
+        setState(() {
+          islogin = value;
+        });
+      });
+    }
+
+    @override
+    void initState() {
+      checkUserLoginState();
+      super.initState();
+    }
+
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      // initialRoute: '/',
+      // initialRoute: FirebaseAuth.instance.currentUser==null?'/':'/navbar',
+      initialRoute: islogin!=null
+                        ? '/navbar'
+                        : '/',
       routes: {
         '/': (context) => SplashScreen(),
         '/splash_screen': (context) => SplashScreen(),

@@ -4,7 +4,7 @@ class AppColors {
   static Color colorRed = Color(0xFFF44336);
   static Color colorSignInToContinue = Color(0xFFaeaeae);
   static Color colorForgotPassword = Color(0xFFaeaeae);
-  static Color colorHintText = Color(0xFFe5e5e5);
+  static Color colorHintText = Color(0xFF2b2b2b);
   static Color colorSignInButton = Color(0xFF8e35ff);
   static Color colorBlack = Color(0xFF000000);
   static Color colorBlack38 = Color(0x61000000);
