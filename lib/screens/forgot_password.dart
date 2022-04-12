@@ -1,8 +1,11 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 
@@ -14,6 +17,21 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  late StreamSubscription subscription;
+
+  @override
+  initState() {
+    super.initState();
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityToast);
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
   @override
   final emailController = new TextEditingController();
   Widget build(BuildContext context) {
@@ -157,13 +175,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                       ),
                       onTap: () async {
+                        final result = await Connectivity().checkConnectivity();
+                        showConnectivityToastOnPress(result);
+
                         await FirebaseAuth.instance
                             .sendPasswordResetEmail(email: emailController.text)
                             .then((value) {
                           Navigator.pop(context);
                         });
                         Fluttertoast.showToast(
-                            msg: "Password Link sent successfully",
+                            msg: AppString.txtpasswordLinkSentSuccessfully,
                             backgroundColor: AppColors.colorLetsGetStarted);
                       })),
               Center(

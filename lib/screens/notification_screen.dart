@@ -1,6 +1,10 @@
+import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:matevibes/Widgets/notificaction_data.dart';
+import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_string.dart';
 
 import '../res/app_colors.dart';
@@ -13,6 +17,21 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  late StreamSubscription subscription;
+
+  @override
+  initState() {
+    super.initState();
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityToast);
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
   final List<Widget> items = List.generate(20, (index) => NotificationData());
   @override
   Widget build(BuildContext context) {

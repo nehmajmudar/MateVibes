@@ -1,8 +1,12 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/models/user_model.dart';
@@ -21,18 +25,31 @@ class _CreateAccountState extends State<CreateAccount> {
   void initState(){
     super.initState();
     getUsername();
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityToast);
   }
 
-  void getUsername()async{
-    DocumentSnapshot snap= await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get();
+  void getUsername()async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance.collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
 
     setState(() {
-      username=(snap.data() as Map<String, dynamic>)['username'];
+      username = (snap.data() as Map<String, dynamic>)['username'];
     });
+  }
+  late StreamSubscription subscription;
+
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Form(
         child: Scaffold(
             backgroundColor: AppColors.colorBackgroundColor,
@@ -154,6 +171,11 @@ class _CreateAccountState extends State<CreateAccount> {
                           child: Column(
                             children: [
                               GestureDetector(
+                                onTap: () async {
+                                  final result =
+                                      await Connectivity().checkConnectivity();
+                                  showConnectivityToastOnPress(result);
+                                },
                                 child: Container(
                                   width:
                                       MediaQuery.of(context).size.width / 1.68,
@@ -200,7 +222,6 @@ class _CreateAccountState extends State<CreateAccount> {
               ]),
             )));
   }
-
 
   Widget buildCoverImage() => Container(
         decoration: BoxDecoration(

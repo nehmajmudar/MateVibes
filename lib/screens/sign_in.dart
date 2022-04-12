@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
@@ -7,6 +9,10 @@ import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/screens/sign_up.dart';
+import 'package:matevibes/res/Methods/check_Internet_button.dart';
+import 'package:matevibes/res/app_colors.dart';
+import 'package:matevibes/res/app_string.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -21,7 +27,21 @@ class _SignInState extends State<SignIn> {
     return firebaseApp;
   }
 
+  late StreamSubscription subscription;
+
   @override
+  initState() {
+    super.initState();
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityToast);
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.colorWhite,
@@ -59,7 +79,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
         Fluttertoast.showToast(
-            msg: "No User Found from this mail,Please Enter Correct Details",
+            msg: AppString.txtnoUserFoundFromThisMail,
             textColor: AppColors.colorHintText,
             backgroundColor: AppColors.colorBlack);
         print("No User Found For that email");
@@ -71,7 +91,6 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    //textFieldController
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
     return Form(
@@ -203,6 +222,9 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               email: _emailController.text,
                               password: _passwordController.text,
                               context: context);
+                          final result =
+                              await Connectivity().checkConnectivity();
+                          showConnectivityToastOnPress(result);
                           print(user);
                           if (user != null) {
                             Navigator.pushNamed(context, "/navbar");

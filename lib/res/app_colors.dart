@@ -23,4 +23,5 @@ class AppColors {
   static Color chatName = Color(0xFF101C3D);
   static Color chatDateColor = Color(0xFFC4C4C4);
   static List<Color> colorsOfStories=[Color(0xFF982282), Color(0xFFEEA863)];
+  static Color greenColor = Color(0xFF3FC23F);
 }
