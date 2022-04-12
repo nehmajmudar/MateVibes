@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:matevibes/Widgets/notificaction_data.dart';
+import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_string.dart';
 
 import '../res/app_colors.dart';
@@ -113,27 +114,5 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ),
               ),
             ])));
-  }
-
-  void showConnectivityToast(ConnectivityResult result) {
-    if (result == ConnectivityResult.none) {
-      Fluttertoast.showToast(
-          msg: AppString.txtnoInternetToast,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          backgroundColor: AppColors.colorRed,
-          textColor: AppColors.colorWhite);
-      // Got a new connectivity status!
-    } else if (result == ConnectivityResult.mobile ||
-        result == ConnectivityResult.wifi) {
-      Fluttertoast.showToast(
-          msg: AppString.txtConnectedinternetToast,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          backgroundColor: AppColors.greenColor,
-          textColor: AppColors.colorWhite);
-    } else {
-      print(result.toString());
-    }
   }
 }

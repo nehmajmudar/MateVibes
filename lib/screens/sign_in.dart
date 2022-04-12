@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -49,28 +50,6 @@ class _SignInState extends State<SignIn> {
               return const Center(child: CircularProgressIndicator());
             }));
   }
-
-  void showConnectivityToast(ConnectivityResult result) {
-    if (result == ConnectivityResult.none) {
-      Fluttertoast.showToast(
-          msg: AppString.txtnoInternetToast,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          backgroundColor: AppColors.colorRed,
-          textColor: AppColors.colorWhite);
-      // Got a new connectivity status!
-    } else if (result == ConnectivityResult.mobile ||
-        result == ConnectivityResult.wifi) {
-      Fluttertoast.showToast(
-          msg: AppString.txtConnectedinternetToast,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          backgroundColor: AppColors.greenColor,
-          textColor: AppColors.colorWhite);
-    } else {
-      print(result.toString());
-    }
-  }
 }
 
 class SignInScreenWidget extends StatefulWidget {
@@ -96,10 +75,9 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
         Fluttertoast.showToast(
-            msg: "No User Found from this mail,Please Enter Correct Details",
+            msg: AppString.txtnoUserFoundFromThisMail,
             textColor: AppColors.colorHintText,
             backgroundColor: Colors.black);
-        print("No User Found For that email");
       }
     }
     return user;
@@ -241,7 +219,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               context: context);
                           final result =
                               await Connectivity().checkConnectivity();
-                          showConnectivityToast(result);
+                          showConnectivityToastOnPress(result);
                           print(user);
                           if (user != null) {
                             Navigator.pushNamed(context, "/createAccount");
@@ -303,27 +281,5 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
         ),
       ),
     );
-  }
-
-  void showConnectivityToast(ConnectivityResult result) {
-    if (result == ConnectivityResult.none) {
-      Fluttertoast.showToast(
-          msg: AppString.txtnoInternetToast,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          backgroundColor: AppColors.colorRed,
-          textColor: AppColors.colorWhite);
-      // Got a new connectivity status!
-    } else if (result == ConnectivityResult.mobile ||
-        result == ConnectivityResult.wifi) {
-      Fluttertoast.showToast(
-          msg: AppString.txtConnectedinternetToast,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          backgroundColor: AppColors.greenColor,
-          textColor: AppColors.colorWhite);
-    } else {
-      print(result.toString());
-    }
   }
 }

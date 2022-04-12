@@ -48,6 +48,12 @@ class AppString {
   static String txtMark = "@mark";
   static String txtChat = "Chats";
   static String txtSearch = "Search";
+  static String txtpasswordLinkSentSuccessfully =
+      "Password Link sent successfully";
+  static String txtnoUserFoundFromThisMail =
+      "No User Found from this mail,Please Enter Correct Details";
+  static String txtaccountCreatedSuccessfully =
+      "Account created successfully :)";
   static String txtConnectedinternetToast = "You're connected with internet.";
   static String txtnoInternetToast =
       "You're not connected with internet,please check your network connections";

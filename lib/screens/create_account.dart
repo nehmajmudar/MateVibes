@@ -6,6 +6,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/user_model.dart';
@@ -160,6 +161,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 onTap: () async {
                                   final result =
                                       await Connectivity().checkConnectivity();
+                                  showConnectivityToastOnPress(result);
                                 },
                                 child: Container(
                                   width:
@@ -225,25 +227,4 @@ class _CreateAccountState extends State<CreateAccount> {
         width: MediaQuery.of(context).size.width / 9.3,
         height: MediaQuery.of(context).size.height / 9.3,
       );
-  void showConnectivityToast(ConnectivityResult result) {
-    if (result == ConnectivityResult.none) {
-      Fluttertoast.showToast(
-          msg: AppString.txtnoInternetToast,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          backgroundColor: AppColors.colorRed,
-          textColor: AppColors.colorWhite);
-      // Got a new connectivity status!
-    } else if (result == ConnectivityResult.mobile ||
-        result == ConnectivityResult.wifi) {
-      Fluttertoast.showToast(
-          msg: AppString.txtConnectedinternetToast,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          backgroundColor: AppColors.greenColor,
-          textColor: AppColors.colorWhite);
-    } else {
-      print(result.toString());
-    }
-  }
 }

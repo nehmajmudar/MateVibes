@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/screens/create_account.dart';
@@ -309,7 +310,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                     onTap: () async {
                       final result = await Connectivity().checkConnectivity();
-                      showConnectivityToast(result);
+                      showConnectivityToastOnPress(result);
+
                       if (_formKey.currentState!.validate()) {
                         if (checkboxTAndC != true) {
                           setState(() {
@@ -420,33 +422,11 @@ class _SignUpState extends State<SignUp> {
         .collection("users")
         .doc(user.uid)
         .set(userModel.toMap());
-    Fluttertoast.showToast(msg: "Account created successfully :) ");
+    Fluttertoast.showToast(msg: AppString.txtaccountCreatedSuccessfully);
 
     Navigator.pushAndRemoveUntil(
         (context),
         MaterialPageRoute(builder: (context) => CreateAccount()),
         (route) => false);
-  }
-
-  void showConnectivityToast(ConnectivityResult result) {
-    if (result == ConnectivityResult.none) {
-      Fluttertoast.showToast(
-          msg: AppString.txtnoInternetToast,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          backgroundColor: AppColors.colorRed,
-          textColor: AppColors.colorWhite);
-      // Got a new connectivity status!
-    } else if (result == ConnectivityResult.mobile ||
-        result == ConnectivityResult.wifi) {
-      Fluttertoast.showToast(
-          msg: AppString.txtConnectedinternetToast,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          backgroundColor: AppColors.greenColor,
-          textColor: AppColors.colorWhite);
-    } else {
-      print(result.toString());
-    }
   }
 }
