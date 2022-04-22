@@ -6,12 +6,15 @@ class UserModel {
   String? username;
   String? phoneNumber;
   String? photoUrl;
+  String? coverPhotoUrl;
   String? bio;
+  String? displayName;
+  String? gender;
   List? followers;
   List? following;
 
 
-  UserModel({this.uid, this.email, this.username, this.phoneNumber, this.photoUrl, this.bio, this.followers, this.following});
+  UserModel({this.uid, this.email, this.username, this.phoneNumber, this.photoUrl, this.coverPhotoUrl, this.bio, this.displayName, this.gender, this.followers, this.following});
 
   //receiving data from server
   factory UserModel.fromMap(map) {
@@ -21,7 +24,10 @@ class UserModel {
       username: map['username'],
       phoneNumber: map['phoneNumber'],
       photoUrl: map['photoUrl'],
+      coverPhotoUrl: map['coverPhotoUrl'],
       bio: map['bio'],
+      displayName: map['displayName'],
+      gender: map['gender'],
       followers: map['followers'],
       following: map['following'],
     );
@@ -34,7 +40,10 @@ class UserModel {
       'username': username,
       'phoneNumber': phoneNumber,
       'photoUrl': photoUrl,
+      'coverPhotoUrl': coverPhotoUrl,
       'bio': bio,
+      'displayName': displayName,
+      'gender': gender,
       'followers': followers,
       'following': following,
     };

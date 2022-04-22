@@ -6,10 +6,14 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:matevibes/Widgets/bottom_navbar.dart';
+import 'package:matevibes/Widgets/firestore_methods.dart';
 import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/models/user_model.dart';
+import 'package:matevibes/res/pick_image.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
@@ -20,11 +24,18 @@ class CreateAccount extends StatefulWidget {
 
 class _CreateAccountState extends State<CreateAccount> {
   String username="";
+  String phoneNum="";
+  Uint8List? userCoverImage;
+  Uint8List? userProfileImage;
+  TextEditingController displayNameController=TextEditingController();
+  TextEditingController userBioController=TextEditingController();
+  TextEditingController userGenderController=TextEditingController();
 
   @override
   void initState(){
     super.initState();
     getUsername();
+    getPhoneNumber();
     subscription =
         Connectivity().onConnectivityChanged.listen(showConnectivityToast);
   }
@@ -40,12 +51,58 @@ class _CreateAccountState extends State<CreateAccount> {
   }
   late StreamSubscription subscription;
 
+  void getPhoneNumber()async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance.collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    setState(() {
+      phoneNum = (snap.data() as Map<String, dynamic>)['phoneNumber'];
+    });
+  }
+
+  void insertUserDetails()async{
+    String res=await FireStoreMethods().insertMoreUserDetails(
+      displayName: displayNameController.text,
+      userName: username,
+      phoneNumber: phoneNum,
+      userBio: userBioController.text,
+      userGender: userGenderController.text,
+      coverImage: userCoverImage!,
+      profileImage: userProfileImage!,
+    );
+    if(res==AppString.txtSuccess){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
+    }
+    else{
+      showSnackBar(res, context);
+    }
+  }
+
 
   @override
   void dispose() {
     subscription.cancel();
     super.dispose();
+    displayNameController.dispose();
+    userBioController.dispose();
+    userGenderController.dispose();
   }
+
+  selectCoverImage()async{
+    Uint8List coverImg=await pickImage(ImageSource.gallery);
+    setState(() {
+      userCoverImage=coverImg;
+    });
+  }
+
+  selectProfileImage()async{
+    Uint8List profileImg=await pickImage(ImageSource.gallery);
+    setState(() {
+      userProfileImage=profileImg;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +155,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         elevation: 1,
                         color: Colors.white,
                         child: TextFormField(
+                          controller: displayNameController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(13),
                             hintText: AppString.txtDisplayName,
@@ -124,6 +182,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           elevation: 1,
                           color: Colors.white,
                           child: TextFormField(
+                            controller: userBioController,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.all(13),
                               hintText: AppString.txtWhatDescribesYouBetter,
@@ -148,6 +207,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         elevation: 1,
                         color: Colors.white,
                         child: TextFormField(
+                          controller: userGenderController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(13),
                             hintText: AppString.txtGender,
@@ -175,6 +235,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                   final result =
                                       await Connectivity().checkConnectivity();
                                   showConnectivityToastOnPress(result);
+                                  insertUserDetails();
                                 },
                                 child: Container(
                                   width:
@@ -187,7 +248,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                           Radius.circular(50))),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    AppString.txtSignIn.toUpperCase(),
+                                    AppString.txtContinue.toUpperCase(),
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: AppColors.colorWhite,
@@ -223,21 +284,47 @@ class _CreateAccountState extends State<CreateAccount> {
             )));
   }
 
-  Widget buildCoverImage() => Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('lib/assets/images/create_account_img.png'),
-                fit: BoxFit.cover)),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height / 4.3,
-      );
-  Widget buildProfileImage() => Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            image: DecorationImage(
-                image: AssetImage('lib/assets/images/profile_image.png'),
-                fit: BoxFit.cover)),
-        width: MediaQuery.of(context).size.width / 9.3,
-        height: MediaQuery.of(context).size.height / 9.3,
-      );
+  Widget buildCoverImage() => GestureDetector(
+    onTap: selectCoverImage,
+    child: userCoverImage!=null
+      ?Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: MemoryImage(userCoverImage!),
+                  fit: BoxFit.cover)),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 4.3,
+        )
+    :Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('lib/assets/images/create_account_img.png'),
+                  fit: BoxFit.cover)),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 4.3,
+        ),
+  );
+
+  Widget buildProfileImage() => GestureDetector(
+    onTap: selectProfileImage,
+    child: userProfileImage!=null
+      ?Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          image: DecorationImage(
+              image: MemoryImage(userProfileImage!),
+              fit: BoxFit.cover)),
+      width: MediaQuery.of(context).size.width / 9.3,
+      height: MediaQuery.of(context).size.height / 9.3,
+    )
+          :Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              image: DecorationImage(
+                  image: AssetImage('lib/assets/images/profile_image.png'),
+                  fit: BoxFit.cover)),
+          width: MediaQuery.of(context).size.width / 9.3,
+          height: MediaQuery.of(context).size.height / 9.3,
+        ),
+  );
 }

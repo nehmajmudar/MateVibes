@@ -60,8 +60,8 @@ class AppString {
   static String txtNoOfFollowers = "100";
   static String txtNoOfFollowing = "100";
   static String txtPosts = "Posts";
-  static String txtFollowers = "Posts";
-  static String txtFollowing = "Posts";
+  static String txtFollowers = "Followers";
+  static String txtFollowing = "Following";
   static String txtMedia = "Media";
   static String txtEditProfile = "Edit profile";
   static String txtSettings = "Settings";

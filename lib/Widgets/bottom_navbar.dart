@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/screens/chat_screen.dart';
@@ -15,6 +18,35 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class BottomNavBarState extends State<BottomNavBar> {
+  //
+  // // var userData={};
+  // String profilePicUrl="";
+  // final FirebaseAuth _auth=FirebaseAuth.instance;
+  // final FirebaseStorage _storage=FirebaseStorage.instance;
+  //
+  //
+  // // Future<String> getProfilePicUrl()async{
+  // //   String userId=_auth.currentUser!.uid;
+  // //   String getDownloadUrl=await _storage.ref('profilePics/$userId').getDownloadURL();
+  // //   return getDownloadUrl;
+  // // }
+  // void getProfilePic()async {
+  //   DocumentSnapshot snap = await FirebaseFirestore.instance.collection('users')
+  //       .doc(FirebaseAuth.instance.currentUser!.uid)
+  //       .get();
+  //
+  //   setState(() {
+  //     profilePicUrl = (snap.data() as Map<String, dynamic>)['photoUrl'];
+  //   });
+  //   print(profilePicUrl);
+  // }
+  //
+  // @override
+  // void initState(){
+  //   super.initState();
+  //   getProfilePic();
+  // }
+
 
   int selectedIndex=0;
   screenOptions(int index){
@@ -26,7 +58,7 @@ class BottomNavBarState extends State<BottomNavBar> {
       case 2:
         return CreatePost();          ///Add post/story screen
       case 3:
-        return ChatScreen();          ///Chat screen
+        return ChatScreen();          ///Add post/story screen
       case 4:
         return MemberAccountScreen();          ///Profile screen
       default:
@@ -55,7 +87,7 @@ class BottomNavBarState extends State<BottomNavBar> {
             selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.wysiwyg_sharp),label: "___"),
-              BottomNavigationBarItem(icon: Icon(Icons.notifications_none_sharp),label: "___"),
+              BottomNavigationBarItem(icon: Icon(Icons.notifications_none_sharp),label:  "___"),
               BottomNavigationBarItem(icon: Icon(Icons.add_circle_outline_sharp),label: "___"),
               BottomNavigationBarItem(icon: Icon(Icons.messenger_outline_sharp),label: "___"),
               BottomNavigationBarItem(icon: Icon(Icons.account_circle_sharp),label: "___"),
