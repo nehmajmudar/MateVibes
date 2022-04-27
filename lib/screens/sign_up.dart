@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/res/Methods/check_Internet_button.dart';
+import 'package:matevibes/res/Methods/shared.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/screens/create_account.dart';
@@ -310,7 +311,6 @@ class _SignUpState extends State<SignUp> {
                     onTap: () async {
                       final result = await Connectivity().checkConnectivity();
                       showConnectivityToastOnPress(result);
-
                       if (_formKey.currentState!.validate()) {
                         if (checkboxTAndC != true) {
                           setState(() {
@@ -321,6 +321,8 @@ class _SignUpState extends State<SignUp> {
                             signUp(
                                 emailController.text, passwordController.text);
                             showErrorMessage = false;
+                            SharedFunc.saveUserNameSharedPreference(
+                                usernameController.text);
                             Navigator.pushNamed(
                                 context, "/create_account_screen");
                           });

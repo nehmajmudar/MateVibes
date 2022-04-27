@@ -1,13 +1,11 @@
 import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:matevibes/models/user_model.dart';
+import 'package:matevibes/models/database.dart';
+// ignore: unused_import
 import 'package:matevibes/screens/abcd.dart';
 import 'package:matevibes/screens/chat_screen.dart';
 import 'package:matevibes/screens/create_account.dart';
-import 'package:matevibes/screens/create_post_screen.dart';
 import 'package:matevibes/screens/forgot_password.dart';
 import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/screens/home_page_screen.dart';
@@ -29,7 +27,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   // late StreamSubscription<User?> user;
   // void initState() {
   //   super.initState();
@@ -48,14 +45,13 @@ class _MyAppState extends State<MyApp> {
   //   super.dispose();
   // }
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     var islogin;
 
     checkUserLoginState() async {
-      await Shared.getUserSharedPrefernces().then((value) {
+      await Databasemethods.getUserSharedPrefernces().then((value) {
         setState(() {
           islogin = value;
         });
@@ -68,16 +64,13 @@ class _MyAppState extends State<MyApp> {
       super.initState();
     }
 
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // initialRoute: '/',
       // initialRoute: FirebaseAuth.instance.currentUser==null?'/':'/navbar',
-      initialRoute: islogin!=null
-                        ? '/navbar'
-                        : '/',
+      initialRoute: islogin != null ? '/navbar' : '/',
       routes: {
-        '/': (context) => SplashScreen(),
+        '/': (context) => SignIn(),
         '/splash_screen': (context) => SplashScreen(),
         "/home": (context) => HomePageScreen(),
         '/navbar': (context) => BottomNavBar(),

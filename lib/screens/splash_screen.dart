@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/Widgets/bottom_navbar.dart';
+import 'package:matevibes/screens/chat_screen.dart';
 import 'package:matevibes/screens/sign_in.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,19 +16,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    Timer(Duration(seconds: 10),
-            ()=>Navigator.pushReplacement(context,
-            MaterialPageRoute(builder:
-                (context) =>
-                    SignIn()
-            )
-        )
-    );
+    Timer(
+        Duration(seconds: 10),
+        () => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => ChatScreen())));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +33,13 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(image: AssetImage('lib/assets/images/MateVibes_logo.png')),
-            Text(AppString.txtMateVibes,style: TextStyle(fontSize: 36,fontFamily: 'Pacifico',foreground: Paint()..shader=AppColors.colorMateVibes),)
+            Text(
+              AppString.txtMateVibes,
+              style: TextStyle(
+                  fontSize: 36,
+                  fontFamily: 'Pacifico',
+                  foreground: Paint()..shader = AppColors.colorMateVibes),
+            )
           ],
         ),
       ),

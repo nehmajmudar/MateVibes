@@ -1,12 +1,16 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:matevibes/res/Methods/shared.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
+import 'package:matevibes/models/database.dart';
+
 import 'package:matevibes/screens/sign_up.dart';
 import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -79,23 +83,23 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
         print(e.code.toString());
         Fluttertoast.showToast(
             msg: AppString.txtnoUserFoundFromThisMail,
-            textColor: AppColors.colorHintText,
+            textColor: AppColors.colorHintText2,
             backgroundColor: Colors.black);
       } else if (e.code == "invalid-email") {
         Fluttertoast.showToast(
             msg: AppString.txtnoUserFoundFromThisMail,
-            textColor: AppColors.colorHintText,
+            textColor: AppColors.colorHintText2,
             backgroundColor: Colors.black);
       } else if (e.code == "wrong-password") {
         Fluttertoast.showToast(
             msg: AppString.txtcheckYourPassword,
-            textColor: AppColors.colorHintText,
+            textColor: AppColors.colorHintText2,
             backgroundColor: Colors.black);
         // print("Hello----${e.code.toString()}");
       } else {
         Fluttertoast.showToast(
             msg: AppString.txtcorrectYourMailandPassword,
-            textColor: AppColors.colorHintText,
+            textColor: AppColors.colorHintText2,
             backgroundColor: Colors.black);
       }
     }
@@ -236,12 +240,21 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               email: _emailController.text,
                               password: _passwordController.text,
                               context: context);
+
                           final result =
                               await Connectivity().checkConnectivity();
                           showConnectivityToastOnPress(result);
                           print(user);
+
                           if (user != null) {
-                            Navigator.pushNamed(context, "/navbar");
+                            Navigator.pushNamed(context, "/chat_screen");
+                            QuerySnapshot userInfoSnapshot =
+                                await Databasemethods()
+                                    .getUserInfo(_emailController.text);
+                            SharedFunc.saveUserLoggedInSharedPreference(true);
+
+                            SharedFunc.saveUserNameSharedPreference(
+                                userInfoSnapshot.docs[0]["username"]);
                           }
                         },
                         child: Container(
