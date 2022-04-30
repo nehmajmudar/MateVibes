@@ -50,58 +50,72 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorBackgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                coverProfileImage(),
-                Positioned(
-                  child: profileImage(),
-                  top: MediaQuery.of(context).size.height/6.0,
-                  right: MediaQuery.of(context).size.width/2.5,
-                  left: MediaQuery.of(context).size.width/2.5,
-                )
-              ],
+      body: Column(
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              coverProfileImage(),
+              Positioned(
+                child: profileImage(),
+                top: MediaQuery.of(context).size.height/6.0,
+                right: MediaQuery.of(context).size.width/2.5,
+                left: MediaQuery.of(context).size.width/2.5,
+              )
+            ],
+          ),
+          Center(
+            child: Text(username,style: TextStyle(
+                fontSize: 20,
+                color: AppColors.colorLetsGetStarted,
+                fontWeight: FontWeight.w900,
+                fontFamily: 'Manrope')
             ),
-            Center(
-              child: Text(username,style: TextStyle(
-                  fontSize: 20,
-                  color: AppColors.colorLetsGetStarted,
+          ),
+          Center(
+            child: Container(
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
+              margin: EdgeInsets.only(top: 5,bottom: 5),
+              child: Text("@$displayName",style: TextStyle(
+                  fontSize: 12,
+                  color: AppColors.colorToday,
                   fontWeight: FontWeight.w900,
                   fontFamily: 'Manrope')
               ),
             ),
-            Center(
-              child: Container(
-                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
-                margin: EdgeInsets.only(top: 5,bottom: 5),
-                child: Text("@$displayName",style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.colorToday,
-                    fontWeight: FontWeight.w900,
-                    fontFamily: 'Manrope')
-                ),
+          ),
+          Center(
+            child: Container(
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
+              margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/33.76),
+              child: Text(bio,softWrap: true,maxLines: 10,style: TextStyle(
+                  fontSize: 12,
+                  color: AppColors.colorToday,
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'Manrope')
               ),
             ),
-            Center(
-              child: Container(
-                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
-                margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/33.76),
-                child: Text(bio,softWrap: true,maxLines: 10,style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.colorToday,
-                    fontWeight: FontWeight.w900,
-                    fontFamily: 'Manrope')
-                ),
-              ),
+          ),
+          RowOfUserProfile(noOfPosts: 100, noOfMedia: 100, noOfFollowing: 100, noOfFollowers: 100),
+          ProfileScreenButtons(),
+          Expanded(
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+                builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
+                  if(snapshot.connectionState==ConnectionState.waiting){
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder:(ctx,index)=>Container(
+                      // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.33,vertical: 15),
+                      child: PostsCard(snap: snapshot.data!.docs[index].data()),
+                    ),
+                  );
+                }
             ),
-            RowOfUserProfile(noOfPosts: 100, noOfMedia: 100, noOfFollowing: 100, noOfFollowers: 100),
-            ProfileScreenButtons(),
-            PostsCard()
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

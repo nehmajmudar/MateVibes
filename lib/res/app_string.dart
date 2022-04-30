@@ -73,6 +73,7 @@ class AppString {
   static String txtSuccess = "Success";
   static String txtPosted = "Posted";
   static String txtSignOut = "Sign out";
+  static String txtAccountCreatedSuccessfully = "Your account has been created successfully.";
   static String txtpasswordLinkSentSuccessfully =
       "Password Link sent successfully";
   static String txtnoUserFoundFromThisMail =

@@ -164,7 +164,7 @@ class _CreatePostState extends State<CreatePost> {
                     AppString.txtCreatePost,
                     style: TextStyle(
                         fontSize: 24,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w900,
                         fontFamily: 'Manrope'),
                   ),
                 ],
@@ -259,7 +259,7 @@ class _CreatePostState extends State<CreatePost> {
                           style: TextStyle(
                               fontSize: 14,
                               color: AppColors.colorWhite,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w800,
                               fontFamily: 'Manrope'),
                         ),
                       ),

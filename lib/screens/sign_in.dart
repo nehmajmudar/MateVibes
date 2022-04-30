@@ -103,8 +103,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
               Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image:
-                            AssetImage('lib/assets/images/login_bgimage.png'),
+                        image: AssetImage('lib/assets/images/login_bgimage.png'),
                         fit: BoxFit.cover)),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 4,
@@ -123,7 +122,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                         AppString.txtWelcome,
                         style: TextStyle(
                             fontSize: 24,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w900,
                             fontFamily: 'Manrope'),
                       ),
                       margin: EdgeInsets.only(
@@ -135,7 +134,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                         style: TextStyle(
                             color: AppColors.colorSkipforNow,
                             fontSize: 14,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w900,
                             fontFamily: 'Manrope'),
                       ),
                       margin: EdgeInsets.only(
@@ -150,6 +149,9 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(13),
                           hintText: AppString.txtEmailAddress,
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(50)),
                           hintStyle: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
@@ -166,7 +168,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                         },
                       ),
                       shadowColor: AppColors.colorHintText,
-                      elevation: 4,
+                      elevation: 1,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 33.76,
@@ -180,6 +182,9 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(13),
                           hintText: AppString.txtPassword,
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(50)),
                           hintStyle: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
@@ -194,11 +199,11 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                         },
                       ),
                       shadowColor: AppColors.colorHintText,
-                      elevation: 4,
+                      elevation: 1,
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/forgotPassword');
+                        Navigator.pushNamed(context, "/forgot_password");
                       },
                       child: Container(
                         child: Text(
@@ -246,7 +251,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                             style: TextStyle(
                                 fontSize: 14,
                                 color: AppColors.colorWhite,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.w800,
                                 fontFamily: 'Manrope'),
                           ),
                         ),

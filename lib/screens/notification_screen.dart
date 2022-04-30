@@ -55,7 +55,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       style: TextStyle(
                           color: AppColors.colorNotifacations,
                           fontSize: 24,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w900,
                           fontFamily: 'Manrope'),
                     ),
                   ),
@@ -79,7 +79,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   style: TextStyle(
                       color: AppColors.colorToday,
                       fontSize: 12,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w900,
                       fontFamily: 'Manrope'),
                 ),
               ),

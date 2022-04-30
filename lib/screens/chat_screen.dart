@@ -55,7 +55,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           style: TextStyle(
                               color: AppColors.colorNotifacations,
                               fontSize: 24,
-                              fontWeight: FontWeight.w800,
+                              fontWeight: FontWeight.w900,
                               fontFamily: 'Manrope'),
                         ),
                       ),

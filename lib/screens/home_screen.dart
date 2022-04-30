@@ -151,8 +151,6 @@ class HomeScreenState extends State<HomeScreen> {
                         storyButton(stories[4], context),
                       ],
                     )),
-                PostsCard(),
-                PostsCard(),
               ],
             ),
           ),

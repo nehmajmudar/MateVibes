@@ -16,7 +16,8 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void onTapActivity(String userButtonName)async{
+  Future<void> onTapActivity(String userButtonName)async{
+    print('sign out working?');
     if(userButtonName==AppString.txtSignOut){
       await _auth.signOut();
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignIn()));
@@ -46,7 +47,8 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
             ),
           ),
           GestureDetector(
-            onTap: ()=>onTapActivity(AppString.txtSignOut),
+            // onTap: onTapActivity(AppString.txtSignOut),
+            onTap: () async =>onTapActivity(AppString.txtSignOut),
             child: Container(
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width/2.76,

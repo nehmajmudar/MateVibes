@@ -67,7 +67,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   style: TextStyle(
                       color: AppColors.colorLetsGetStarted,
                       fontSize: 24,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w900,
                       fontFamily: 'Manrope'),
                 ),
               ),
@@ -95,6 +95,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
                       hintText: AppString.txtEmailAddress,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -103,7 +106,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     ),
                   ),
                   shadowColor: AppColors.colorHintText,
-                  elevation: 4,
+                  elevation: 1,
                 ),
               ),
               Row(
@@ -142,6 +145,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
                       hintText: AppString.txtPhoneNumber,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -150,7 +156,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     ),
                   ),
                   shadowColor: AppColors.colorHintText,
-                  elevation: 4,
+                  elevation: 1,
                 ),
               ),
               Center(
@@ -170,7 +176,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           style: TextStyle(
                               fontSize: 14,
                               color: AppColors.colorWhite,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w800,
                               fontFamily: 'Manrope'),
                         ),
                       ),

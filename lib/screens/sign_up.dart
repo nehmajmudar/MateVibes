@@ -8,6 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:matevibes/Widgets/bottom_navbar.dart';
+import 'package:matevibes/Widgets/signup_confirm_dialogue.dart';
 import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
@@ -74,7 +75,7 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(
                         color: AppColors.colorLetsGetStarted,
                         fontSize: 24,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w900,
                         fontFamily: 'Manrope'),
                   ),
                 ),
@@ -86,7 +87,7 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(
                         color: AppColors.colorLetsGetStarted,
                         fontSize: 14,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w900,
                         fontFamily: 'Manrope'),
                   ),
                 ),
@@ -98,6 +99,9 @@ class _SignUpState extends State<SignUp> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
                       hintText: AppString.txtUsername,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -112,7 +116,7 @@ class _SignUpState extends State<SignUp> {
                     },
                   ),
                   shadowColor: AppColors.colorHintText,
-                  elevation: 4,
+                  elevation: 1,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 33.76,
@@ -125,6 +129,9 @@ class _SignUpState extends State<SignUp> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
                       hintText: AppString.txtEmailAddress,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -141,7 +148,7 @@ class _SignUpState extends State<SignUp> {
                     },
                   ),
                   shadowColor: AppColors.colorHintText,
-                  elevation: 4,
+                  elevation: 1,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 33.76,
@@ -154,6 +161,9 @@ class _SignUpState extends State<SignUp> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
                       hintText: AppString.txtPhoneNumber,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -169,7 +179,7 @@ class _SignUpState extends State<SignUp> {
                     },
                   ),
                   shadowColor: AppColors.colorHintText,
-                  elevation: 4,
+                  elevation: 1,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 33.76,
@@ -183,6 +193,9 @@ class _SignUpState extends State<SignUp> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
                       hintText: AppString.txtPassword,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -197,7 +210,7 @@ class _SignUpState extends State<SignUp> {
                     },
                   ),
                   shadowColor: AppColors.colorHintText,
-                  elevation: 4,
+                  elevation: 1,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 33.76,
@@ -211,6 +224,9 @@ class _SignUpState extends State<SignUp> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
                       hintText: AppString.txtConfirmPassword,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -226,7 +242,7 @@ class _SignUpState extends State<SignUp> {
                     },
                   ),
                   shadowColor: AppColors.colorHintText,
-                  elevation: 4,
+                  elevation: 1,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 33.76,
@@ -255,6 +271,7 @@ class _SignUpState extends State<SignUp> {
                         TextSpan(
                             text: AppString.txtTAndC,
                             style: TextStyle(
+                                decoration: TextDecoration.underline,
                                 fontSize: 12,
                                 color: AppColors.colorSignInButton,
                                 fontWeight: FontWeight.w400,
@@ -271,6 +288,7 @@ class _SignUpState extends State<SignUp> {
                         TextSpan(
                             text: AppString.txtPrivacyPolicy,
                             style: TextStyle(
+                                decoration: TextDecoration.underline,
                                 fontSize: 12,
                                 color: AppColors.colorSignInButton,
                                 fontWeight: FontWeight.w400,
@@ -304,7 +322,7 @@ class _SignUpState extends State<SignUp> {
                         style: TextStyle(
                             fontSize: 14,
                             color: AppColors.colorWhite,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w800,
                             fontFamily: 'Manrope'),
                       ),
                     ),
@@ -325,7 +343,10 @@ class _SignUpState extends State<SignUp> {
                           });
                         }
                       }
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context)=>SignUpConfirmDialogue());
                     },
                   ),
                 ),

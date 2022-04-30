@@ -131,7 +131,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           "Hi $username",
                           style: TextStyle(
                               fontSize: 24,
-                              fontWeight: FontWeight.w800,
+                              fontWeight: FontWeight.w900,
                               fontFamily: 'Manrope'),
                         ),
                         margin: EdgeInsets.only(
@@ -143,7 +143,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           style: TextStyle(
                               color: AppColors.colorSignInToContinue,
                               fontSize: 14,
-                              fontWeight: FontWeight.w800,
+                              fontWeight: FontWeight.w900,
                               fontFamily: 'Manrope'),
                         ),
                         margin: EdgeInsets.only(
@@ -296,10 +296,10 @@ class _CreateAccountState extends State<CreateAccount> {
           height: MediaQuery.of(context).size.height / 4.3,
         )
     :Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('lib/assets/images/create_account_img.png'),
-                  fit: BoxFit.cover)),
+      child: Icon(Icons.photo,color: AppColors.colorIcon,size: 20,),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+            color: AppColors.colorWhite,),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height / 4.3,
         ),
@@ -318,11 +318,11 @@ class _CreateAccountState extends State<CreateAccount> {
       height: MediaQuery.of(context).size.height / 9.3,
     )
           :Container(
+          child: Icon(Icons.account_circle_outlined,color: AppColors.colorIcon,size: 20,),
+          alignment: Alignment.center,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              image: DecorationImage(
-                  image: AssetImage('lib/assets/images/profile_image.png'),
-                  fit: BoxFit.cover)),
+            color: AppColors.colorWhite,
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
           width: MediaQuery.of(context).size.width / 9.3,
           height: MediaQuery.of(context).size.height / 9.3,
         ),
