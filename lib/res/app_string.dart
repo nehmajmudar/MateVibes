@@ -73,6 +73,9 @@ class AppString {
   static String txtSuccess = "Success";
   static String txtPosted = "Posted";
   static String txtSignOut = "Sign out";
+  static String txtMessage = "Message";
+  static String txtFollow = "Follow";
+  static String txtUnfollow = "Unfollow";
   static String txtAccountCreatedSuccessfully = "Your account has been created successfully.";
   static String txtpasswordLinkSentSuccessfully =
       "Password Link sent successfully";

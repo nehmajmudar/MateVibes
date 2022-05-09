@@ -10,8 +10,8 @@ class UserModel {
   String? bio;
   String? displayName;
   String? gender;
-  List? followers;
-  List? following;
+  final followers;
+  final following;
 
 
   UserModel({this.uid, this.email, this.username, this.phoneNumber, this.photoUrl, this.coverPhotoUrl, this.bio, this.displayName, this.gender, this.followers, this.following});

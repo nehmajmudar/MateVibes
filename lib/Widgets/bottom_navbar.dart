@@ -8,6 +8,7 @@ import 'package:matevibes/screens/create_account.dart';
 import 'package:matevibes/screens/create_post_screen.dart';
 import 'package:matevibes/screens/home_page_screen.dart';
 import 'package:matevibes/screens/member_account_screen.dart';
+import 'package:matevibes/screens/user_account_screen.dart';
 import 'package:matevibes/screens/notification_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -47,7 +48,7 @@ class BottomNavBarState extends State<BottomNavBar> {
   //   getProfilePic();
   // }
 
-
+  // String uid="";
   int selectedIndex=0;
   screenOptions(int index){
     switch(index){
@@ -58,9 +59,11 @@ class BottomNavBarState extends State<BottomNavBar> {
       case 2:
         return CreatePost();          ///Add post/story screen
       case 3:
-        return ChatScreen();          ///Add post/story screen
+        return ChatScreen();          ///Chat screen
       case 4:
-        return MemberAccountScreen();          ///Profile screen
+        return UserAccountScreen();          ///Profile screen
+      // case 4:
+      //   return MemberAccountScreen(uid: "siMzxLmqhWTqJNkl4XY80X4l9QU2");
       default:
         return HomePageScreen();
     }

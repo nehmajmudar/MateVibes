@@ -14,6 +14,7 @@ class AppColors {
   static Color colorBackgroundColor = Color(0xFFfdfdff);
   static Color colorSkipforNow = Color(0xFFE5E5E5);
   static Color colorTimeOfPost = Color(0xFFc4c4c4);
+  static Color colorSearchIconInChat = Color(0xFFc4c4c4);
   static Color colorSelectedItemNavBar = Color(0xFF465782);
 
   static Shader colorMateVibes=LinearGradient(colors: [Color(0xFF8e35ff), Color(0xFFffa030)]).createShader(Rect.fromLTWH(0, 0, 400, 70));
@@ -25,4 +26,5 @@ class AppColors {
   static List<Color> colorsOfStories=[Color(0xFF982282), Color(0xFFEEA863)];
   static Color greenColor = Color(0xFF3FC23F);
   static Color colorIcon = Color(0xFFe5d0ff);
+  static Color colorBgIconOfCreateProfile = Color(0xFFf0e3ff);
 }

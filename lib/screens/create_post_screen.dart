@@ -177,30 +177,33 @@ class _CreatePostState extends State<CreatePost> {
                   Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height/4.41,
-                    child: PhysicalModel(
-                      borderRadius: BorderRadius.circular(10),
-                      elevation: 1,
-                      color: AppColors.colorWhite,
-                      child: TextFormField(
-                        controller: postCaptionController,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(13),
-                          hintText: AppString.txtWriteSomethingHere,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                          hintStyle: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'Manrope',
-                            color: AppColors.colorHintText,
-                          ),
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 13),
+                    decoration: BoxDecoration(
+                        color: AppColors.colorWhite,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.colorSkipforNow,
+                            blurRadius: 15,
+                          )
+                        ]
+                    ),
+                    child: TextFormField(
+                      controller: postCaptionController,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(13),
+                        hintText: AppString.txtWriteSomethingHere,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                        ),
+                        hintStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Manrope',
+                          color: AppColors.colorHintText,
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height/13,
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/11.1),

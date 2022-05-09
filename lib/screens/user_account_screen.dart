@@ -11,15 +11,14 @@ import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/res/pick_image.dart';
 
 
-class MemberAccountScreen extends StatefulWidget {
-  final String uid;
-  const MemberAccountScreen({Key? key,required this.uid}) : super(key: key);
+class UserAccountScreen extends StatefulWidget {
+  const UserAccountScreen({Key? key}) : super(key: key);
 
   @override
-  _MemberAccountScreenState createState() => _MemberAccountScreenState();
+  _UserAccountScreenState createState() => _UserAccountScreenState();
 }
 
-class _MemberAccountScreenState extends State<MemberAccountScreen> {
+class _UserAccountScreenState extends State<UserAccountScreen> {
   String username="";
   String uid="";
   String displayName="";
@@ -31,10 +30,12 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
   int postLen=0;
   bool isFollowing=false;
 
+
   void getUserDetails()async {
     try {
-      var snap = await FirebaseFirestore.instance.collection('users')
-          .doc(widget.uid)
+      var snap = await FirebaseFirestore.instance.collection(
+          'users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
 
       var postSnap = await FirebaseFirestore.instance.collection('posts')
@@ -42,16 +43,12 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
           .get();
 
       setState(() {
-        username = snap.data()!['username'];
-        uid = snap.data()!['uid'];
+        username=snap.data()!['username'];
+        uid=snap.data()!['uid'];
         displayName = snap.data()!['displayName'];
         bio = snap.data()!['bio'];
         coverPhoto = snap.data()!['coverPhotoUrl'];
         profilePhoto = snap.data()!['photoUrl'];
-        userFollowers = snap.data()!['followers'].length;
-        userFollowing = snap.data()!['following'].length;
-        isFollowing = snap.data()!['followers'].contains(
-            FirebaseAuth.instance.currentUser!.uid);
         postLen = postSnap.docs.length;
       });
     }catch(e){
@@ -116,21 +113,20 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
               ),
             ),
           ),
-          RowOfUserProfile(noOfPosts: postLen, noOfMedia: postLen, noOfFollowing: userFollowing, noOfFollowers: userFollowers),
-          isFollowing?ProfileScreenButtons(uid: widget.uid,textFirstButton: AppString.txtUnfollow,textSecondButton: AppString.txtMessage)
-              :ProfileScreenButtons(uid: widget.uid,textFirstButton: AppString.txtFollow,textSecondButton: AppString.txtMessage),
+          RowOfUserProfile(noOfPosts: postLen, noOfMedia: postLen, noOfFollowing: 100, noOfFollowers: 100),
+          ProfileScreenButtons(uid: FirebaseAuth.instance.currentUser!.uid,textFirstButton: AppString.txtEditProfile,textSecondButton: AppString.txtSignOut),
           Expanded(
-            child: FutureBuilder(
-                future: FirebaseFirestore.instance.collection('posts').where('uid', isEqualTo: widget.uid).get(),
-                builder: (context,snapshot){
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+                builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
                   if(snapshot.connectionState==ConnectionState.waiting){
                     return Center(child: CircularProgressIndicator());
                   }
                   return ListView.builder(
-                    itemCount: (snapshot.data! as dynamic).docs.length,
+                    itemCount: snapshot.data!.docs.length,
                     itemBuilder:(ctx,index)=>Container(
                       // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.33,vertical: 15),
-                      child: PostsCard(snap: (snapshot.data! as dynamic).docs[index].data()),
+                      child: PostsCard(snap: snapshot.data!.docs[index].data()),
                     ),
                   );
                 }
@@ -142,39 +138,39 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
   }
 
   Widget coverProfileImage()=>
-      Container(
-        height: MediaQuery.of(context).size.height/4.22,
-        width: double.infinity,
-        margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/16.23),
-        decoration: BoxDecoration(
+    Container(
+      height: MediaQuery.of(context).size.height/4.22,
+      width: double.infinity,
+      margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/16.23),
+      decoration: BoxDecoration(
           image: DecorationImage(image: NetworkImage(coverPhoto),fit: BoxFit.cover),
-        ),
-      );
+      ),
+    );
 
   Widget profileImage()=>
-      Container(
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(color: AppColors.colorWhite,blurRadius: 2,spreadRadius: 2)
-            ]
-        ),
-        child: CircleAvatar(
-          radius: 50,
-          backgroundImage: NetworkImage(profilePhoto),
-        ),
-      );
+    Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(color: AppColors.colorWhite,blurRadius: 2,spreadRadius: 2)
+        ]
+      ),
+      child: CircleAvatar(
+        radius: 50,
+        backgroundImage: NetworkImage(profilePhoto),
+      ),
+    );
 
-// Container(
-//   decoration: BoxDecoration(
-//     shape: BoxShape.circle,
-//     borderRadius: BorderRadius.all(Radius.circular(50.0)),
-//     color: AppColors.colorBlack38,
-//     image: DecorationImage(
-//       image: NetworkImage(profilePhoto),
-//       fit: BoxFit.cover)
-//     ),
-//   // width: MediaQuery.of(context).size.height / 8.44,
-//   // height: MediaQuery.of(context).size.height / 8.44,
-// );
+    // Container(
+    //   decoration: BoxDecoration(
+    //     shape: BoxShape.circle,
+    //     borderRadius: BorderRadius.all(Radius.circular(50.0)),
+    //     color: AppColors.colorBlack38,
+    //     image: DecorationImage(
+    //       image: NetworkImage(profilePhoto),
+    //       fit: BoxFit.cover)
+    //     ),
+    //   // width: MediaQuery.of(context).size.height / 8.44,
+    //   // height: MediaQuery.of(context).size.height / 8.44,
+    // );
 }

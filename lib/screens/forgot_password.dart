@@ -84,29 +84,33 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         fontFamily: 'Manrope'),
                   )),
               Container(
+                decoration: BoxDecoration(
+                    color: AppColors.colorWhite,
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.colorSkipforNow,
+                        blurRadius: 15,
+                      )
+                    ]
+                ),
                 margin: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height / 27.22,
                     horizontal: MediaQuery.of(context).size.width / 10.83),
-                child: Material(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  // borderOnForeground: false,
-                  child: TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(13),
-                      hintText: AppString.txtEmailAddress,
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(50)),
-                      hintStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,
-                          fontFamily: 'Manrope'),
-                    ),
+                child: TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(13),
+                    hintText: AppString.txtEmailAddress,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(50)),
+                    hintStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.colorHintText,
+                        fontFamily: 'Manrope'),
                   ),
-                  shadowColor: AppColors.colorHintText,
-                  elevation: 1,
                 ),
               ),
               Row(
@@ -134,29 +138,33 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 ],
               ),
               Container(
+                decoration: BoxDecoration(
+                    color: AppColors.colorWhite,
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.colorSkipforNow,
+                        blurRadius: 15,
+                      )
+                    ]
+                ),
                 margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height / 10.04,
                     right: MediaQuery.of(context).size.width / 10.83,
                     left: MediaQuery.of(context).size.width / 10.83),
-                child: Material(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  // borderOnForeground: false,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(13),
-                      hintText: AppString.txtPhoneNumber,
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(50)),
-                      hintStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,
-                          fontFamily: 'Manrope'),
-                    ),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(13),
+                    hintText: AppString.txtPhoneNumber,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(50)),
+                    hintStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.colorHintText,
+                        fontFamily: 'Manrope'),
                   ),
-                  shadowColor: AppColors.colorHintText,
-                  elevation: 1,
                 ),
               ),
               Center(
@@ -209,7 +217,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         style: TextStyle(
                             fontSize: 14,
                             color: AppColors.colorSignInButton,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w900,
                             fontFamily: 'Manrope'),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {

@@ -85,15 +85,24 @@ class _SignUpState extends State<SignUp> {
                   child: Text(
                     AppString.txtCreateAccountToConnect,
                     style: TextStyle(
-                        color: AppColors.colorLetsGetStarted,
+                        color: AppColors.colorCreateAccountToConnect,
                         fontSize: 14,
                         fontWeight: FontWeight.w900,
                         fontFamily: 'Manrope'),
                   ),
                 ),
-                Material(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  borderOnForeground: false,
+                Container(
+                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  decoration: BoxDecoration(
+                      color: AppColors.colorWhite,
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.colorSkipforNow,
+                          blurRadius: 15,
+                        )
+                      ]
+                  ),
                   child: TextFormField(
                     controller: usernameController,
                     decoration: InputDecoration(
@@ -115,15 +124,19 @@ class _SignUpState extends State<SignUp> {
                       return null;
                     },
                   ),
-                  shadowColor: AppColors.colorHintText,
-                  elevation: 1,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 33.76,
-                ),
-                Material(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  borderOnForeground: false,
+                Container(
+                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  decoration: BoxDecoration(
+                      color: AppColors.colorWhite,
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.colorSkipforNow,
+                          blurRadius: 15,
+                        )
+                      ]
+                  ),
                   child: TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
@@ -147,15 +160,19 @@ class _SignUpState extends State<SignUp> {
                       return null;
                     },
                   ),
-                  shadowColor: AppColors.colorHintText,
-                  elevation: 1,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 33.76,
-                ),
-                Material(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  borderOnForeground: false,
+                Container(
+                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  decoration: BoxDecoration(
+                      color: AppColors.colorWhite,
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.colorSkipforNow,
+                          blurRadius: 15,
+                        )
+                      ]
+                  ),
                   child: TextFormField(
                     controller: phoneNumberController,
                     decoration: InputDecoration(
@@ -178,15 +195,19 @@ class _SignUpState extends State<SignUp> {
                       return null;
                     },
                   ),
-                  shadowColor: AppColors.colorHintText,
-                  elevation: 1,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 33.76,
-                ),
-                Material(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  borderOnForeground: false,
+                Container(
+                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  decoration: BoxDecoration(
+                      color: AppColors.colorWhite,
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.colorSkipforNow,
+                          blurRadius: 15,
+                        )
+                      ]
+                  ),
                   child: TextFormField(
                     controller: passwordController,
                     obscureText: true,
@@ -209,15 +230,19 @@ class _SignUpState extends State<SignUp> {
                       return null;
                     },
                   ),
-                  shadowColor: AppColors.colorHintText,
-                  elevation: 1,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 33.76,
-                ),
-                Material(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  borderOnForeground: false,
+                Container(
+                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  decoration: BoxDecoration(
+                      color: AppColors.colorWhite,
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.colorSkipforNow,
+                          blurRadius: 15,
+                        )
+                      ]
+                  ),
                   child: TextFormField(
                     controller: confirmPasswordController,
                     obscureText: true,
@@ -241,11 +266,6 @@ class _SignUpState extends State<SignUp> {
                       return null;
                     },
                   ),
-                  shadowColor: AppColors.colorHintText,
-                  elevation: 1,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 33.76,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -274,7 +294,7 @@ class _SignUpState extends State<SignUp> {
                                 decoration: TextDecoration.underline,
                                 fontSize: 12,
                                 color: AppColors.colorSignInButton,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w900,
                                 fontFamily: 'Manrope'),
                             recognizer: TapGestureRecognizer()..onTap = () {}),
                         TextSpan(
@@ -291,7 +311,7 @@ class _SignUpState extends State<SignUp> {
                                 decoration: TextDecoration.underline,
                                 fontSize: 12,
                                 color: AppColors.colorSignInButton,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w900,
                                 fontFamily: 'Manrope'),
                             recognizer: TapGestureRecognizer()..onTap = () {}),
                       ])),
@@ -343,10 +363,6 @@ class _SignUpState extends State<SignUp> {
                           });
                         }
                       }
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (BuildContext context)=>SignUpConfirmDialogue());
                     },
                   ),
                 ),
@@ -366,7 +382,7 @@ class _SignUpState extends State<SignUp> {
                           style: TextStyle(
                               fontSize: 14,
                               color: AppColors.colorSignInButton,
-                              fontWeight: FontWeight.w800,
+                              fontWeight: FontWeight.w900,
                               fontFamily: 'Manrope'),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
@@ -446,9 +462,13 @@ class _SignUpState extends State<SignUp> {
         .set(userModel.toMap());
     Fluttertoast.showToast(msg: AppString.txtaccountCreatedSuccessfully);
 
-    Navigator.pushAndRemoveUntil(
-        (context),
-        MaterialPageRoute(builder: (context) => CreateAccount()),
-        (route) => false);
+    // Navigator.pushAndRemoveUntil(
+    //     (context),
+    //     MaterialPageRoute(builder: (context) => CreateAccount()),
+    //     (route) => false);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context)=>SignUpConfirmDialogue());
   }
 }

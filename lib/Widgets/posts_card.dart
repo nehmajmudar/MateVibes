@@ -23,10 +23,20 @@ class _PostsCardState extends State<PostsCard> {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      elevation: 2,
-      color: AppColors.colorWhite,
+      // color: AppColors.colorWhite,
+      // shape: ShapeBorder.,
       margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/26,right: MediaQuery.of(context).size.width/26,bottom: MediaQuery.of(context).size.height/76.72),
-      child: Padding(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          color: AppColors.colorWhite,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.colorSkipforNow,
+              blurRadius: 15,
+            )
+          ]
+        ),
         padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/26,horizontal: MediaQuery.of(context).size.height/56.26),
         child: Column(
           children: [
@@ -61,19 +71,28 @@ class _PostsCardState extends State<PostsCard> {
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/64.92,bottom: MediaQuery.of(context).size.height/31.25),
               child: Text(widget.snap['description'].toString(),softWrap:true,maxLines:10,style: TextStyle(
-                  fontSize: 11,
+                  fontSize: 14,
                   color: AppColors.colorBlack,
                   fontWeight: FontWeight.w800,
                   fontFamily: 'Manrope'),),
             ),
-            SizedBox(
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.colorSkipforNow,
+                      blurRadius: 15,
+                  )
+                ]
+              ),
               height: MediaQuery.of(context).size.height * 0.35,
               width: double.infinity,
               child: Image.network(
                 widget.snap['postUrl'].toString(),
                 fit: BoxFit.cover,)
             ),
-            Container(
+            Container(                                                 //Divider
               height: 1,
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/31.25,bottom: MediaQuery.of(context).size.height/65.57),
               width: MediaQuery.of(context).size.width/1.25,

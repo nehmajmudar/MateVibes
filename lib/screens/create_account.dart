@@ -150,10 +150,18 @@ class _CreateAccountState extends State<CreateAccount> {
                           bottom: MediaQuery.of(context).size.height / 18,
                         ),
                       ),
-                      PhysicalModel(
-                        borderRadius: BorderRadius.circular(10),
-                        elevation: 1,
-                        color: Colors.white,
+                      Container(
+                        margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                        decoration: BoxDecoration(
+                            color: AppColors.colorWhite,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.colorSkipforNow,
+                                blurRadius: 25,
+                              )
+                            ]
+                        ),
                         child: TextFormField(
                           controller: displayNameController,
                           decoration: InputDecoration(
@@ -171,41 +179,48 @@ class _CreateAccountState extends State<CreateAccount> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 33.76,
-                      ),
                       Container(
                         height: MediaQuery.of(context).size.height / 6.9,
                         width: MediaQuery.of(context).size.height / 1.22,
-                        child: PhysicalModel(
-                          borderRadius: BorderRadius.circular(10),
-                          elevation: 1,
-                          color: Colors.white,
-                          child: TextFormField(
-                            controller: userBioController,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(13),
-                              hintText: AppString.txtWhatDescribesYouBetter,
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ),
-                              hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.colorHintText,
-                                fontFamily: 'Manrope',
-                              ),
+                        decoration: BoxDecoration(
+                          color: AppColors.colorWhite,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.colorSkipforNow,
+                              blurRadius: 25,
+                            )
+                          ]
+                        ),
+                        child: TextFormField(
+                          controller: userBioController,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(13),
+                            hintText: AppString.txtWhatDescribesYouBetter,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                            hintStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.colorHintText,
+                              fontFamily: 'Manrope',
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 33.76,
-                      ),
-                      PhysicalModel(
-                        borderRadius: BorderRadius.circular(10),
-                        elevation: 1,
-                        color: Colors.white,
+                      Container(
+                        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 33.76),
+                        decoration: BoxDecoration(
+                            color: AppColors.colorWhite,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.colorSkipforNow,
+                                blurRadius: 25,
+                              )
+                            ]
+                        ),
                         child: TextFormField(
                           controller: userGenderController,
                           decoration: InputDecoration(
@@ -296,10 +311,10 @@ class _CreateAccountState extends State<CreateAccount> {
           height: MediaQuery.of(context).size.height / 4.3,
         )
     :Container(
-      child: Icon(Icons.photo,color: AppColors.colorIcon,size: 20,),
+      child: Icon(Icons.photo,color: AppColors.colorIcon,size: 70,),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-            color: AppColors.colorWhite,),
+            color: AppColors.colorBgIconOfCreateProfile,),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height / 4.3,
         ),
@@ -318,10 +333,10 @@ class _CreateAccountState extends State<CreateAccount> {
       height: MediaQuery.of(context).size.height / 9.3,
     )
           :Container(
-          child: Icon(Icons.account_circle_outlined,color: AppColors.colorIcon,size: 20,),
+          child: Icon(Icons.account_circle_outlined,color: AppColors.colorIcon,size: 50,),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: AppColors.colorWhite,
+            color: AppColors.colorBgIconOfCreateProfile,
             borderRadius: BorderRadius.all(Radius.circular(10.0))),
           width: MediaQuery.of(context).size.width / 9.3,
           height: MediaQuery.of(context).size.height / 9.3,

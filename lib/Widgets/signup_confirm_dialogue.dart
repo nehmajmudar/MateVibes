@@ -12,76 +12,86 @@ class SignUpConfirmDialogue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height/3.71,
-            width: MediaQuery.of(context).size.width/1.25,
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/11.2,right: MediaQuery.of(context).size.width/9),
-                child: Column(
-                  children: [
-                    Text(
-                      AppString.txtAccountCreatedSuccessfully,
-                      maxLines: 2,
-                      softWrap: true,
-                      style: TextStyle(fontSize: 18,color: AppColors.colorLetsGetStarted,fontFamily: 'Manrope',fontWeight: FontWeight.bold),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateAccount()));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/40),
-                        height: MediaQuery.of(context).size.height/18.75,
-                        width: MediaQuery.of(context).size.width/1.68,
-                        decoration: BoxDecoration(
-                            color: AppColors.colorSignInButton,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(50))),
-                        alignment: Alignment.center,
-                        child: Text(
-                          AppString.txtContinue.toUpperCase(),
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.colorWhite,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: 'Manrope'),
-                        ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(30))
+        ),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height/3.71,
+              width: MediaQuery.of(context).size.width/1.25,
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/11.2),
+                  child: Column(
+                    children: [
+                      Text(
+                        AppString.txtAccountCreatedSuccessfully,
+                        maxLines: 2,
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18,color: AppColors.colorLetsGetStarted,fontFamily: 'Manrope',fontWeight: FontWeight.bold),
                       ),
-                    )
-                  ],
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(
+                              (context),
+                              MaterialPageRoute(builder: (context) => CreateAccount()),
+                                  (route) => false);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/40),
+                          height: MediaQuery.of(context).size.height/18.75,
+                          width: MediaQuery.of(context).size.width/1.68,
+                          decoration: BoxDecoration(
+                              color: AppColors.colorSignInButton,
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(50))),
+                          alignment: Alignment.center,
+                          child: Text(
+                            AppString.txtContinue.toUpperCase(),
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: AppColors.colorWhite,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: 'Manrope'),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            left: MediaQuery.of(context).size.width/3.9,
-            right: MediaQuery.of(context).size.width/3.9,
-            bottom: MediaQuery.of(context).size.height/5.24,
-            child: Image(image: AssetImage('lib/assets/images/Ellipse 1.png'))
-          ),
-          Positioned(
+            Positioned(
+              left: MediaQuery.of(context).size.width/3.9,
+              right: MediaQuery.of(context).size.width/3.9,
+              top: -64.5,
+              child: Image(image: AssetImage('lib/assets/images/Ellipse 1.png'))
+            ),
+            Positioned(
               left: MediaQuery.of(context).size.width/3.45,
               right: MediaQuery.of(context).size.width/3.45,
-              bottom: MediaQuery.of(context).size.height/4.62,
+              top: -50.5,
               child: Image(image: AssetImage('lib/assets/images/Ellipse 2.png'))
-          ),
-          Positioned(
+            ),
+            Positioned(
               left: MediaQuery.of(context).size.width/3.04,
               right: MediaQuery.of(context).size.width/3.04,
-              bottom: MediaQuery.of(context).size.height/4.2,
+              top: -35.5,
               child: Image(image: AssetImage('lib/assets/images/Ellipse 3.png'))
-          ),
-          Positioned(
-              left: MediaQuery.of(context).size.width/2.63,
-              right: MediaQuery.of(context).size.width/2.63,
-              bottom: MediaQuery.of(context).size.height/3.94,
-              child: Image(image: AssetImage('lib/assets/images/checkmark.png'))
-          ),
-        ],
+            ),
+            Positioned(
+              left: MediaQuery.of(context).size.width/2.73,
+              right: MediaQuery.of(context).size.width/2.73,
+              top: -20,
+              child: Icon(Icons.check_sharp,color: AppColors.colorWhite,size: 40),
+                // child: Image(image: AssetImage('lib/assets/images/checkmark.png'),width: MediaQuery.of(context).size.width/13.44,height: MediaQuery.of(context).size.height/42.2,)
+            ),
+          ],
+        ),
       ),
     );
   }

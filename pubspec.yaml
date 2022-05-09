@@ -89,11 +89,11 @@ flutter:
   fonts:
     - family: Manrope
       fonts:
-        - asset: lib/res/app_fonts/Manrope-VariableFont_wght.ttf
+        - asset: lib/assets/app_fonts/Manrope-VariableFont_wght.ttf
 
     - family: Pacifico
       fonts:
-        - asset: lib/res/app_fonts/Pacifico-Regular.ttf
+        - asset: lib/assets/app_fonts/Pacifico-Regular.ttf
 
 
   # For details regarding fonts from package dependencies,

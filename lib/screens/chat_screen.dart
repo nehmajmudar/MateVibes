@@ -59,12 +59,21 @@ class _ChatScreenState extends State<ChatScreen> {
                               fontFamily: 'Manrope'),
                         ),
                       ),
-                      SizedBox(
-                        // height: MediaQuery.of(context).size.height / 28.13,
+                      Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.colorWhite,
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.colorSkipforNow,
+                              blurRadius: 15,
+                            )
+                          ]
+                        ),
                         width: MediaQuery.of(context).size.width / 28.13,
                         child: IconButton(
                           visualDensity: VisualDensity.compact,
-                          icon: new Icon(Icons.record_voice_over),
+                          icon: new Icon(Icons.person_add_alt_1_outlined),
                           iconSize: MediaQuery.of(context).size.height / 54.4,
                           onPressed: () {},
                         ),
@@ -73,32 +82,37 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
                 Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.colorWhite,
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.colorSkipforNow,
+                          blurRadius: 15,
+                        )
+                      ]
+                  ),
                   height: MediaQuery.of(context).size.height / 23.44,
                   margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height / 7.09),
-                  child: PhysicalModel(
-                    borderRadius: BorderRadius.circular(10),
-                    elevation: 1,
-                    color: Colors.white,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          onPressed: () => {},
-                          icon: Icon(Icons.search_outlined),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal:
-                                MediaQuery.of(context).size.height / 23.44),
-                        hintText: AppString.txtSearch,
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(10)),
-                        hintStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,
-                          fontFamily: 'Manrope',
-                        ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        onPressed: () => {},
+                        icon: Icon(Icons.search_outlined,color: AppColors.colorSearchIconInChat,size: 8),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height / 23.44),
+                      hintText: AppString.txtSearch,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(10)),
+                      hintStyle: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.colorHintText,
+                        fontFamily: 'Manrope',
                       ),
                     ),
                   ),

@@ -14,44 +14,57 @@ class _NotificationDataState extends State<NotificationData> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: ListTile(
-      leading: CircleAvatar(
-        radius: 24,
-        backgroundImage:
-            AssetImage('lib/assets/images/forgot_password_img.png'),
-      ),
-      title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: AppString.txtDiana,
-                style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.colorForgotPassword,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'Manrope'),
-              ),
-              TextSpan(
-                  text: " commented on your post",
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: AppColors.colorSignInButton,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Manrope'),
-                  recognizer: TapGestureRecognizer()..onTap = () {}),
-            ],
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppColors.colorWhite,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.colorSkipforNow,
+                blurRadius: 15,
+              )
+            ]
           ),
-        ),
-        Text(
-          "2 hour ago",
-          style: TextStyle(
-              fontSize: 8,
-              color: AppColors.colorSignInButton,
-              fontWeight: FontWeight.w300,
-              fontFamily: 'Manrope'),
-        )
+          alignment: Alignment.center,
+          child: ListTile(
+            leading: CircleAvatar(
+              radius: 18,
+              backgroundImage:
+                  AssetImage('lib/assets/images/forgot_password_img.png'),
+            ),
+            title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: AppString.txtDiana,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.colorForgotPassword,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: 'Manrope'),
+                    ),
+                    TextSpan(
+                        text: " commented on your post",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: AppColors.colorSignInButton,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Manrope'),
+                        recognizer: TapGestureRecognizer()..onTap = () {}),
+                  ],
+                ),
+              ),
+              Text(
+                "2 hour ago",
+                style: TextStyle(
+                    fontSize: 8,
+                    color: AppColors.colorSignInButton,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: 'Manrope'),
+              )
       ]),
-    ));
+    ),
+        ));
   }
 }
