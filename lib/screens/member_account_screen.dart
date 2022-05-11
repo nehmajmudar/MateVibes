@@ -48,10 +48,10 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
         bio = snap.data()!['bio'];
         coverPhoto = snap.data()!['coverPhotoUrl'];
         profilePhoto = snap.data()!['photoUrl'];
-        userFollowers = snap.data()!['followers'].length;
-        userFollowing = snap.data()!['following'].length;
-        isFollowing = snap.data()!['followers'].contains(
-            FirebaseAuth.instance.currentUser!.uid);
+        userFollowers = snap.data()!['followers']!=null?snap.data()!['followers'].length:0;
+        userFollowing = snap.data()!['following']!=null?snap.data()!['following'].length:0;
+        isFollowing = snap.data()!['followers']!=null?snap.data()!['followers'].contains(
+            FirebaseAuth.instance.currentUser!.uid):false;
         postLen = postSnap.docs.length;
       });
     }catch(e){
@@ -88,8 +88,7 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
             child: Text(username,style: TextStyle(
                 fontSize: 20,
                 color: AppColors.colorLetsGetStarted,
-                fontWeight: FontWeight.w900,
-                fontFamily: 'Manrope')
+                fontWeight: FontWeight.w900,)
             ),
           ),
           Center(
@@ -99,8 +98,7 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
               child: Text("@$displayName",style: TextStyle(
                   fontSize: 12,
                   color: AppColors.colorToday,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'Manrope')
+                  fontWeight: FontWeight.w900,)
               ),
             ),
           ),
@@ -111,8 +109,7 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
               child: Text(bio,softWrap: true,maxLines: 10,style: TextStyle(
                   fontSize: 12,
                   color: AppColors.colorToday,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'Manrope')
+                  fontWeight: FontWeight.w900,)
               ),
             ),
           ),

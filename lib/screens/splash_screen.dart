@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image(image: AssetImage('lib/assets/images/MateVibes_logo.png')),
+            Image(image: AssetImage('assets/images/MateVibes_logo.png')),
             Text(AppString.txtMateVibes,style: TextStyle(fontSize: 36,fontFamily: 'Pacifico',foreground: Paint()..shader=AppColors.colorMateVibes),)
           ],
         ),

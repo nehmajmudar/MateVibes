@@ -43,7 +43,7 @@ dependencies:
   uuid: ^3.0.6
   connectivity_plus: ^2.2.2
   intl: ^0.17.0
-  # firebase_core_web: ^1.6.1
+  google_fonts: ^2.3.2
 
 
 dev_dependencies:
@@ -63,17 +63,17 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - lib/assets/images/MateVibes_logo.png
-   - lib/assets/images/login_bgimage.png
-   - lib/assets/images/forgot_password_img.png
-   - lib/assets/images/profile_image.png
-   - lib/assets/images/create_account_img.png
-   - lib/assets/images/user_profile_img.png
-   - lib/assets/images/create_post_picture.png
-   - lib/assets/images/Ellipse 1.png
-   - lib/assets/images/Ellipse 2.png
-   - lib/assets/images/Ellipse 3.png
-   - lib/assets/images/checkmark.png
+   - assets/images/MateVibes_logo.png
+   - assets/images/login_bgimage.png
+   - assets/images/forgot_password_img.png
+   - assets/images/profile_image.png
+   - assets/images/create_account_img.png
+   - assets/images/user_profile_img.png
+   - assets/images/create_post_picture.png
+   - assets/images/Ellipse 1.png
+   - assets/images/Ellipse 2.png
+   - assets/images/Ellipse 3.png
+   - assets/images/checkmark.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -89,11 +89,11 @@ flutter:
   fonts:
     - family: Manrope
       fonts:
-        - asset: lib/assets/app_fonts/Manrope-VariableFont_wght.ttf
+        - asset: assets/app_fonts/Manrope-VariableFont_wght.ttf
 
     - family: Pacifico
       fonts:
-        - asset: lib/assets/app_fonts/Pacifico-Regular.ttf
+        - asset: assets/app_fonts/Pacifico-Regular.ttf
 
 
   # For details regarding fonts from package dependencies,

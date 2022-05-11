@@ -54,7 +54,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(
-                          'lib/assets/images/forgot_password_img.png',
+                          'assets/images/forgot_password_img.png',
                         ),
                         fit: BoxFit.cover)),
               ),
@@ -67,8 +67,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   style: TextStyle(
                       color: AppColors.colorLetsGetStarted,
                       fontSize: 24,
-                      fontWeight: FontWeight.w900,
-                      fontFamily: 'Manrope'),
+                      fontWeight: FontWeight.w900,),
                 ),
               ),
               Container(
@@ -80,8 +79,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     style: TextStyle(
                         color: AppColors.colorForgotPassword,
                         fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Manrope'),
+                        fontWeight: FontWeight.w400,),
                   )),
               Container(
                 decoration: BoxDecoration(
@@ -108,8 +106,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     hintStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.colorHintText,
-                        fontFamily: 'Manrope'),
+                        color: AppColors.colorHintText,),
                   ),
                 ),
               ),
@@ -126,7 +123,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: AppColors.colorHintText,
-                          fontFamily: 'Manrope',
                         ),
                       )),
                   Divider(
@@ -162,8 +158,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     hintStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.colorHintText,
-                        fontFamily: 'Manrope'),
+                        color: AppColors.colorHintText,),
                   ),
                 ),
               ),
@@ -184,8 +179,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           style: TextStyle(
                               fontSize: 14,
                               color: AppColors.colorWhite,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: 'Manrope'),
+                              fontWeight: FontWeight.w800,),
                         ),
                       ),
                       onTap: () async {
@@ -209,16 +203,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       style: TextStyle(
                           fontSize: 14,
                           color: AppColors.colorForgotPassword,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Manrope'),
+                          fontWeight: FontWeight.w400,),
                     ),
                     TextSpan(
                         text: AppString.txtSignIn,
                         style: TextStyle(
                             fontSize: 14,
                             color: AppColors.colorSignInButton,
-                            fontWeight: FontWeight.w900,
-                            fontFamily: 'Manrope'),
+                            fontWeight: FontWeight.w900,),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             Navigator.pop(context);

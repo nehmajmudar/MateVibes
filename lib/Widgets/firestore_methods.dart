@@ -98,7 +98,7 @@ class FireStoreMethods{
       DocumentSnapshot snap=await _firestore.collection('users').doc(uid).get();
       var following=(snap.data()! as dynamic)['following'];
       
-      if(following.contains(followUid)){
+      if(following!=null && following.contains(followUid)){
         await _firestore.collection('users').doc(followUid).update({
           'followers': FieldValue.arrayRemove([uid])
         });

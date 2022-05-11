@@ -76,14 +76,12 @@ class AppString {
   static String txtMessage = "Message";
   static String txtFollow = "Follow";
   static String txtUnfollow = "Unfollow";
+  static String txtComments = "Comments";
+  static String txtAddAComment = "Add a comment...";
   static String txtAccountCreatedSuccessfully = "Your account has been created successfully.";
-  static String txtpasswordLinkSentSuccessfully =
-      "Password Link sent successfully";
-  static String txtnoUserFoundFromThisMail =
-      "No User Found from this mail,Please Enter Correct Details";
-  static String txtaccountCreatedSuccessfully =
-      "Account created successfully :)";
+  static String txtpasswordLinkSentSuccessfully = "Password Link sent successfully";
+  static String txtnoUserFoundFromThisMail = "No User Found from this mail,Please Enter Correct Details";
+  static String txtaccountCreatedSuccessfully = "Account created successfully :)";
   static String txtConnectedinternetToast = "You're connected with internet.";
-  static String txtnoInternetToast =
-      "You're not connected with internet,please check your network connections";
+  static String txtnoInternetToast = "You're not connected with internet,please check your network connections";
 }

@@ -75,8 +75,7 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(
                         color: AppColors.colorLetsGetStarted,
                         fontSize: 24,
-                        fontWeight: FontWeight.w900,
-                        fontFamily: 'Manrope'),
+                        fontWeight: FontWeight.w900,),
                   ),
                 ),
                 Container(
@@ -87,8 +86,7 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(
                         color: AppColors.colorCreateAccountToConnect,
                         fontSize: 14,
-                        fontWeight: FontWeight.w900,
-                        fontFamily: 'Manrope'),
+                        fontWeight: FontWeight.w900,),
                   ),
                 ),
                 Container(
@@ -114,8 +112,7 @@ class _SignUpState extends State<SignUp> {
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,
-                          fontFamily: 'Manrope'),
+                          color: AppColors.colorHintText,),
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -148,8 +145,7 @@ class _SignUpState extends State<SignUp> {
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,
-                          fontFamily: 'Manrope'),
+                          color: AppColors.colorHintText,),
                     ),
                     validator: (value) {
                       if (value!.isEmpty ||
@@ -184,8 +180,7 @@ class _SignUpState extends State<SignUp> {
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,
-                          fontFamily: 'Manrope'),
+                          color: AppColors.colorHintText,),
                     ),
                     validator: (value) {
                       if (value!.isEmpty ||
@@ -220,8 +215,7 @@ class _SignUpState extends State<SignUp> {
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,
-                          fontFamily: 'Manrope'),
+                          color: AppColors.colorHintText,),
                     ),
                     validator: (value) {
                       if (value!.length <= 6 || value.isEmpty) {
@@ -255,8 +249,7 @@ class _SignUpState extends State<SignUp> {
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,
-                          fontFamily: 'Manrope'),
+                          color: AppColors.colorHintText,),
                     ),
                     validator: (value) {
                       if (confirmPasswordController.text !=
@@ -285,8 +278,7 @@ class _SignUpState extends State<SignUp> {
                           style: TextStyle(
                               fontSize: 12,
                               color: AppColors.colorForgotPassword,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Manrope'),
+                              fontWeight: FontWeight.w400,),
                         ),
                         TextSpan(
                             text: AppString.txtTAndC,
@@ -294,16 +286,14 @@ class _SignUpState extends State<SignUp> {
                                 decoration: TextDecoration.underline,
                                 fontSize: 12,
                                 color: AppColors.colorSignInButton,
-                                fontWeight: FontWeight.w900,
-                                fontFamily: 'Manrope'),
+                                fontWeight: FontWeight.w900,),
                             recognizer: TapGestureRecognizer()..onTap = () {}),
                         TextSpan(
                           text: AppString.txtAnd,
                           style: TextStyle(
                               fontSize: 12,
                               color: AppColors.colorForgotPassword,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Manrope'),
+                              fontWeight: FontWeight.w400,),
                         ),
                         TextSpan(
                             text: AppString.txtPrivacyPolicy,
@@ -311,8 +301,7 @@ class _SignUpState extends State<SignUp> {
                                 decoration: TextDecoration.underline,
                                 fontSize: 12,
                                 color: AppColors.colorSignInButton,
-                                fontWeight: FontWeight.w900,
-                                fontFamily: 'Manrope'),
+                                fontWeight: FontWeight.w900,),
                             recognizer: TapGestureRecognizer()..onTap = () {}),
                       ])),
                     ),
@@ -342,8 +331,7 @@ class _SignUpState extends State<SignUp> {
                         style: TextStyle(
                             fontSize: 14,
                             color: AppColors.colorWhite,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: 'Manrope'),
+                            fontWeight: FontWeight.w800,),
                       ),
                     ),
                     onTap: () async {
@@ -374,16 +362,14 @@ class _SignUpState extends State<SignUp> {
                         style: TextStyle(
                             fontSize: 12,
                             color: AppColors.colorForgotPassword,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'Manrope'),
+                            fontWeight: FontWeight.w400,),
                       ),
                       TextSpan(
                           text: AppString.txtSignIn,
                           style: TextStyle(
                               fontSize: 14,
                               color: AppColors.colorSignInButton,
-                              fontWeight: FontWeight.w900,
-                              fontFamily: 'Manrope'),
+                              fontWeight: FontWeight.w900,),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.pushAndRemoveUntil(

@@ -76,21 +76,23 @@ class _PostsCardState extends State<PostsCard> {
                   fontWeight: FontWeight.w800,
                   fontFamily: 'Manrope'),),
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              child: Container(
+                decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
                       color: AppColors.colorSkipforNow,
                       blurRadius: 15,
-                  )
-                ]
+                    )
+                  ]
+                ),
+                height: MediaQuery.of(context).size.height * 0.35,
+                width: double.infinity,
+                child: Image.network(
+                  widget.snap['postUrl'].toString(),
+                  fit: BoxFit.cover,)
               ),
-              height: MediaQuery.of(context).size.height * 0.35,
-              width: double.infinity,
-              child: Image.network(
-                widget.snap['postUrl'].toString(),
-                fit: BoxFit.cover,)
             ),
             Container(                                                 //Divider
               height: 1,

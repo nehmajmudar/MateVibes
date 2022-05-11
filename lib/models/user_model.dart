@@ -19,17 +19,17 @@ class UserModel {
   //receiving data from server
   factory UserModel.fromMap(map) {
     return UserModel(
-      uid: map['uid'],
-      email: map['email'],
-      username: map['username'],
-      phoneNumber: map['phoneNumber'],
-      photoUrl: map['photoUrl'],
-      coverPhotoUrl: map['coverPhotoUrl'],
-      bio: map['bio'],
-      displayName: map['displayName'],
-      gender: map['gender'],
-      followers: map['followers'],
-      following: map['following'],
+      uid: map['uid'] ?? " ",
+      email: map['email'] ?? " ",
+      username: map['username'] ?? " ",
+      phoneNumber: map['phoneNumber'] ?? " ",
+      photoUrl: map['photoUrl'] ?? " ",
+      coverPhotoUrl: map['coverPhotoUrl'] ?? " ",
+      bio: map['bio'] ?? " ",
+      displayName: map['displayName'] ?? " ",
+      gender: map['gender'] ?? " ",
+      followers: map['followers'] ?? " ",
+      following: map['following'] ?? " ",
     );
   }
   // sending data to server

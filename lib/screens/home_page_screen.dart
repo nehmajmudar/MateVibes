@@ -19,23 +19,23 @@ class _HomePageScreenState extends State<HomePageScreen> {
   List<StoryData> stories = [
     new StoryData(
         username: 'Bhargav Dobariya',
-        avatarUrl: AssetImage('lib/assets/images/forgot_password_img.png'),
+        avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
         storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
     new StoryData(
         username: 'Bhargav',
-        avatarUrl: AssetImage('lib/assets/images/forgot_password_img.png'),
+        avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
         storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
     new StoryData(
         username: 'Bhargav',
-        avatarUrl: AssetImage('lib/assets/images/forgot_password_img.png'),
+        avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
         storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
     new StoryData(
         username: 'Bhargav',
-        avatarUrl: AssetImage('lib/assets/images/forgot_password_img.png'),
+        avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
         storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
     new StoryData(
         username: 'Bhargav',
-        avatarUrl: AssetImage('lib/assets/images/forgot_password_img.png'),
+        avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
         storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
   ];
 

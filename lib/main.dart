@@ -30,41 +30,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  // late StreamSubscription<User?> user;
-  // void initState() {
-  //   super.initState();
-  //   user = FirebaseAuth.instance.authStateChanges().listen((user) {
-  //     if (user == null) {
-  //       print('User is currently signed out!');
-  //     } else {
-  //       print('User is signed in!');
-  //     }
-  //   });
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   user.cancel();
-  //   super.dispose();
-  // }
-
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    var islogin;
-
-    checkUserLoginState() async {
-      await Shared.getUserSharedPrefernces().then((value) {
-        setState(() {
-          islogin = value;
-        });
-      });
-    }
 
     @override
     void initState() {
-      checkUserLoginState();
+      // checkUserLoginState();
       super.initState();
     }
 
@@ -73,9 +44,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       // initialRoute: '/',
       // initialRoute: FirebaseAuth.instance.currentUser==null?'/':'/navbar',
-      initialRoute: islogin!=null
-                        ? '/navbar'
-                        : '/',
+      // initialRoute: islogin!=null
+      //                   ? '/navbar'
+      //                   : '/',
       routes: {
         '/': (context) => SplashScreen(),
         '/splash_screen': (context) => SplashScreen(),
