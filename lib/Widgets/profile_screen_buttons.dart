@@ -40,8 +40,12 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
           .followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
     }
     if (buttonName == AppString.txtMessage) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ChatScreen(widget.uid)));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ChatScreen(
+                    peerId: widget.uid,
+                  )));
     }
   }
 
