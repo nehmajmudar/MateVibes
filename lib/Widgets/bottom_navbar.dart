@@ -60,10 +60,10 @@ class BottomNavBarState extends State<BottomNavBar> {
         return CreatePost();          ///Add post/story screen
       case 3:
         return ChatScreen();          ///Chat screen
-      // case 4:
-      //   return UserAccountScreen();          ///Profile screen
       case 4:
-        return MemberAccountScreen(uid: "tbRyJXnqyEWcVMjbYidQcpNQHEK2");
+        return UserAccountScreen();          ///Profile screen
+      // case 4:
+      //   return MemberAccountScreen(uid: "tbRyJXnqyEWcVMjbYidQcpNQHEK2");
       default:
         return HomePageScreen();
     }
