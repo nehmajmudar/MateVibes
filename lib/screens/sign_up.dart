@@ -3,16 +3,13 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/Widgets/signup_confirm_dialogue.dart';
 import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
-import 'package:matevibes/screens/create_account.dart';
 import 'package:matevibes/screens/sign_in.dart';
 import 'package:matevibes/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -73,9 +70,10 @@ class _SignUpState extends State<SignUp> {
                   child: Text(
                     AppString.txtLetsGetStarted,
                     style: TextStyle(
-                        color: AppColors.colorLetsGetStarted,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w900,),
+                      color: AppColors.colorLetsGetStarted,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                 ),
                 Container(
@@ -84,13 +82,15 @@ class _SignUpState extends State<SignUp> {
                   child: Text(
                     AppString.txtCreateAccountToConnect,
                     style: TextStyle(
-                        color: AppColors.colorCreateAccountToConnect,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w900,),
+                      color: AppColors.colorCreateAccountToConnect,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 33.76),
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -99,8 +99,7 @@ class _SignUpState extends State<SignUp> {
                           color: AppColors.colorSkipforNow,
                           blurRadius: 15,
                         )
-                      ]
-                  ),
+                      ]),
                   child: TextFormField(
                     controller: usernameController,
                     decoration: InputDecoration(
@@ -110,9 +109,10 @@ class _SignUpState extends State<SignUp> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.colorHintText,
+                      ),
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -123,7 +123,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 33.76),
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -132,8 +133,7 @@ class _SignUpState extends State<SignUp> {
                           color: AppColors.colorSkipforNow,
                           blurRadius: 15,
                         )
-                      ]
-                  ),
+                      ]),
                   child: TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
@@ -143,9 +143,10 @@ class _SignUpState extends State<SignUp> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.colorHintText,
+                      ),
                     ),
                     validator: (value) {
                       if (value!.isEmpty ||
@@ -158,7 +159,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 33.76),
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -167,8 +169,7 @@ class _SignUpState extends State<SignUp> {
                           color: AppColors.colorSkipforNow,
                           blurRadius: 15,
                         )
-                      ]
-                  ),
+                      ]),
                   child: TextFormField(
                     controller: phoneNumberController,
                     decoration: InputDecoration(
@@ -178,9 +179,10 @@ class _SignUpState extends State<SignUp> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.colorHintText,
+                      ),
                     ),
                     validator: (value) {
                       if (value!.isEmpty ||
@@ -192,7 +194,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 33.76),
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -201,8 +204,7 @@ class _SignUpState extends State<SignUp> {
                           color: AppColors.colorSkipforNow,
                           blurRadius: 15,
                         )
-                      ]
-                  ),
+                      ]),
                   child: TextFormField(
                     controller: passwordController,
                     obscureText: true,
@@ -213,9 +215,10 @@ class _SignUpState extends State<SignUp> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.colorHintText,
+                      ),
                     ),
                     validator: (value) {
                       if (value!.length <= 6 || value.isEmpty) {
@@ -226,7 +229,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 33.76),
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -235,8 +239,7 @@ class _SignUpState extends State<SignUp> {
                           color: AppColors.colorSkipforNow,
                           blurRadius: 15,
                         )
-                      ]
-                  ),
+                      ]),
                   child: TextFormField(
                     controller: confirmPasswordController,
                     obscureText: true,
@@ -247,9 +250,10 @@ class _SignUpState extends State<SignUp> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(50)),
                       hintStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.colorHintText,),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.colorHintText,
+                      ),
                     ),
                     validator: (value) {
                       if (confirmPasswordController.text !=
@@ -276,32 +280,36 @@ class _SignUpState extends State<SignUp> {
                         TextSpan(
                           text: AppString.txtByCreatingAccount,
                           style: TextStyle(
-                              fontSize: 12,
-                              color: AppColors.colorForgotPassword,
-                              fontWeight: FontWeight.w400,),
+                            fontSize: 12,
+                            color: AppColors.colorForgotPassword,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                         TextSpan(
                             text: AppString.txtTAndC,
                             style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontSize: 12,
-                                color: AppColors.colorSignInButton,
-                                fontWeight: FontWeight.w900,),
+                              decoration: TextDecoration.underline,
+                              fontSize: 12,
+                              color: AppColors.colorSignInButton,
+                              fontWeight: FontWeight.w900,
+                            ),
                             recognizer: TapGestureRecognizer()..onTap = () {}),
                         TextSpan(
                           text: AppString.txtAnd,
                           style: TextStyle(
-                              fontSize: 12,
-                              color: AppColors.colorForgotPassword,
-                              fontWeight: FontWeight.w400,),
+                            fontSize: 12,
+                            color: AppColors.colorForgotPassword,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                         TextSpan(
                             text: AppString.txtPrivacyPolicy,
                             style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontSize: 12,
-                                color: AppColors.colorSignInButton,
-                                fontWeight: FontWeight.w900,),
+                              decoration: TextDecoration.underline,
+                              fontSize: 12,
+                              color: AppColors.colorSignInButton,
+                              fontWeight: FontWeight.w900,
+                            ),
                             recognizer: TapGestureRecognizer()..onTap = () {}),
                       ])),
                     ),
@@ -329,9 +337,10 @@ class _SignUpState extends State<SignUp> {
                       child: Text(
                         AppString.txtCreateAccount.toUpperCase(),
                         style: TextStyle(
-                            fontSize: 14,
-                            color: AppColors.colorWhite,
-                            fontWeight: FontWeight.w800,),
+                          fontSize: 14,
+                          color: AppColors.colorWhite,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
                     onTap: () async {
@@ -360,16 +369,18 @@ class _SignUpState extends State<SignUp> {
                       TextSpan(
                         text: AppString.txtByCreatingAccount,
                         style: TextStyle(
-                            fontSize: 12,
-                            color: AppColors.colorForgotPassword,
-                            fontWeight: FontWeight.w400,),
+                          fontSize: 12,
+                          color: AppColors.colorForgotPassword,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                       TextSpan(
                           text: AppString.txtSignIn,
                           style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.colorSignInButton,
-                              fontWeight: FontWeight.w900,),
+                            fontSize: 14,
+                            color: AppColors.colorSignInButton,
+                            fontWeight: FontWeight.w900,
+                          ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.pushAndRemoveUntil(
@@ -437,8 +448,8 @@ class _SignUpState extends State<SignUp> {
 
     userModel.email = user!.email;
     userModel.uid = user.uid;
-    prefs.setString('uid', user.uid);
-    print(prefs.getString('uid'));
+    prefs.setString(AppString.userIDKey, user.uid);
+    print(prefs.getString(AppString.userIDKey));
     userModel.username = usernameController.text;
     userModel.phoneNumber = phoneNumberController.text;
 
@@ -455,6 +466,6 @@ class _SignUpState extends State<SignUp> {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (BuildContext context)=>SignUpConfirmDialogue());
+        builder: (BuildContext context) => SignUpConfirmDialogue());
   }
 }
