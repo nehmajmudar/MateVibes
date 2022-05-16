@@ -10,11 +10,13 @@ class ProfileScreenButtons extends StatefulWidget {
   final String uid;
   final String textFirstButton;
   final String textSecondButton;
+  final Map<String, dynamic> userDocumentSnapshot;
   const ProfileScreenButtons(
       {Key? key,
       required this.uid,
       required this.textFirstButton,
-      required this.textSecondButton})
+      required this.textSecondButton,
+      required this.userDocumentSnapshot})
       : super(key: key);
 
   @override
@@ -40,11 +42,12 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
           .followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
     }
     if (buttonName == AppString.txtMessage) {
+      Map<String, dynamic> userMap = widget.userDocumentSnapshot;
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => ChatScreen(
-                    peerId: widget.uid,
+                    peerUserData: userMap,
                   )));
     }
   }

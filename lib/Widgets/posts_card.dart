@@ -47,9 +47,11 @@ class _PostsCardState extends State<PostsCard> {
               children: [
                 GestureDetector(
                   onTap: () {
+                    Map<String, dynamic> userMap = Map();
+                    userMap = widget.snap;
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            MemberAccountScreen(uid: widget.snap['uid'])));
+                            MemberAccountScreen(userData: userMap)));
                   },
                   child: CircleAvatar(
                     backgroundImage:
@@ -114,10 +116,12 @@ class _PostsCardState extends State<PostsCard> {
                   ]),
                   height: MediaQuery.of(context).size.height * 0.35,
                   width: double.infinity,
-                  child: Image.network(
-                    widget.snap['postUrl'].toString(),
-                    fit: BoxFit.cover,
-                  )),
+                  child: widget.snap['postUrl'] != null
+                      ? Image.network(
+                          widget.snap['postUrl'].toString(),
+                          fit: BoxFit.cover,
+                        )
+                      : CircularProgressIndicator()),
             ),
             Container(
               //Divider

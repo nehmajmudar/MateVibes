@@ -176,7 +176,7 @@
 //                               ),
 //                               validator: (value) {
 //                                 if (value!.isEmpty ||
-//                                     !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+// !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
 //                                         .hasMatch(value)) {
 //                                   return AppString.txtEnterValidEmailId;
 //                                 }
@@ -628,6 +628,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               if (user != null) {
                                 await _prefs.setString(
                                     AppString.userIDKey, user.uid);
+                                print("LoggedIn UserIs ${user.uid}");
                               }
                               final result =
                                   await Connectivity().checkConnectivity();

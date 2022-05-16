@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:matevibes/res/app_colors.dart';
+import 'package:matevibes/res/app_string.dart';
+import 'package:matevibes/screens/chats_screen.dart';
 import 'package:matevibes/screens/create_post_screen.dart';
 import 'package:matevibes/screens/home_page_screen.dart';
-import 'package:matevibes/screens/user_account_screen.dart';
 import 'package:matevibes/screens/notification_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavBar extends StatefulWidget {
   BottomNavBar({Key? key}) : super(key: key);
@@ -13,6 +15,18 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class BottomNavBarState extends State<BottomNavBar> {
+  var _pref;
+  var currentUser = '';
+  void initState() {
+    SharedPreferences.getInstance().then((sharedPref) {
+      _pref = sharedPref;
+      var userId = _pref.getString(AppString.userIDKey);
+      currentUser = userId!;
+      // print("current user Id = ${currentUser}");
+    });
+
+    super.initState();
+  }
   //
   // // var userData={};
   // String profilePicUrl="";
@@ -59,13 +73,17 @@ class BottomNavBarState extends State<BottomNavBar> {
 
       ///Add post/story screen
       case 3:
-      // return ChatScreen();          ///Chat screen
+        return ChatsPage(
+          userData: {},
+        );
+
+      ///Chat screen
       case 4:
-        return UserAccountScreen();
+      // return ChatsPage();
 
       ///Profile screen
       // case 4:
-      //   return MemberAccountScreen(uid: "tbRyJXnqyEWcVMjbYidQcpNQHEK2");
+      // return MemberAccountScreen(userData: );
       default:
         return HomePageScreen();
     }
