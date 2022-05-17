@@ -4,9 +4,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/models/chat_data.dart';
 import 'package:matevibes/models/user_model.dart';
+import 'package:matevibes/screens/chat_search_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../res/Methods/check_Internet_button.dart';
+import '../res/app_colors.dart';
 import '../res/app_string.dart';
 import 'chat_screen.dart';
 
@@ -24,14 +26,9 @@ class _ChatsPageState extends State<ChatsPage> {
 
   var profilePhoto = "";
   late StreamSubscription subscription;
-  late QuerySnapshot searchSnapshot;
-  // bool haveUserSearched = false;
-  // var snapChat = FirebaseFirestore.instance.collection('chat').doc().get();
-  var snapUser = FirebaseFirestore.instance.collection('users').doc().get();
   late SharedPreferences _pref;
   var currentUser = '';
   late List<MessageChat> chatUserData;
-  var chatUser = [];
   List<String> peerUserIdList = [];
   List<UserModel> chatListUsers = [];
   late StreamSubscription<QuerySnapshot<Map<String, dynamic>>> listener;
@@ -47,7 +44,6 @@ class _ChatsPageState extends State<ChatsPage> {
 
       var userId = _pref.getString(AppString.userIDKey);
       currentUser = userId!;
-      // QuerySnapshot querySnapshot;
       FirebaseFirestore.instance.collection('chat').get().then(
         (querySnapshot) {
           querySnapshot.docs.forEach((element) async {
@@ -97,32 +93,22 @@ class _ChatsPageState extends State<ChatsPage> {
     // print(chatUser.length);
 
     return Scaffold(
-        body: Stack(
-      children: [
-        chatListUsers.length > 0
-            ? ListView.builder(
-                itemCount: chatListUsers.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      // listener.cancel();
-
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChatScreen(
-                                    peerUserData: chatListUsers[index].toMap(),
-                                  )));
-                    },
-                    child: Container(
-                      height: 100,
-                      width: 100,
-                      child: Text(chatListUsers[index].username!),
-                    ),
-                  );
-                })
-            : Center(child: CircularProgressIndicator())
-      ],
+        body: SafeArea(
+      child: Padding(
+        padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height / 25.83,
+            left: MediaQuery.of(context).size.width / 20.83,
+            right: MediaQuery.of(context).size.width / 20.83),
+        child: Column(
+          children: [
+            chatsTopUi(),
+            SizedBox(
+              height: 15,
+            ),
+            Expanded(child: chatsUi()),
+          ],
+        ),
+      ),
     ));
   }
 
@@ -132,18 +118,105 @@ class _ChatsPageState extends State<ChatsPage> {
     listener.cancel();
   }
 
-  Widget chatsUi() {
-    return Container();
-    //     child: StreamBuilder<QuerySnapshot>(
-    //   stream: FirebaseFirestore.instance
-    //       .collection('chat')
-    //       .doc(chatUser[])
-    //       .collection(groupChatId)
-    //       .orderBy('timestamp', descending: true)
-    //       .snapshots(),
-    // ));
-    // ListView.builder(itemCount: , itemBuilder: (context, index)  {
+  Widget chatsTopUi() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height / 76.7,
+          ),
+          child: Text(
+            AppString.txtChat,
+            style: TextStyle(
+                color: AppColors.colorNotifacations,
+                fontSize: 24,
+                fontWeight: FontWeight.w900,
+                fontFamily: 'Manrope'),
+          ),
+        ),
+        Container(
+            decoration: BoxDecoration(
+                color: AppColors.colorWhite,
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.colorSkipforNow,
+                    blurRadius: 15,
+                  )
+                ]),
+            // width: MediaQuery.of(context).size.width / 28.13,
+            child: IconButton(
+              visualDensity: VisualDensity.compact,
+              icon: new Icon(Icons.search_rounded),
+              iconSize: MediaQuery.of(context).size.height / 34.4,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => (ChatSearchScreen())));
+                setState(() {});
+              },
+            ))
+      ],
+    );
+  }
 
-    // });
+  Widget chatsUi() {
+    return chatListUsers.length > 0
+        ? ListView.separated(
+            itemCount: chatListUsers.length,
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChatScreen(
+                                peerUserData: chatListUsers[index].toMap(),
+                              )));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.colorWhite,
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.colorSkipforNow,
+                          blurRadius: 15,
+                        )
+                      ]),
+                  alignment: Alignment.center,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                        foregroundImage:
+                            NetworkImage(chatListUsers[index].photoUrl!),
+                        radius: 20,
+                        backgroundImage: AssetImage(
+                          'assets/images/user_profile_img.png',
+                        )),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          chatListUsers[index].username!,
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.chatName,
+                              fontWeight: FontWeight.w800,
+                              fontFamily: 'Manrope'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) => Divider(
+                  color: AppColors.colorWhite,
+                  height: 8,
+                  thickness: 0,
+                ))
+        : Center(child: CircularProgressIndicator());
   }
 }
