@@ -308,7 +308,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               if (user != null &&
                                       ConnectivityResult.mobile == true ||
                                   ConnectivityResult.wifi == true) {
-                                Navigator.pushNamed(context, "/navbar");
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BottomNavBar()));
                               } else if (ConnectivityResult.none == true) {
                                 showConnectivityToastOnPress(result);
                               }

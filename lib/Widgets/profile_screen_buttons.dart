@@ -38,30 +38,34 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
     userLogin=await SharedPreferences.getInstance();
   }
 
-  Future<void> onTapActivity(String buttonName)async{
-  Future<void> onTapActivity(String buttonName) async {
+  Future<void> onTapActivity(String buttonName)async {
     print('sign out working?');
     if (buttonName == AppString.txtSignOut) {
-    if(buttonName==AppString.txtSignOut){
-      userLogin.setBool('isLoggedIn', false);
-      print(userLogin);
-      await _auth.signOut();
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignIn()));
-    }
-    if(buttonName==AppString.txtFollow){
-      await FireStoreMethods().followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
-    }
-    if(buttonName==AppString.txtUnfollow){
-      await FireStoreMethods().followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
-    }
-    if (buttonName == AppString.txtMessage) {
-      Map<String, dynamic> userMap = widget.userDocumentSnapshot;
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ChatScreen(
-                    peerUserData: userMap,
-                  )));
+      if (buttonName == AppString.txtSignOut) {
+        userLogin.setBool('isLoggedIn', false);
+        print(userLogin);
+        await _auth.signOut();
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => SignIn()));
+      }
+      if (buttonName == AppString.txtFollow) {
+        await FireStoreMethods().followUser(
+            FirebaseAuth.instance.currentUser!.uid, widget.uid);
+      }
+      if (buttonName == AppString.txtUnfollow) {
+        await FireStoreMethods().followUser(
+            FirebaseAuth.instance.currentUser!.uid, widget.uid);
+      }
+      if (buttonName == AppString.txtMessage) {
+        Map<String, dynamic> userMap = widget.userDocumentSnapshot;
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ChatScreen(
+                      peerUserData: userMap,
+                    )));
+      }
     }
   }
 
