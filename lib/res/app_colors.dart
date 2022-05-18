@@ -32,4 +32,5 @@ class AppColors {
   static Color greyColor = Color(0xFF535252);
   static Color lightgreyColor = Color(0xFFBEBEBE);
   static Color purpleColor = Color(0xFF8e35ff);
+  static Color sendMessageIcon = Color.fromARGB(255, 44, 216, 170);
 }

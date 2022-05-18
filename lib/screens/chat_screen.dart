@@ -161,54 +161,85 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget buildInput() {
-    return Container(
-      child: Row(
-        children: <Widget>[
-          // Button send image
-          Flexible(
-            child: Container(
-              child: TextField(
-                onSubmitted: (value) {
-                  if (textEditingController.text.isNotEmpty) {
-                    onSendMessage(textEditingController.text);
-                  }
-                },
-
-                style: TextStyle(color: AppColors.colorBlack, fontSize: 15),
-                controller: textEditingController,
-                decoration: InputDecoration.collapsed(
-                  hintText: 'Type your message...',
-                  hintStyle: TextStyle(color: AppColors.greyColor),
+    bool istexFieldEmpty = true;
+    return SafeArea(
+      child: Container(
+        margin: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width / 34,
+            bottom: MediaQuery.of(context).size.height / 84),
+        child: Row(
+          children: <Widget>[
+            // Button send image
+            Flexible(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 18.75,
+                child: Focus(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10),
+                      hintText: AppString.typeYourMessage,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(80)),
+                      hintStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.colorHintText,
+                      ),
+                    ),
+                    onTap: () {
+                      if (textEditingController.text.isNotEmpty) {
+                        onSendMessage(textEditingController.text);
+                      }
+                    },
+                    style: TextStyle(color: AppColors.colorBlack, fontSize: 15),
+                    controller: textEditingController,
+                    onChanged: (value) {
+                      setState(() {
+                        if (value.length > 0) {
+                          textEditingController.text.isNotEmpty;
+                        }
+                      });
+                    },
+                  ),
                 ),
-                // focusNode: focusNode,
               ),
             ),
-          ),
 
-          // Button send message
-          Material(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 8),
-              child: IconButton(
-                icon: Icon(Icons.send),
-                onPressed: () {
-                  if (textEditingController.text.isNotEmpty) {
-                    onSendMessage(textEditingController.text);
-                  }
-                },
-                color: AppColors.greyColor,
+            // Button send message
+            Material(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: textEditingController.text.isNotEmpty
+                      ? AppColors.sendMessageIcon
+                      : AppColors.colorWhite,
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 8),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.send,
+                  ),
+                  onPressed: () {
+                    if (textEditingController.text.isNotEmpty) {
+                      onSendMessage(textEditingController.text);
+                    }
+                  },
+                  color: AppColors.colorBlack,
+                ),
               ),
+              color: Colors.white,
             ),
-            color: Colors.white,
-          ),
-        ],
+          ],
+        ),
+        width: double.infinity,
+        height: 50,
+        decoration: BoxDecoration(
+            border: Border(
+                top: BorderSide(color: AppColors.colorBlack, width: 0.5)),
+            color: Colors.white),
       ),
-      width: double.infinity,
-      height: 50,
-      decoration: BoxDecoration(
-          border:
-              Border(top: BorderSide(color: AppColors.colorBlack, width: 0.5)),
-          color: Colors.white),
     );
   }
 

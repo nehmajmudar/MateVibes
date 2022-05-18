@@ -91,4 +91,5 @@ class AppString {
       "You're not connected with internet,please check your network connections";
 
   static String userIDKey = "USER_ID";
+  static String typeYourMessage = 'Type your message...';
 }
