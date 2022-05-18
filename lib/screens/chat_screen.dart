@@ -161,7 +161,6 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget buildInput() {
-    bool istexFieldEmpty = true;
     return SafeArea(
       child: Container(
         margin: EdgeInsets.only(

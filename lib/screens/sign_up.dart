@@ -463,9 +463,11 @@ class _SignUpState extends State<SignUp> {
     //     (context),
     //     MaterialPageRoute(builder: (context) => CreateAccount()),
     //     (route) => false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) => SignUpConfirmDialogue());
+    if (ConnectivityResult.mobile == true || ConnectivityResult.wifi == true) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => SignUpConfirmDialogue());
+    }
   }
 }

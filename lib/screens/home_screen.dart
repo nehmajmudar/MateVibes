@@ -1,14 +1,10 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:matevibes/Widgets/posts_card.dart';
 import 'package:matevibes/Widgets/story_button_widget.dart';
 import 'package:matevibes/Widgets/storydata.dart';
 import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
-import 'package:matevibes/res/app_string.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -23,6 +19,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   initState() {
     super.initState();
+
     subscription =
         Connectivity().onConnectivityChanged.listen(showConnectivityToast);
   }
