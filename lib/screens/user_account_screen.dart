@@ -1,15 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:matevibes/Widgets/posts_card.dart';
 import 'package:matevibes/Widgets/profile_screen_buttons.dart';
 import 'package:matevibes/Widgets/row_details_userprofile.dart';
-import 'package:matevibes/Widgets/user_profile_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/res/pick_image.dart';
-
 
 class UserAccountScreen extends StatefulWidget {
   const UserAccountScreen({Key? key}) : super(key: key);
@@ -33,12 +30,13 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
 
   void getUserDetails()async {
     try {
-      var snap = await FirebaseFirestore.instance.collection(
-          'users')
+      var snap = await FirebaseFirestore.instance
+          .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
 
-      var postSnap = await FirebaseFirestore.instance.collection('posts')
+      var postSnap = await FirebaseFirestore.instance
+          .collection('posts')
           .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get();
 
@@ -66,7 +64,6 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
     getUserDetails();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,21 +83,24 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
             ],
           ),
           Center(
-            child: Text(username,style: TextStyle(
-                fontSize: 20,
-                color: AppColors.colorLetsGetStarted,
-                fontWeight: FontWeight.w900,)
-            ),
+            child: Text(username,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: AppColors.colorLetsGetStarted,
+                  fontWeight: FontWeight.w900,
+                )),
           ),
           Center(
             child: Container(
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
-              margin: EdgeInsets.only(top: 5,bottom: 5),
-              child: Text("@$displayName",style: TextStyle(
-                  fontSize: 12,
-                  color: AppColors.colorToday,
-                  fontWeight: FontWeight.w900)
-              ),
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width / 19.5,
+                  right: MediaQuery.of(context).size.width / 19.5),
+              margin: EdgeInsets.only(top: 5, bottom: 5),
+              child: Text("@$displayName",
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: AppColors.colorToday,
+                      fontWeight: FontWeight.w900)),
             ),
           ),
           Center(
@@ -115,7 +115,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
             ),
           ),
           RowOfUserProfile(noOfPosts: postLen, noOfMedia: postLen, noOfFollowing: userFollowing, noOfFollowers: userFollowers),
-          ProfileScreenButtons(uid: FirebaseAuth.instance.currentUser!.uid,textFirstButton: AppString.txtEditProfile,textSecondButton: AppString.txtSignOut),
+          ProfileScreenButtons(uid: FirebaseAuth.instance.currentUser!.uid,textFirstButton: AppString.txtEditProfile,textSecondButton: AppString.txtSignOut, userDocumentSnapshot: {},),
           Expanded(
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance.collection('posts').snapshots(),
@@ -130,8 +130,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                       child: PostsCard(snap: snapshot.data!.docs[index].data()),
                     ),
                   );
-                }
-            ),
+                }),
           ),
         ],
       ),

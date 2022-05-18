@@ -24,16 +24,18 @@ void showConnectivityToast(ConnectivityResult result) {
         gravity: ToastGravity.SNACKBAR,
         backgroundColor: AppColors.colorRed,
         textColor: AppColors.colorWhite);
-    // Got a new connectivity status!
-  } else if (result == ConnectivityResult.mobile ||
-      result == ConnectivityResult.wifi) {
-    Fluttertoast.showToast(
-        msg: AppString.txtConnectedinternetToast,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.SNACKBAR,
-        backgroundColor: AppColors.greenColor,
-        textColor: AppColors.colorWhite);
-  } else {
+  }
+  // Got a new connectivity status!
+  // } else if (result == ConnectivityResult.mobile ||
+  //     result == ConnectivityResult.wifi) {
+  //   Fluttertoast.showToast(
+  //       msg: AppString.txtConnectedinternetToast,
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       gravity: ToastGravity.SNACKBAR,
+  //       backgroundColor: AppColors.greenColor,
+  //       textColor: AppColors.colorWhite);
+  // }
+  else {
     print(result.toString());
   }
 }

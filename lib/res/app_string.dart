@@ -90,5 +90,9 @@ class AppString {
   static String txtnoUserFoundFromThisMail = "No User Found from this mail,Please Enter Correct Details";
   static String txtaccountCreatedSuccessfully = "Account created successfully :)";
   static String txtConnectedinternetToast = "You're connected with internet.";
-  static String txtnoInternetToast = "You're not connected with internet,please check your network connections";
+  static String txtnoInternetToast =
+      "You're not connected with internet,please check your network connections";
+
+  static String userIDKey = "USER_ID";
+  static String typeYourMessage = 'Type your message...';
 }

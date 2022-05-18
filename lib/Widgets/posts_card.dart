@@ -4,23 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:matevibes/Widgets/firestore_methods.dart';
 import 'package:matevibes/res/app_colors.dart';
-import 'package:matevibes/res/app_string.dart';
-import 'package:matevibes/screens/member_account_screen.dart';
+
+import '../screens/member_account_screen.dart';
 
 class PostsCard extends StatefulWidget {
   final snap;
-  const PostsCard({Key? key,required this.snap}) : super(key: key);
+  const PostsCard({Key? key, required this.snap}) : super(key: key);
 
   @override
   _PostsCardState createState() => _PostsCardState();
 }
 
 class _PostsCardState extends State<PostsCard> {
-
-
-  int commentLen=0;
-  bool isLikeAnimating=false;
-
+  int commentLen = 0;
+  bool isLikeAnimating = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,48 +28,66 @@ class _PostsCardState extends State<PostsCard> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       // color: AppColors.colorWhite,
       // shape: ShapeBorder.,
-      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/26,right: MediaQuery.of(context).size.width/26,bottom: MediaQuery.of(context).size.height/76.72),
+      margin: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width / 26,
+          right: MediaQuery.of(context).size.width / 26,
+          bottom: MediaQuery.of(context).size.height / 76.72),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: AppColors.colorWhite,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.colorSkipforNow,
-              blurRadius: 15,
-            )
-          ]
-        ),
-        padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/26,horizontal: MediaQuery.of(context).size.height/56.26),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: AppColors.colorWhite,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.colorSkipforNow,
+                blurRadius: 15,
+              )
+            ]),
+        padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.width / 26,
+            horizontal: MediaQuery.of(context).size.height / 56.26),
         child: Column(
           children: [
             Row(
               children: [
                 GestureDetector(
-                  onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MemberAccountScreen(uid: widget.snap['uid'])));
+                  onTap: () {
+                    Map<String, dynamic> userMap = Map();
+                    userMap = widget.snap;
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            MemberAccountScreen(userData: userMap)));
                   },
-                  child: (widget.snap['profImage'] == "") ? CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/user_profile_img.png'),
-                  ) : CircleAvatar(
-                    backgroundImage: NetworkImage(widget.snap['profImage']),
+                  child: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage(widget.snap['profImage'].toString()),
                   ),
                 ),
                 Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5),
-                      child: Text(widget.snap['username'].toString(),style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.colorLetsGetStarted,
-                          fontWeight: FontWeight.w600,),),
+                      margin: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width / 19.5),
+                      child: Text(
+                        widget.snap['username'].toString(),
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.colorLetsGetStarted,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Manrope'),
+                      ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5),
-                      child: Text(DateFormat.yMMMMd().format(widget.snap['datePublished'].toDate()),style: TextStyle(
-                          fontSize: 11,
-                          color: AppColors.colorTimeOfPost,
-                          fontWeight: FontWeight.w300,),),
+                      margin: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width / 19.5),
+                      child: Text(
+                        DateFormat.yMMMMd()
+                            .format(widget.snap['datePublished'].toDate()),
+                        style: TextStyle(
+                            fontSize: 11,
+                            color: AppColors.colorTimeOfPost,
+                            fontWeight: FontWeight.w300,
+                            fontFamily: 'Manrope'),
+                      ),
                     )
                   ],
                 ),
@@ -80,39 +95,49 @@ class _PostsCardState extends State<PostsCard> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/64.92,bottom: MediaQuery.of(context).size.height/31.25),
-              child: Text(widget.snap['description'].toString(),softWrap:true,maxLines:10,style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.colorBlack,
-                  fontWeight: FontWeight.w800,),),
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height / 64.92,
+                  bottom: MediaQuery.of(context).size.height / 31.25),
+              child: Text(
+                widget.snap['description'].toString(),
+                softWrap: true,
+                maxLines: 10,
+                style: TextStyle(
+                    fontSize: 14,
+                    color: AppColors.colorBlack,
+                    fontWeight: FontWeight.w800,
+                    fontFamily: 'Manrope'),
+              ),
             ),
             ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(widget.snap['postUrl'].toString()),
-                      fit: BoxFit.cover),
-                  // image: Image(image: NetworkImage(widget.snap['postUrl'].toString())),
-                  boxShadow: [
+                  decoration: BoxDecoration(boxShadow: [
                     BoxShadow(
                       color: AppColors.colorSkipforNow,
                       blurRadius: 15,
                     )
-                  ]
-                ),
-                height: MediaQuery.of(context).size.height * 0.35,
-                width: double.infinity,
-              ),
+                  ]),
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  width: double.infinity,
+                  child: widget.snap['postUrl'] != null
+                      ? Image.network(
+                          widget.snap['postUrl'].toString(),
+                          fit: BoxFit.cover,
+                        )
+                      : CircularProgressIndicator()),
             ),
-            Container(                                                 //Divider
+            Container(
+              //Divider
               height: 1,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/31.25,bottom: MediaQuery.of(context).size.height/65.57),
-              width: MediaQuery.of(context).size.width/1.25,
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height / 31.25,
+                  bottom: MediaQuery.of(context).size.height / 65.57),
+              width: MediaQuery.of(context).size.width / 1.25,
               color: AppColors.colorHintText,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
                   child: Row(
