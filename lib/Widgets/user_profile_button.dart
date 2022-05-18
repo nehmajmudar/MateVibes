@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/screens/sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfileButton extends StatefulWidget {
 
@@ -20,6 +21,9 @@ class _UserProfileButtonState extends State<UserProfileButton> {
   void onTapActivity(String userButtonName)async{
     if(userButtonName==AppString.txtSignOut){
       await _auth.signOut();
+      SharedPreferences prefs=await SharedPreferences.getInstance();
+      prefs.remove('userId');
+      print('userId key removed? ${prefs.getString('userId')}');
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignIn()));
     }
   }

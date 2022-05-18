@@ -341,6 +341,7 @@ import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/screens/sign_up.dart';
 import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -356,42 +357,54 @@ class _SignInState extends State<SignIn> {
   }
 
   late StreamSubscription subscription;
-  late StreamSubscription<User?> user;
+  // late SharedPreferences userLogin;
+  // late bool newUser;
+  // bool userStatus=false;
+  // late StreamSubscription<User?> user;
 
   @override
   void initState() {
     super.initState();
     subscription =
         Connectivity().onConnectivityChanged.listen(showConnectivityToast);
-    user=FirebaseAuth.instance.authStateChanges().listen((user){
-      if(user==null){
-        print("User is signed out!");
-      }
-      else{
-        print("User is signed in.");
-      }
-    });
+    // checkUserLoginStatus();
+    // user=FirebaseAuth.instance.authStateChanges().listen((user){
+    //   if(user==null){
+    //     print("User is signed out!");
+    //   }
+    //   else{
+    //     print("User is signed in.");
+    //   }
+    // });
   }
+
+  // void checkUserLoginStatus()async{
+  //   userLogin=await SharedPreferences.getInstance();
+  //
+  //   // newUser=(userLogin.getBool('login')??true);
+  //   // if(newUser==true){
+  //   //   BottomNavBar();
+  //   // }
+  // }
 
   @override
   void dispose() {
     subscription.cancel();
-    user.cancel();
+    // user.cancel();
     super.dispose();
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.colorWhite,
-        body: FirebaseAuth.instance.currentUser==null?FutureBuilder(
-            future: _initializeFirebase(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return SignInScreenWidget();
-              }
-              return const Center(child: CircularProgressIndicator());
-            })
-            : BottomNavBar(),
+        body: FutureBuilder(
+                future: _initializeFirebase(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return SignInScreenWidget();
+                  }
+                return const Center(child: CircularProgressIndicator());
+            }),
         );
   }
 }
@@ -609,6 +622,11 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                   email: _emailController.text,
                                   password: _passwordController.text,
                                   context: context);
+                              SharedPreferences prefs=await SharedPreferences.getInstance();
+                              prefs.setBool('isLoggedIn', true);
+                              print('Is the user logged in? ${prefs.getBool('isLoggedIn')}');
+                              prefs.setString('userId', user!.uid);
+                              print('the logged in user id is ${prefs.getString('userId')}');
                               final result =
                               await Connectivity().checkConnectivity();
                               showConnectivityToastOnPress(result);

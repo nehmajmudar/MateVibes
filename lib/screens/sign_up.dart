@@ -437,8 +437,8 @@ class _SignUpState extends State<SignUp> {
 
     userModel.email = user!.email;
     userModel.uid = user.uid;
-    prefs.setString('uid', user.uid);
-    print(prefs.getString('uid'));
+    // prefs.setString('uid', user.uid);
+    // print(prefs.getString('uid'));
     userModel.username = usernameController.text;
     userModel.phoneNumber = phoneNumberController.text;
 

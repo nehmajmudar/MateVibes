@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/screens/chat_screen.dart';
 import 'package:matevibes/screens/create_account.dart';
+import 'package:matevibes/screens/create_option_screen.dart';
 import 'package:matevibes/screens/create_post_screen.dart';
 import 'package:matevibes/screens/home_page_screen.dart';
 import 'package:matevibes/screens/member_account_screen.dart';
@@ -57,13 +58,13 @@ class BottomNavBarState extends State<BottomNavBar> {
       case 1:
         return NotificationScreen();          ///Notification screen
       case 2:
-        return CreatePost();          ///Add post/story screen
+        return CreateOptionScreen();          ///Add post/story screen
       case 3:
         return ChatScreen();          ///Chat screen
-      // case 4:
-      //   return UserAccountScreen();          ///Profile screen
       case 4:
-        return MemberAccountScreen(uid: "tbRyJXnqyEWcVMjbYidQcpNQHEK2");
+        return UserAccountScreen();          ///Profile screen
+      // case 4:
+      //   return MemberAccountScreen(uid: "tbRyJXnqyEWcVMjbYidQcpNQHEK2");
       default:
         return HomePageScreen();
     }

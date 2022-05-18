@@ -145,9 +145,10 @@ class _CreatePostState extends State<CreatePost> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height/6.25,
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/15.6,right: MediaQuery.of(context).size.width/15.6,top: MediaQuery.of(context).size.height/12.05),
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/15.6,top: MediaQuery.of(context).size.height/12.05),
               color: AppColors.colorWhite,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     child: Text(
@@ -158,12 +159,13 @@ class _CreatePostState extends State<CreatePost> {
                           fontWeight: FontWeight.w800,
                           fontFamily: 'Manrope'),
                     ),
+                    alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(bottom: 5),
                   ),
                   Text(
                     AppString.txtCreatePost,
                     style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 16,
                         fontWeight: FontWeight.w900,
                         fontFamily: 'Manrope'),
                   ),
@@ -199,7 +201,6 @@ class _CreatePostState extends State<CreatePost> {
                         hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          fontFamily: 'Manrope',
                           color: AppColors.colorHintText,
                         ),
                       ),

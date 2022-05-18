@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:matevibes/Widgets/storydata.dart';
+import 'package:matevibes/pages/story_page.dart';
 import 'package:matevibes/res/app_colors.dart';
+import 'package:matevibes/screens/story_screen.dart';
 
 Widget storyButton(StoryData story, BuildContext context) {
   return Padding(
@@ -9,7 +11,7 @@ Widget storyButton(StoryData story, BuildContext context) {
       children: [
         GestureDetector(
           onTap: () {
-            print("Story Clicked");
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>StoryScreen()));
           },
           child: Container(
             width: 67,
@@ -30,7 +32,7 @@ Widget storyButton(StoryData story, BuildContext context) {
                     border: Border.all(color: AppColors.colorWhite),
                     image: DecorationImage(
                         image:
-                            AssetImage('lib/assets/images/login_bgimage.png'),
+                            AssetImage('assets/images/login_bgimage.png'),
                         fit: BoxFit.cover)),
               ),
             ),

@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:matevibes/Widgets/posts_card.dart';
 import 'package:matevibes/Widgets/story_button_widget.dart';
 import 'package:matevibes/Widgets/storydata.dart';
+import 'package:matevibes/Widgets/user_story_create_button.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 
@@ -77,7 +78,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       scrollDirection: Axis.vertical,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder:(ctx,index)=>Container(
-                        child: PostsCard(snap: snapshot.data!.docs[index].data()),
+                        child: PostsCard(snap: snapshot.data!.docs[index]),
                       ),
                     );
                   }

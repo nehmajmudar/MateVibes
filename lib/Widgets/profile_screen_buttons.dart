@@ -5,6 +5,7 @@ import 'package:matevibes/Widgets/firestore_methods.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/screens/sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreenButtons extends StatefulWidget {
   final String uid;
@@ -18,11 +19,23 @@ class ProfileScreenButtons extends StatefulWidget {
 
 class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
 
+  late SharedPreferences userLogin;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    initial();
+  }
+  void initial() async{
+    userLogin=await SharedPreferences.getInstance();
+  }
 
   Future<void> onTapActivity(String buttonName)async{
     print('sign out working?');
     if(buttonName==AppString.txtSignOut){
+      userLogin.setBool('isLoggedIn', false);
+      print(userLogin);
       await _auth.signOut();
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignIn()));
     }

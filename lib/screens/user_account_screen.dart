@@ -49,6 +49,10 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
         bio = snap.data()!['bio'];
         coverPhoto = snap.data()!['coverPhotoUrl'];
         profilePhoto = snap.data()!['photoUrl'];
+        userFollowers = snap.data()!['followers']!=null?snap.data()!['followers'].length:0;
+        userFollowing = snap.data()!['following']!=null?snap.data()!['following'].length:0;
+        isFollowing = snap.data()!['followers']!=null?snap.data()!['followers'].contains(
+            FirebaseAuth.instance.currentUser!.uid):false;
         postLen = postSnap.docs.length;
       });
     }catch(e){
@@ -110,7 +114,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
               ),
             ),
           ),
-          RowOfUserProfile(noOfPosts: postLen, noOfMedia: postLen, noOfFollowing: 100, noOfFollowers: 100),
+          RowOfUserProfile(noOfPosts: postLen, noOfMedia: postLen, noOfFollowing: userFollowing, noOfFollowers: userFollowers),
           ProfileScreenButtons(uid: FirebaseAuth.instance.currentUser!.uid,textFirstButton: AppString.txtEditProfile,textSecondButton: AppString.txtSignOut),
           Expanded(
             child: StreamBuilder(
