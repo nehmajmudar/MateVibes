@@ -60,6 +60,11 @@ class AppString {
   static String txtNoOfFollowers = "100";
   static String txtNoOfFollowing = "100";
   static String txtPosts = "Posts";
+  static String txtPost = "Post";
+  static String txtStory = "Story";
+  static String txtSelectStoryType = "Select story type";
+  static String txtImage = "Image";
+  static String txtText = "Text";
   static String txtFollowers = "Followers";
   static String txtFollowing = "Following";
   static String txtMedia = "Media";
@@ -78,14 +83,12 @@ class AppString {
   static String txtUnfollow = "Unfollow";
   static String txtComments = "Comments";
   static String txtAddAComment = "Add a comment...";
-  static String txtAccountCreatedSuccessfully =
-      "Your account has been created successfully.";
-  static String txtpasswordLinkSentSuccessfully =
-      "Password Link sent successfully";
-  static String txtnoUserFoundFromThisMail =
-      "No User Found from this mail,Please Enter Correct Details";
-  static String txtaccountCreatedSuccessfully =
-      "Account created successfully :)";
+  static String txtCreateStory = "Create Story";
+  static String txtSharePostOrStory = "Share Post/Story";
+  static String txtAccountCreatedSuccessfully = "Your account has been created successfully.";
+  static String txtpasswordLinkSentSuccessfully = "Password Link sent successfully";
+  static String txtnoUserFoundFromThisMail = "No User Found from this mail,Please Enter Correct Details";
+  static String txtaccountCreatedSuccessfully = "Account created successfully :)";
   static String txtConnectedinternetToast = "You're connected with internet.";
   static String txtnoInternetToast =
       "You're not connected with internet,please check your network connections";

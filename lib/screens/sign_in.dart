@@ -300,19 +300,18 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               showConnectivityToastOnPress(result);
                               print(user);
                               if (user != null &&
-                                  ConnectivityResult.none != true) {
-                                Navigator.pushNamed(context, "/navbar");
+                                      ConnectivityResult.mobile == true ||
+                                  ConnectivityResult.wifi == true) {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BottomNavBar()));
                               } else if (ConnectivityResult.none == true) {
                                 showConnectivityToastOnPress(result);
                               }
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width / 1.68,
-                              height:
-                                  MediaQuery.of(context).size.height / 18.75,
+                              height: MediaQuery.of(context).size.height / 18.75,
                               margin: EdgeInsets.only(
-                                bottom:
-                                    MediaQuery.of(context).size.height / 9.27,
+                                bottom: MediaQuery.of(context).size.height / 9.27,
                               ),
                               decoration: BoxDecoration(
                                   color: AppColors.colorSignInButton,
