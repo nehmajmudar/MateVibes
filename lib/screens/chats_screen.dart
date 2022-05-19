@@ -71,7 +71,8 @@ class _ChatsPageState extends State<ChatsPage> {
       peerUserId = messagechat.idTo;
       peerUserIdList.add(messagechat.idTo);
     } else {
-      peerUserId = messagechat.idTo;
+      peerUserId = messagechat.idFrom;
+      peerUserIdList.add(messagechat.idFrom);
     }
     if (peerUserId.isNotEmpty) {
       FirebaseFirestore.instance

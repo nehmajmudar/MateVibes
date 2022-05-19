@@ -122,10 +122,11 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
               noOfFollowing: 100,
               noOfFollowers: 100),
           ProfileScreenButtons(
-              userDocumentSnapshot: snap,
-              uid: FirebaseAuth.instance.currentUser!.uid,
-              textFirstButton: AppString.txtEditProfile,
-              textSecondButton: AppString.txtSignOut),
+            uid: FirebaseAuth.instance.currentUser!.uid,
+            textFirstButton: AppString.txtEditProfile,
+            textSecondButton: AppString.txtSignOut,
+            userDocumentSnapshot: {},
+          ),
           Expanded(
             child: StreamBuilder(
                 stream:

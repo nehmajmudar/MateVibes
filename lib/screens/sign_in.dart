@@ -36,13 +36,7 @@ class _SignInState extends State<SignIn> {
     subscription =
         Connectivity().onConnectivityChanged.listen(showConnectivityToast);
 
-    user = FirebaseAuth.instance.authStateChanges().listen((user) {
-      if (user == null) {
-        print("User is signed out!");
-      } else {
-        print("User is signed in.");
-      }
-    });
+    user = FirebaseAuth.instance.authStateChanges().listen((user) {});
   }
 
   @override
@@ -306,8 +300,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               showConnectivityToastOnPress(result);
                               print(user);
                               if (user != null &&
-                                      ConnectivityResult.mobile == true ||
-                                  ConnectivityResult.wifi == true) {
+                                  ConnectivityResult.none != true) {
                                 Navigator.pushNamed(context, "/navbar");
                               } else if (ConnectivityResult.none == true) {
                                 showConnectivityToastOnPress(result);

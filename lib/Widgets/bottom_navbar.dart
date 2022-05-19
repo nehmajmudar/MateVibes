@@ -5,6 +5,7 @@ import 'package:matevibes/screens/chats_screen.dart';
 import 'package:matevibes/screens/create_post_screen.dart';
 import 'package:matevibes/screens/home_page_screen.dart';
 import 'package:matevibes/screens/notification_screen.dart';
+import 'package:matevibes/screens/user_account_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -79,7 +80,7 @@ class BottomNavBarState extends State<BottomNavBar> {
 
       ///Chat screen
       case 4:
-      // return ChatsPage();
+        return UserAccountScreen();
 
       ///Profile screen
       // case 4:
