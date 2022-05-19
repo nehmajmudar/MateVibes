@@ -16,21 +16,21 @@ class UserAccountScreen extends StatefulWidget {
 }
 
 class _UserAccountScreenState extends State<UserAccountScreen> {
-  String username = "";
-  String uid = "";
-  String displayName = "";
-  String bio = "";
-  String coverPhoto = "";
-  String profilePhoto = "";
-  int userFollowers = 0;
-  int userFollowing = 0;
-  int postLen = 0;
-  bool isFollowing = false;
-  var snap;
+  String username="";
+  String uid="";
+  String displayName="";
+  String bio="";
+  String coverPhoto="";
+  String profilePhoto="";
+  int userFollowers=0;
+  int userFollowing=0;
+  int postLen=0;
+  bool isFollowing=false;
 
-  void getUserDetails() async {
+
+  void getUserDetails()async {
     try {
-      snap = await FirebaseFirestore.instance
+      var snap = await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
@@ -41,21 +41,25 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
           .get();
 
       setState(() {
-        username = snap.data()!['username'];
-        uid = snap.data()!['uid'];
+        username=snap.data()!['username'];
+        uid=snap.data()!['uid'];
         displayName = snap.data()!['displayName'];
         bio = snap.data()!['bio'];
         coverPhoto = snap.data()!['coverPhotoUrl'];
         profilePhoto = snap.data()!['photoUrl'];
+        userFollowers = snap.data()!['followers']!=null?snap.data()!['followers'].length:0;
+        userFollowing = snap.data()!['following']!=null?snap.data()!['following'].length:0;
+        isFollowing = snap.data()!['followers']!=null?snap.data()!['followers'].contains(
+            FirebaseAuth.instance.currentUser!.uid):false;
         postLen = postSnap.docs.length;
       });
-    } catch (e) {
+    }catch(e){
       showSnackBar(e.toString(), context);
     }
   }
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
     getUserDetails();
   }
@@ -72,9 +76,9 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
               coverProfileImage(),
               Positioned(
                 child: profileImage(),
-                top: MediaQuery.of(context).size.height / 6.0,
-                right: MediaQuery.of(context).size.width / 2.5,
-                left: MediaQuery.of(context).size.width / 2.5,
+                top: MediaQuery.of(context).size.height/6.0,
+                right: MediaQuery.of(context).size.width/2.5,
+                left: MediaQuery.of(context).size.width/2.5,
               )
             ],
           ),
@@ -101,44 +105,27 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
           ),
           Center(
             child: Container(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width / 19.5,
-                  right: MediaQuery.of(context).size.width / 19.5),
-              margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.height / 33.76),
-              child: Text(bio,
-                  softWrap: true,
-                  maxLines: 10,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.colorToday,
-                    fontWeight: FontWeight.w900,
-                  )),
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
+              margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/33.76),
+              child: Text(bio,softWrap: true,maxLines: 10,style: TextStyle(
+                  fontSize: 12,
+                  color: AppColors.colorToday,
+                  fontWeight: FontWeight.w900,)
+              ),
             ),
           ),
-          RowOfUserProfile(
-              noOfPosts: postLen,
-              noOfMedia: postLen,
-              noOfFollowing: 100,
-              noOfFollowers: 100),
-          ProfileScreenButtons(
-              userDocumentSnapshot: snap,
-              uid: FirebaseAuth.instance.currentUser!.uid,
-              textFirstButton: AppString.txtEditProfile,
-              textSecondButton: AppString.txtSignOut),
+          RowOfUserProfile(noOfPosts: postLen, noOfMedia: postLen, noOfFollowing: userFollowing, noOfFollowers: userFollowers),
+          ProfileScreenButtons(uid: FirebaseAuth.instance.currentUser!.uid,textFirstButton: AppString.txtEditProfile,textSecondButton: AppString.txtSignOut, userDocumentSnapshot: {},),
           Expanded(
             child: StreamBuilder(
-                stream:
-                    FirebaseFirestore.instance.collection('posts').snapshots(),
-                builder: (context,
-                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                        snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+                stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+                builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
+                  if(snapshot.connectionState==ConnectionState.waiting){
                     return Center(child: CircularProgressIndicator());
                   }
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (ctx, index) => Container(
+                    itemBuilder:(ctx,index)=>Container(
                       // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.33,vertical: 15),
                       child: PostsCard(snap: snapshot.data!.docs[index].data()),
                     ),
@@ -150,37 +137,40 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
     );
   }
 
-  Widget coverProfileImage() => Container(
-        height: MediaQuery.of(context).size.height / 4.22,
-        width: double.infinity,
-        margin:
-            EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 16.23),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: NetworkImage(coverPhoto), fit: BoxFit.cover),
-        ),
-      );
+  Widget coverProfileImage()=>
+    Container(
+      height: MediaQuery.of(context).size.height/4.22,
+      width: double.infinity,
+      margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/16.23),
+      decoration: BoxDecoration(
+          image: DecorationImage(image: NetworkImage(coverPhoto),fit: BoxFit.cover),
+      ),
+    );
 
-  Widget profileImage() => Container(
-        decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
-          BoxShadow(color: AppColors.colorWhite, blurRadius: 2, spreadRadius: 2)
-        ]),
-        child: CircleAvatar(
-          radius: 50,
-          backgroundImage: NetworkImage(profilePhoto),
-        ),
-      );
+  Widget profileImage()=>
+    Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(color: AppColors.colorWhite,blurRadius: 2,spreadRadius: 2)
+        ]
+      ),
+      child: CircleAvatar(
+        radius: 50,
+        backgroundImage: NetworkImage(profilePhoto),
+      ),
+    );
 
-  // Container(
-  //   decoration: BoxDecoration(
-  //     shape: BoxShape.circle,
-  //     borderRadius: BorderRadius.all(Radius.circular(50.0)),
-  //     color: AppColors.colorBlack38,
-  //     image: DecorationImage(
-  //       image: NetworkImage(profilePhoto),
-  //       fit: BoxFit.cover)
-  //     ),
-  //   // width: MediaQuery.of(context).size.height / 8.44,
-  //   // height: MediaQuery.of(context).size.height / 8.44,
-  // );
+    // Container(
+    //   decoration: BoxDecoration(
+    //     shape: BoxShape.circle,
+    //     borderRadius: BorderRadius.all(Radius.circular(50.0)),
+    //     color: AppColors.colorBlack38,
+    //     image: DecorationImage(
+    //       image: NetworkImage(profilePhoto),
+    //       fit: BoxFit.cover)
+    //     ),
+    //   // width: MediaQuery.of(context).size.height / 8.44,
+    //   // height: MediaQuery.of(context).size.height / 8.44,
+    // );
 }

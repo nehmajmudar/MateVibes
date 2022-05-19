@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
+import 'package:matevibes/screens/chat_screen.dart';
 import 'package:matevibes/screens/chats_screen.dart';
+import 'package:matevibes/screens/create_account.dart';
+import 'package:matevibes/screens/create_option_screen.dart';
 import 'package:matevibes/screens/create_post_screen.dart';
 import 'package:matevibes/screens/home_page_screen.dart';
 import 'package:matevibes/screens/notification_screen.dart';
+import 'package:matevibes/screens/user_account_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -69,9 +73,7 @@ class BottomNavBarState extends State<BottomNavBar> {
 
       ///Notification screen
       case 2:
-        return CreatePost();
-
-      ///Add post/story screen
+        return CreateOptionScreen();          ///Add post/story screen
       case 3:
         return ChatsPage(
           userData: {},
@@ -79,6 +81,7 @@ class BottomNavBarState extends State<BottomNavBar> {
 
       ///Chat screen
       case 4:
+        return UserAccountScreen();
       // return ChatsPage();
 
       ///Profile screen

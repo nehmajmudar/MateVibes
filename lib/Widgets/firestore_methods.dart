@@ -9,6 +9,8 @@ import 'package:matevibes/models/user_model.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:uuid/uuid.dart';
 
+import '../models/story_model.dart';
+
 class FireStoreMethods{
   final FirebaseFirestore _firestore=FirebaseFirestore.instance;
 
@@ -32,6 +34,41 @@ class FireStoreMethods{
       _firestore.collection('posts').doc(postId).set(post.toMap());
       res=AppString.txtSuccess;
       return res;
+    }catch(err){
+      res=err.toString();
+    }
+    return "";
+  }
+
+
+  Future<String> uploadStory({
+      required String uid,
+      Uint8List? file,
+      String? storyCaption,}
+      )async{
+    String res=AppString.txtSomeErrorOccurred;
+
+    try{
+      if(file==null){
+        String storyId=Uuid().v1();
+        print(storyId);
+        StoryModel story=StoryModel(uid: uid,storyId: storyId,caption: storyCaption);
+
+        _firestore.collection('stories').doc(storyId).set(story.toMap());
+        res=AppString.txtSuccess;
+        return res;
+      }
+      else{
+        String photoUrl=await StorageMethods().uploadStoryToStorage('stories',file,true);
+        String storyId=Uuid().v1();
+        print(photoUrl);
+        print(storyId);
+        StoryModel story=StoryModel(uid: uid,storyId: storyId,storyUrl: photoUrl,caption: storyCaption);
+
+        _firestore.collection('stories').doc(storyId).set(story.toMap());
+        res=AppString.txtSuccess;
+        return res;
+      }
     }catch(err){
       res=err.toString();
     }
