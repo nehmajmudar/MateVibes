@@ -124,7 +124,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                     return Center(child: CircularProgressIndicator());
                   }
                   return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
+                    itemCount: snapshot.data!=null?snapshot.data!.docs.length:0,
                     itemBuilder:(ctx,index)=>Container(
                       // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.33,vertical: 15),
                       child: PostsCard(snap: snapshot.data!.docs[index].data()),

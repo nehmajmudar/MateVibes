@@ -29,9 +29,11 @@ class _PostsCardState extends State<PostsCard> {
       // color: AppColors.colorWhite,
       // shape: ShapeBorder.,
       margin: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height / 168.8,
           left: MediaQuery.of(context).size.width / 26,
           right: MediaQuery.of(context).size.width / 26,
-          bottom: MediaQuery.of(context).size.height / 76.72),
+          bottom: MediaQuery.of(context).size.height / 168.8),
+      elevation: 0,
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -39,7 +41,7 @@ class _PostsCardState extends State<PostsCard> {
             boxShadow: [
               BoxShadow(
                 color: AppColors.colorSkipforNow,
-                blurRadius: 15,
+                blurRadius: 2,
               )
             ]),
         padding: EdgeInsets.symmetric(
@@ -63,10 +65,11 @@ class _PostsCardState extends State<PostsCard> {
                   ),
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width / 19.5),
+                          left: MediaQuery.of(context).size.width / 39),
                       child: Text(
                         widget.snap['username'].toString(),
                         style: TextStyle(
@@ -78,7 +81,7 @@ class _PostsCardState extends State<PostsCard> {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width / 19.5),
+                          left: MediaQuery.of(context).size.width / 39),
                       child: Text(
                         DateFormat.yMMMMd()
                             .format(widget.snap['datePublished'].toDate()),

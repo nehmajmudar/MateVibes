@@ -149,7 +149,7 @@ class _CreatePostState extends State<CreatePost> {
                   onPressed: () async {
                     final result = await Connectivity().checkConnectivity();
                     showConnectivityToastOnPress(result);
-                    if (ConnectivityResult.none == false) {
+                    if (ConnectivityResult.none != false) {
                       selectImage(context);
                     }
                   },

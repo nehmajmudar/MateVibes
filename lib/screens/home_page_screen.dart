@@ -48,24 +48,47 @@ class _HomePageScreenState extends State<HomePageScreen> {
           child: Column(
             children: [
               Container(
-                  width: double.infinity,
-                  height: 150,
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/36.7),
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      storyButton(stories[0], context),
-                      storyButton(stories[1], context),
-                      storyButton(stories[2], context),
-                      storyButton(stories[3], context),
-                      storyButton(stories[4], context),
-                      storyButton(stories[4], context),
-                      storyButton(stories[4], context),
-                      storyButton(stories[4], context),
-                      storyButton(stories[4], context),
-                    ],
-                  )
+                color: AppColors.colorBackgroundColor,
+                width: double.infinity,
+                height: 100,
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance.collection('stories').snapshots(),
+                  builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
+                    if(snapshot.connectionState==ConnectionState.waiting){
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (ctx,index){
+                        return storyButton(context,snapshot.data!.docs[index]);
+                      },
+                    );
+                  }
+                ),
               ),
+              // Container(
+              //     width: double.infinity,
+              //     height: 150,
+              //     margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/36.7),
+              //     child: ListView(
+              //       scrollDirection: Axis.horizontal,
+              //       children: [
+              //         storyButton(stories[0], context),
+              //         storyButton(stories[1], context),
+              //         storyButton(stories[2], context),
+              //         storyButton(stories[3], context),
+              //         storyButton(stories[4], context),
+              //         storyButton(stories[4], context),
+              //         storyButton(stories[4], context),
+              //         storyButton(stories[4], context),
+              //         storyButton(stories[4], context),
+              //       ],
+              //     )
+              // ),
               Expanded(
                 child: StreamBuilder(
                   stream: FirebaseFirestore.instance.collection('posts').snapshots(),
