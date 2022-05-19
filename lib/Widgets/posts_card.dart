@@ -108,7 +108,7 @@ class _PostsCardState extends State<PostsCard> {
                 style: TextStyle(
                     fontSize: 14,
                     color: AppColors.colorBlack,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w400,
                     fontFamily: 'Manrope'),
               ),
             ),
@@ -153,7 +153,8 @@ class _PostsCardState extends State<PostsCard> {
                         child: Text('${widget.snap['likes'].length}',style: TextStyle(
                           fontSize: 15,
                           color: AppColors.colorTimeOfPost,
-                          fontWeight: FontWeight.w300,),),
+                          fontWeight: FontWeight.w300,
+                          fontFamily: 'Manrope',),),
                       ),
                     ],
                   ),
@@ -166,7 +167,8 @@ class _PostsCardState extends State<PostsCard> {
                         child: Text("80",style: TextStyle(
                           fontSize: 15,
                           color: AppColors.colorTimeOfPost,
-                          fontWeight: FontWeight.w300,),),
+                          fontWeight: FontWeight.w300,
+                          fontFamily: 'Manrope',),),
                       ),
                     ],
                   ),

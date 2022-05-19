@@ -28,12 +28,14 @@ class _RowOfUserProfileState extends State<RowOfUserProfile> {
               Text(AppString.txtPosts,style: TextStyle(
                   fontSize: 14,
                   color: AppColors.colorLetsGetStarted,
-                  fontWeight: FontWeight.bold,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
               ),
               Text("${widget.noOfPosts}",style: TextStyle(
                   fontSize: 12,
                   color: AppColors.colorTimeOfPost,
-                  fontWeight: FontWeight.bold,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
               ),
             ],
           ),
@@ -42,12 +44,14 @@ class _RowOfUserProfileState extends State<RowOfUserProfile> {
               Text(AppString.txtMedia,style: TextStyle(
                   fontSize: 14,
                   color: AppColors.colorLetsGetStarted,
-                  fontWeight: FontWeight.bold,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
               ),
               Text("${widget.noOfMedia}",style: TextStyle(
                   fontSize: 12,
                   color: AppColors.colorTimeOfPost,
-                  fontWeight: FontWeight.bold,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
               ),
             ],
           ),
@@ -61,7 +65,8 @@ class _RowOfUserProfileState extends State<RowOfUserProfile> {
               Text("${widget.noOfFollowing}",style: TextStyle(
                   fontSize: 12,
                   color: AppColors.colorTimeOfPost,
-                  fontWeight: FontWeight.bold,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
               ),
             ],
           ),
@@ -70,12 +75,14 @@ class _RowOfUserProfileState extends State<RowOfUserProfile> {
               Text(AppString.txtFollowers,style: TextStyle(
                   fontSize: 14,
                   color: AppColors.colorLetsGetStarted,
-                  fontWeight: FontWeight.bold,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
               ),
               Text("${widget.noOfFollowers}",style: TextStyle(
                   fontSize: 12,
                   color: AppColors.colorTimeOfPost,
-                  fontWeight: FontWeight.bold,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
               ),
             ],
           ),

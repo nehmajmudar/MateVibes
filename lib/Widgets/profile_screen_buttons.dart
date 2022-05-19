@@ -94,7 +94,8 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
                 style: TextStyle(
                     color: AppColors.colorSelectedItemNavBar,
                     fontSize: 12,
-                    fontWeight: FontWeight.bold),
+                    fontFamily: 'Manrope',
+                    fontWeight: FontWeight.w800),
               ),
             ),
           ),
@@ -110,7 +111,9 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
                 borderRadius: BorderRadius.all(Radius.circular(7)),
                 border: Border.all(color: AppColors.colorBlack)
               ),
-              child: Text(widget.textSecondButton,style: TextStyle(color: AppColors.colorSelectedItemNavBar,fontSize: 12,fontWeight: FontWeight.bold),),
+              child: Text(widget.textSecondButton,style: TextStyle(color: AppColors.colorSelectedItemNavBar,fontSize: 12,
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800),),
             ),
           )
         ],

@@ -131,7 +131,8 @@ class _CreateAccountState extends State<CreateAccount> {
                           "Hi $username",
                           style: TextStyle(
                               fontSize: 24,
-                              fontWeight: FontWeight.w900,),
+                              fontFamily: 'Manrope',
+                              fontWeight: FontWeight.w800),
                         ),
                         margin: EdgeInsets.only(
                             bottom: MediaQuery.of(context).size.height / 168),
@@ -142,7 +143,8 @@ class _CreateAccountState extends State<CreateAccount> {
                           style: TextStyle(
                               color: AppColors.colorSignInToContinue,
                               fontSize: 14,
-                              fontWeight: FontWeight.w900,),
+                              fontFamily: 'Manrope',
+                              fontWeight: FontWeight.w800),
                         ),
                         margin: EdgeInsets.only(
                           bottom: MediaQuery.of(context).size.height / 18,
@@ -172,7 +174,8 @@ class _CreateAccountState extends State<CreateAccount> {
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
                               color: AppColors.colorHintText,
-                            ),
+                              fontFamily: 'Manrope',
+                              ),
                           ),
                         ),
                       ),
@@ -201,6 +204,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
                               color: AppColors.colorHintText,
+                              fontFamily: 'Manrope',
                             ),
                           ),
                         ),
@@ -228,6 +232,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             hintStyle: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
+                              fontFamily: 'Manrope',
                               color: AppColors.colorHintText,
                             ),
                           ),
@@ -262,6 +267,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: AppColors.colorWhite,
+                                        fontFamily: 'Manrope',
                                         fontWeight: FontWeight.w700,),
                                   ),
                                 ),
@@ -278,7 +284,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                   style: TextStyle(
                                       color: AppColors.colorSignInToContinue,
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w800,
+                                      fontWeight: FontWeight.w700,
                                       fontFamily: 'Manrope'),
                                 ),
                               )

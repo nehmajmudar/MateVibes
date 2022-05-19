@@ -87,7 +87,8 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                 style: TextStyle(
                   fontSize: 20,
                   color: AppColors.colorLetsGetStarted,
-                  fontWeight: FontWeight.w900,
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800
                 )),
           ),
           Center(
@@ -100,7 +101,8 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                   style: TextStyle(
                       fontSize: 12,
                       color: AppColors.colorToday,
-                      fontWeight: FontWeight.w900)),
+                      fontFamily: 'Manrope',
+                      fontWeight: FontWeight.w600)),
             ),
           ),
           Center(
@@ -110,7 +112,8 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
               child: Text(bio,softWrap: true,maxLines: 10,style: TextStyle(
                   fontSize: 12,
                   color: AppColors.colorToday,
-                  fontWeight: FontWeight.w900,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w400)
               ),
             ),
           ),

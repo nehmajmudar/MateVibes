@@ -98,7 +98,8 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
                 style: TextStyle(
                   fontSize: 20,
                   color: AppColors.colorLetsGetStarted,
-                  fontWeight: FontWeight.w900,
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800,
                 )),
           ),
           Center(
@@ -111,7 +112,8 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
                   style: TextStyle(
                     fontSize: 12,
                     color: AppColors.colorToday,
-                    fontWeight: FontWeight.w900,
+                      fontFamily: 'Manrope',
+                      fontWeight: FontWeight.w600
                   )),
             ),
           ),
@@ -128,7 +130,8 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
                   style: TextStyle(
                     fontSize: 12,
                     color: AppColors.colorToday,
-                    fontWeight: FontWeight.w900,
+                      fontFamily: 'Manrope',
+                      fontWeight: FontWeight.w400
                   )),
             ),
           ),

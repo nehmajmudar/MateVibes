@@ -45,7 +45,8 @@ Widget storyButton(BuildContext context, QueryDocumentSnapshot<Map<String, dynam
         Expanded(
           child: Container(
               margin: EdgeInsets.only(top: 5),
-              child: Text(username,style: TextStyle(fontSize: 10),)),
+              child: Text(username,style: TextStyle(fontSize: 10,fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w400),)),
         )
       ],
     ),
