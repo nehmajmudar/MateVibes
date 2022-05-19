@@ -317,7 +317,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               print(user);
                               if (user != null &&
                                       ConnectivityResult.none != true) {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BottomNavBar()));
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>BottomNavBar()));
                               } else if (ConnectivityResult.none == true) {
                                 showConnectivityToastOnPress(result);
                               }
