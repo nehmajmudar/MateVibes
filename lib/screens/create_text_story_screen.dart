@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/Widgets/firestore_methods.dart';
 import 'package:matevibes/models/story_model.dart';
 import 'package:matevibes/res/app_colors.dart';
@@ -18,6 +19,7 @@ class _CreateTextStoryScreenState extends State<CreateTextStoryScreen> {
 
   TextEditingController storyTextController=TextEditingController();
   String uid="";
+  bool isLoading=false;
 
   @override
   void initState() {
@@ -37,11 +39,21 @@ class _CreateTextStoryScreenState extends State<CreateTextStoryScreen> {
       String uid
       )async{
     try{
+      setState(() {
+        isLoading=true;
+      });
       String res=await FireStoreMethods().uploadStory(uid: uid,storyCaption: storyTextController.text);
       if(res==AppString.txtSuccess){
+        setState(() {
+          isLoading=false;
+        });
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
         showSnackBar('Posted!', context);
       }
       else{
+        setState(() {
+          isLoading=false;
+        });
         showSnackBar(res, context);
       }
     }catch(e){
@@ -136,13 +148,14 @@ class _CreateTextStoryScreenState extends State<CreateTextStoryScreen> {
                             color: AppColors.colorSignInButton,
                             borderRadius: BorderRadius.all(Radius.circular(50))),
                         alignment: Alignment.center,
-                        child: Text(
+                        child: !isLoading?Text(
                           AppString.txtShare.toUpperCase(),
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.colorWhite,
                             fontWeight: FontWeight.w800,),
-                        ),
+                        )
+                            :CircularProgressIndicator()
                       ),
                     ),
                   )
