@@ -1,14 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/Widgets/storydata.dart';
-import 'package:matevibes/pages/story_page.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/screens/story_screen.dart';
 
 Widget storyButton(BuildContext context, QueryDocumentSnapshot<Map<String, dynamic>> snap,) {
-  String username=snap.data()['username']!=null?snap.data()['username']:"";
+  // String username=snap.data()['username']!=null?snap.data()['username']:"";
   String userId=snap.data()['uid'];
-  String profImage=snap.data()['photoUrl']!=null?snap.data()['photoUrl']:"";
+  // String profImage=snap.data()['photoUrl']!=null?snap.data()['photoUrl']:"";
+  String profImage="";
+  String username="";
+  void getUserDetails()async{
+    var userSnap=await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    profImage=userSnap.data()!['photoUrl']!=null?userSnap.data()!['photoUrl']:"";
+    username=userSnap.data()!['username']!=null?userSnap.data()!['username']:"";
+  }
   return Padding(
     padding: const EdgeInsets.all(3.0),
     child: Column(

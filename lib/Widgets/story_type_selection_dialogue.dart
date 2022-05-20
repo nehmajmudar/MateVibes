@@ -62,14 +62,14 @@ class _StoryTypeSelectionDialogueState extends State<StoryTypeSelectionDialogue>
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(30))
+          borderRadius: BorderRadius.all(Radius.circular(50))
         ),
-        height: MediaQuery.of(context).size.height/3.71,
+        height: MediaQuery.of(context).size.height/7.4,
         width: MediaQuery.of(context).size.width/1.25,
         child: Center(
           child: Column(
             children: [
-              Text(AppString.txtSelectStoryType,softWrap: true,maxLines: 2,style: TextStyle(color: AppColors.colorLetsGetStarted,fontSize: 18),),
+              Text(AppString.txtSelectStoryType,softWrap: true,maxLines: 2,style: TextStyle(color: AppColors.colorLetsGetStarted,fontSize: 18,fontFamily: 'Manrope',fontWeight: FontWeight.w700),),
               Container(
                 margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/40),
                 child: Row(
@@ -78,6 +78,7 @@ class _StoryTypeSelectionDialogueState extends State<StoryTypeSelectionDialogue>
                     GestureDetector(
                       onTap: ()=>selectImage(context),
                       child: Container(
+                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: AppColors.colorSignInButton,
                             borderRadius: BorderRadius.all(
@@ -91,6 +92,7 @@ class _StoryTypeSelectionDialogueState extends State<StoryTypeSelectionDialogue>
                         Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CreateTextStoryScreen()));
                       },
                       child: Container(
+                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: AppColors.colorSignInButton,
                             borderRadius: BorderRadius.all(

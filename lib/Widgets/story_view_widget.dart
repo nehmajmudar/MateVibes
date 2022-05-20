@@ -20,7 +20,7 @@ class _StoryViewWidgetState extends State<StoryViewWidget> {
         storyItems.add(StoryItem.text(title: story['caption'], backgroundColor: AppColors.colorWhite));
       }
       else{
-        storyItems.add(StoryItem.pageImage(url: story['storyUrl'], controller: controller,caption: story['caption']));
+        storyItems.add(StoryItem.inlineImage(url: story['storyUrl'], controller: controller,caption: Text(story['caption'])));
       }
     }
   }

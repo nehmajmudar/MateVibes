@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:matevibes/Widgets/posts_card.dart';
+import 'package:matevibes/Widgets/story_button_user.dart';
 import 'package:matevibes/Widgets/story_button_widget.dart';
 import 'package:matevibes/Widgets/storydata.dart';
 import 'package:matevibes/Widgets/user_story_create_button.dart';
@@ -17,28 +18,28 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
 
-  List<StoryData> stories = [
-    new StoryData(
-        username: 'Bhargav Dobariya',
-        avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
-        storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
-    new StoryData(
-        username: 'Bhargav',
-        avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
-        storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
-    new StoryData(
-        username: 'Bhargav',
-        avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
-        storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
-    new StoryData(
-        username: 'Bhargav',
-        avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
-        storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
-    new StoryData(
-        username: 'Bhargav',
-        avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
-        storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
-  ];
+  // List<StoryData> stories = [
+  //   new StoryData(
+  //       username: 'Bhargav Dobariya',
+  //       avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
+  //       storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
+  //   new StoryData(
+  //       username: 'Bhargav',
+  //       avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
+  //       storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
+  //   new StoryData(
+  //       username: 'Bhargav',
+  //       avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
+  //       storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
+  //   new StoryData(
+  //       username: 'Bhargav',
+  //       avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
+  //       storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
+  //   new StoryData(
+  //       username: 'Bhargav',
+  //       avatarUrl: AssetImage('assets/images/forgot_password_img.png'),
+  //       storyUrl: 'https://unsplash.com/photos/mEZ3PoFGs_k'),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 width: double.infinity,
                 height: 100,
                 child: StreamBuilder(
-                  stream: FirebaseFirestore.instance.collection('stories').snapshots(),
+                  stream: FirebaseFirestore.instance.collection('users').where('storyIds', isNull: false).snapshots(),
                   builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
                     if(snapshot.connectionState==ConnectionState.waiting){
                       return Center(
@@ -64,7 +65,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (ctx,index){
-                        return storyButton(context,snapshot.data!.docs[index]);
+                        return StoryButtonUser(snap: snapshot.data!.docs[index]);
                       },
                     );
                   }

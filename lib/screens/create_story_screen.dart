@@ -8,6 +8,7 @@ import 'package:matevibes/models/story_model.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/res/pick_image.dart';
+import 'package:matevibes/screens/create_option_screen.dart';
 
 class CreateStoryScreen extends StatefulWidget {
   final Uint8List imageFile;
@@ -43,6 +44,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       String res=await FireStoreMethods().uploadStory(uid: uid,file: widget.imageFile,storyCaption: storyCaptionController.text);
       if(res==AppString.txtSuccess){
         showSnackBar('Posted!', context);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>CreateOptionScreen()));
       }
       else{
         showSnackBar(res, context);
