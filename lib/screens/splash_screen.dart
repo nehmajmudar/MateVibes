@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
@@ -16,35 +15,32 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
     // String uid=checkUserStatus() as String;
     checkUserStatus();
   }
 
-  void checkUserStatus()async{
-    SharedPreferences prefs=await SharedPreferences.getInstance();
-    var userStatus=prefs.getBool('isLoggedIn');
+  void checkUserStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userStatus = prefs.getBool('isLoggedIn');
     print(userStatus);
-    (userStatus!=null && userStatus==true)?Timer(Duration(seconds: 10),
-            ()=>Navigator.pushReplacement(context,
-            MaterialPageRoute(builder:
-                (context) =>
-                BottomNavBar()
-            )
-        )
-    )
-        :Timer(Duration(seconds: 10),
-            ()=>Navigator.pushReplacement(context,
-            MaterialPageRoute(builder:
-                (context) =>
-                SignIn()
-            )
-        )
-    );
+    (userStatus != null && userStatus == true)
+        ? Timer(
+            Duration(seconds: 10),
+            () => Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BottomNavBar(
+                          selectedIndex: 0,
+                        ))))
+        : Timer(
+            Duration(seconds: 10),
+            () => Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => SignIn())));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +49,13 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(image: AssetImage('assets/images/MateVibes_logo.png')),
-            Text(AppString.txtMateVibes,style: TextStyle(fontSize: 36,fontFamily: 'Pacifico',foreground: Paint()..shader=AppColors.colorMateVibes),)
+            Text(
+              AppString.txtMateVibes,
+              style: TextStyle(
+                  fontSize: 36,
+                  fontFamily: 'Pacifico',
+                  foreground: Paint()..shader = AppColors.colorMateVibes),
+            )
           ],
         ),
       ),

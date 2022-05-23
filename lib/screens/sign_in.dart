@@ -58,7 +58,9 @@ class _SignInState extends State<SignIn> {
                 }
                 return const Center(child: CircularProgressIndicator());
               })
-          : BottomNavBar(),
+          : BottomNavBar(
+              selectedIndex: 0,
+            ),
     );
   }
 }
@@ -204,7 +206,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                             child: TextFormField(
                               controller: _emailController,
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(13),
+                                contentPadding: EdgeInsets.all(10),
                                 hintText: AppString.txtEmailAddress,
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide.none,
@@ -300,18 +302,23 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               showConnectivityToastOnPress(result);
                               print(user);
                               if (user != null &&
-                                      ConnectivityResult.mobile == true ||
-                                  ConnectivityResult.wifi == true) {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BottomNavBar()));
+                                  ConnectivityResult.none != true) {
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => BottomNavBar(
+                                              selectedIndex: 0,
+                                            )));
                               } else if (ConnectivityResult.none == true) {
                                 showConnectivityToastOnPress(result);
                               }
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width / 1.68,
-                              height: MediaQuery.of(context).size.height / 18.75,
+                              height:
+                                  MediaQuery.of(context).size.height / 18.75,
                               margin: EdgeInsets.only(
-                                bottom: MediaQuery.of(context).size.height / 9.27,
+                                bottom:
+                                    MediaQuery.of(context).size.height / 9.27,
                               ),
                               decoration: BoxDecoration(
                                   color: AppColors.colorSignInButton,

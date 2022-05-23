@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/models/chat_data.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -54,25 +55,49 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-            title: Text(
-              "Chat",
-              style: TextStyle(
-                fontSize: MediaQuery.of(context).size.height / 28,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => BottomNavBar(
+                    selectedIndex: 3,
+                  ))),
+        );
+        return true;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+              leading: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => BottomNavBar(
+                              selectedIndex: 3,
+                            ))),
+                  );
+                },
+                child: Icon(Icons.arrow_back),
               ),
-            ),
-            backgroundColor: AppColors.colorHintText,
-            centerTitle: true),
-        body: Stack(
-          children: [
-            Container(
-                margin: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).size.height / 18),
-                child: buildUiMessages()),
-            Container(alignment: Alignment.bottomCenter, child: buildInput()),
-          ],
+              title: Text(
+                "Chat",
+                style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.height / 28,
+                ),
+              ),
+              backgroundColor: AppColors.colorHintText,
+              centerTitle: true),
+          body: Stack(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 18),
+                  child: buildUiMessages()),
+              Container(alignment: Alignment.bottomCenter, child: buildInput()),
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:matevibes/screens/chats_screen.dart';
 import 'package:matevibes/screens/create_account.dart';
 import 'package:matevibes/screens/forgot_password.dart';
 import 'package:matevibes/Widgets/bottom_navbar.dart';
@@ -40,13 +41,14 @@ class _MyAppState extends State<MyApp> {
         '/': (context) => SplashScreen(),
         '/splash_screen': (context) => SplashScreen(),
         "/home": (context) => HomePageScreen(),
-        '/navbar': (context) => BottomNavBar(),
+        '/navbar': (context) => BottomNavBar(selectedIndex: 0),
         "/sign_up": (context) => SignUp(),
         "/sign_in": (context) => SignIn(),
         '/forgot_password': (context) => ForgotPassword(),
         '/notification_screen': (context) => NotificationScreen(),
         // '/chat_screen': (context) => ChatScreen(),
         '/create_account_screen': (context) => CreateAccount(),
+        '/chats_page': (context) => ChatsPage(userData: {})
       },
     );
   }

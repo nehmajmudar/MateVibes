@@ -35,10 +35,13 @@ class _ChatsPageState extends State<ChatsPage> {
   @override
   initState() {
     super.initState();
-    obj = FirebaseFirestore.instance;
-
     subscription =
         Connectivity().onConnectivityChanged.listen(showConnectivityToast);
+    ;
+    initChat();
+  }
+
+  void initChat() {
     SharedPreferences.getInstance().then((sharedPref) async {
       _pref = sharedPref;
 
@@ -83,6 +86,7 @@ class _ChatsPageState extends State<ChatsPage> {
         UserModel userModel = UserModel.fromMap(userDocumentSnapshot.data());
         if (!chatListUsers.any((element) => element.uid == userModel.uid)) {
           chatListUsers.add(userModel);
+
           setState(() {});
         }
       });
@@ -153,10 +157,14 @@ class _ChatsPageState extends State<ChatsPage> {
               iconSize: MediaQuery.of(context).size.height / 34.4,
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => (ChatSearchScreen())));
-                setState(() {});
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => (ChatSearchScreen())))
+                    .then((value) {
+                  initChat();
+                  print("checking~~~~~~`chat");
+                  setState(() {});
+                });
               },
             ))
       ],
