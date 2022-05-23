@@ -88,7 +88,7 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
               decoration: BoxDecoration(
                   color: AppColors.colorWhite,
                   borderRadius: BorderRadius.all(Radius.circular(7)),
-                  border: Border.all(color: AppColors.colorBlack)),
+                  border: Border.all(color: AppColors.colorSelectedItemNavBar)),
               child: Text(
                 widget.textFirstButton,
                 style: TextStyle(
@@ -109,7 +109,7 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
               decoration: BoxDecoration(
                 color: AppColors.colorWhite,
                 borderRadius: BorderRadius.all(Radius.circular(7)),
-                border: Border.all(color: AppColors.colorBlack)
+                border: Border.all(color: AppColors.colorSelectedItemNavBar)
               ),
               child: Text(widget.textSecondButton,style: TextStyle(color: AppColors.colorSelectedItemNavBar,fontSize: 12,
                   fontFamily: 'Manrope',

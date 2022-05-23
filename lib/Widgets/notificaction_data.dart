@@ -40,7 +40,7 @@ class _NotificationDataState extends State<NotificationData> {
                       text: AppString.txtDiana,
                       style: TextStyle(
                           fontSize: 12,
-                          color: AppColors.colorForgotPassword,
+                          color: AppColors.colorLetsGetStarted,
                           fontWeight: FontWeight.w800,
                           fontFamily: 'Manrope'),
                     ),
@@ -48,7 +48,7 @@ class _NotificationDataState extends State<NotificationData> {
                         text: " commented on your post",
                         style: TextStyle(
                             fontSize: 12,
-                            color: AppColors.colorSignInButton,
+                            color: AppColors.colorLetsGetStarted,
                             fontWeight: FontWeight.w400,
                             fontFamily: 'Manrope'),
                         recognizer: TapGestureRecognizer()..onTap = () {}),
@@ -59,7 +59,7 @@ class _NotificationDataState extends State<NotificationData> {
                 "2 hour ago",
                 style: TextStyle(
                     fontSize: 8,
-                    color: AppColors.colorSignInButton,
+                    color: AppColors.colorHintText,
                     fontWeight: FontWeight.w300,
                     fontFamily: 'Manrope'),
               )

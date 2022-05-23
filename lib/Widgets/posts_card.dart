@@ -45,8 +45,8 @@ class _PostsCardState extends State<PostsCard> {
               )
             ]),
         padding: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.width / 26,
-            horizontal: MediaQuery.of(context).size.height / 56.26),
+            horizontal: MediaQuery.of(context).size.width / 26,
+            vertical: MediaQuery.of(context).size.height / 56.26),
         child: Column(
           children: [
             Row(
@@ -137,7 +137,7 @@ class _PostsCardState extends State<PostsCard> {
                   top: MediaQuery.of(context).size.height / 31.25,
                   bottom: MediaQuery.of(context).size.height / 65.57),
               width: MediaQuery.of(context).size.width / 1.25,
-              color: AppColors.colorHintText,
+              color: AppColors.colorTimeOfPost,
             ),
             Row(
               // mainAxisAlignment: MainAxisAlignment.start,
@@ -148,10 +148,10 @@ class _PostsCardState extends State<PostsCard> {
                       IconButton(onPressed: () => FireStoreMethods().likePost(
                           widget.snap['postId'].toString(),
                           FirebaseAuth.instance.currentUser!.uid.toString(),
-                          widget.snap['likes']), icon: Icon(Icons.favorite_border_sharp),color: AppColors.colorTimeOfPost,iconSize: 15,),
+                          widget.snap['likes']), icon: Icon(Icons.favorite_border_sharp),color: AppColors.colorTimeOfPost,iconSize: 13,),
                       Container(
                         child: Text('${widget.snap['likes'].length}',style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 13,
                           color: AppColors.colorTimeOfPost,
                           fontWeight: FontWeight.w300,
                           fontFamily: 'Manrope',),),
@@ -162,10 +162,10 @@ class _PostsCardState extends State<PostsCard> {
                 Expanded(
                   child: Row(
                     children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.messenger_outline_sharp),color: AppColors.colorTimeOfPost,iconSize: 15),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.messenger_outline_sharp),color: AppColors.colorTimeOfPost,iconSize: 13),
                       Container(
                         child: Text("80",style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 13,
                           color: AppColors.colorTimeOfPost,
                           fontWeight: FontWeight.w300,
                           fontFamily: 'Manrope',),),
@@ -177,8 +177,8 @@ class _PostsCardState extends State<PostsCard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.star_border_sharp),color: AppColors.colorTimeOfPost,iconSize: 15),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.share_sharp),color: AppColors.colorTimeOfPost,iconSize: 15),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.star_border_sharp),color: AppColors.colorTimeOfPost,iconSize: 13),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.share_sharp),color: AppColors.colorTimeOfPost,iconSize: 13),
                     ],
                   ),
                 )

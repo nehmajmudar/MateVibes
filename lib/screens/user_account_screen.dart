@@ -27,6 +27,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
   int postLen=0;
   bool isFollowing=false;
 
+  ScrollController scrollController=ScrollController();
 
   void getUserDetails()async {
     try {
@@ -65,78 +66,156 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
   }
 
   @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorBackgroundColor,
-      body: Column(
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              coverProfileImage(),
-              Positioned(
-                child: profileImage(),
-                top: MediaQuery.of(context).size.height/6.0,
-                right: MediaQuery.of(context).size.width/2.5,
-                left: MediaQuery.of(context).size.width/2.5,
-              )
-            ],
-          ),
-          Center(
-            child: Text(username,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: AppColors.colorLetsGetStarted,
-                  fontFamily: 'Manrope',
-                  fontWeight: FontWeight.w800
-                )),
-          ),
-          Center(
-            child: Container(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width / 19.5,
-                  right: MediaQuery.of(context).size.width / 19.5),
-              margin: EdgeInsets.only(top: 5, bottom: 5),
-              child: Text("@$displayName",
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: AppColors.colorToday,
-                      fontFamily: 'Manrope',
-                      fontWeight: FontWeight.w600)),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsSelected){
+          return <Widget>[
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                coverProfileImage(),
+                Positioned(
+                  child: profileImage(),
+                  top: MediaQuery.of(context).size.height/6.0,
+                  right: MediaQuery.of(context).size.width/2.5,
+                  left: MediaQuery.of(context).size.width/2.5,
+                )
+              ],
             ),
-          ),
-          Center(
-            child: Container(
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
-              margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/33.76),
-              child: Text(bio,softWrap: true,maxLines: 10,style: TextStyle(
-                  fontSize: 12,
-                  color: AppColors.colorToday,
-                  fontFamily: 'Manrope',
-                  fontWeight: FontWeight.w400)
+            Center(
+              child: Text(username,
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: AppColors.colorLetsGetStarted,
+                      fontFamily: 'Manrope',
+                      fontWeight: FontWeight.w800
+                  )),
+            ),
+            Center(
+              child: Container(
+                // padding: EdgeInsets.only(
+                //     left: MediaQuery.of(context).size.width / 19.5,
+                //     right: MediaQuery.of(context).size.width / 19.5),
+                margin: EdgeInsets.only(top: 5, bottom: 5),
+                child: Text("@$displayName",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: AppColors.colorToday,
+                        fontFamily: 'Manrope',
+                        fontWeight: FontWeight.w600)),
               ),
             ),
-          ),
-          RowOfUserProfile(noOfPosts: postLen, noOfMedia: postLen, noOfFollowing: userFollowing, noOfFollowers: userFollowers),
-          ProfileScreenButtons(uid: FirebaseAuth.instance.currentUser!.uid,textFirstButton: AppString.txtEditProfile,textSecondButton: AppString.txtSignOut, userDocumentSnapshot: {},),
-          Expanded(
-            child: StreamBuilder(
-                stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-                builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
-                  if(snapshot.connectionState==ConnectionState.waiting){
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  return ListView.builder(
-                    itemCount: snapshot.data!=null?snapshot.data!.docs.length:0,
-                    itemBuilder:(ctx,index)=>Container(
-                      // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.33,vertical: 15),
-                      child: PostsCard(snap: snapshot.data!.docs[index].data()),
-                    ),
-                  );
-                }),
-          ),
-        ],
+            Center(
+              child: Container(
+                // padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
+                margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/33.76),
+                child: Text(bio,softWrap: true,maxLines: 10,style: TextStyle(
+                    fontSize: 12,
+                    color: AppColors.colorToday,
+                    fontFamily: 'Manrope',
+                    fontWeight: FontWeight.w400)
+                ),
+              ),
+            ),
+            RowOfUserProfile(noOfPosts: postLen, noOfMedia: postLen, noOfFollowing: userFollowing, noOfFollowers: userFollowers),
+            ProfileScreenButtons(uid: FirebaseAuth.instance.currentUser!.uid,textFirstButton: AppString.txtEditProfile,textSecondButton: AppString.txtSignOut, userDocumentSnapshot: {},),
+
+          ];
+        },
+        body: Expanded(
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+              builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
+                if(snapshot.connectionState==ConnectionState.waiting){
+                  return Center(child: CircularProgressIndicator());
+                }
+                return ListView.builder(
+                  itemCount: snapshot.data!=null?snapshot.data!.docs.length:0,
+                  itemBuilder:(ctx,index)=>Container(
+                    // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.33,vertical: 15),
+                    child: PostsCard(snap: snapshot.data!.docs[index].data()),
+                  ),
+                );
+              }),
+        ),
       ),
+      // body: Column(
+      //   children: [
+      //     Stack(
+      //       clipBehavior: Clip.none,
+      //       children: [
+      //         coverProfileImage(),
+      //         Positioned(
+      //           child: profileImage(),
+      //           top: MediaQuery.of(context).size.height/6.0,
+      //           right: MediaQuery.of(context).size.width/2.5,
+      //           left: MediaQuery.of(context).size.width/2.5,
+      //         )
+      //       ],
+      //     ),
+      //     Center(
+      //       child: Text(username,
+      //           style: TextStyle(
+      //             fontSize: 20,
+      //             color: AppColors.colorLetsGetStarted,
+      //             fontFamily: 'Manrope',
+      //             fontWeight: FontWeight.w800
+      //           )),
+      //     ),
+      //     Center(
+      //       child: Container(
+      //         // padding: EdgeInsets.only(
+      //         //     left: MediaQuery.of(context).size.width / 19.5,
+      //         //     right: MediaQuery.of(context).size.width / 19.5),
+      //         margin: EdgeInsets.only(top: 5, bottom: 5),
+      //         child: Text("@$displayName",
+      //             style: TextStyle(
+      //                 fontSize: 12,
+      //                 color: AppColors.colorToday,
+      //                 fontFamily: 'Manrope',
+      //                 fontWeight: FontWeight.w600)),
+      //       ),
+      //     ),
+      //     Center(
+      //       child: Container(
+      //         // padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
+      //         margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/33.76),
+      //         child: Text(bio,softWrap: true,maxLines: 10,style: TextStyle(
+      //             fontSize: 12,
+      //             color: AppColors.colorToday,
+      //             fontFamily: 'Manrope',
+      //             fontWeight: FontWeight.w400)
+      //         ),
+      //       ),
+      //     ),
+      //     RowOfUserProfile(noOfPosts: postLen, noOfMedia: postLen, noOfFollowing: userFollowing, noOfFollowers: userFollowers),
+      //     ProfileScreenButtons(uid: FirebaseAuth.instance.currentUser!.uid,textFirstButton: AppString.txtEditProfile,textSecondButton: AppString.txtSignOut, userDocumentSnapshot: {},),
+      //     Expanded(
+      //       child: StreamBuilder(
+      //           stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+      //           builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
+      //             if(snapshot.connectionState==ConnectionState.waiting){
+      //               return Center(child: CircularProgressIndicator());
+      //             }
+      //             return ListView.builder(
+      //               itemCount: snapshot.data!=null?snapshot.data!.docs.length:0,
+      //               itemBuilder:(ctx,index)=>Container(
+      //                 // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.33,vertical: 15),
+      //                 child: PostsCard(snap: snapshot.data!.docs[index].data()),
+      //               ),
+      //             );
+      //           }),
+      //     ),
+      //   ],
+      // ),
     );
   }
 
