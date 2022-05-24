@@ -74,6 +74,8 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size.height);
+    print(MediaQuery.of(context).size.width);
     return Scaffold(
       backgroundColor: AppColors.colorBackgroundColor,
       body: NestedScrollView(
@@ -81,7 +83,11 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsSelected){
           return <Widget>[
             SliverAppBar(
-               flexibleSpace: ProfileOverviewWidget(),
+              backgroundColor: AppColors.colorWhite,
+              expandedHeight: MediaQuery.of(context).size.height*0.575,
+              flexibleSpace: FlexibleSpaceBar(
+                background: ProfileOverviewWidget(),
+              )
             )
           ];
         },
@@ -100,112 +106,6 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
               );
             }),
       ),
-      // body: Column(
-      //   children: [
-      //     Stack(
-      //       clipBehavior: Clip.none,
-      //       children: [
-      //         coverProfileImage(),
-      //         Positioned(
-      //           child: profileImage(),
-      //           top: MediaQuery.of(context).size.height/6.0,
-      //           right: MediaQuery.of(context).size.width/2.5,
-      //           left: MediaQuery.of(context).size.width/2.5,
-      //         )
-      //       ],
-      //     ),
-      //     Center(
-      //       child: Text(username,
-      //           style: TextStyle(
-      //             fontSize: 20,
-      //             color: AppColors.colorLetsGetStarted,
-      //             fontFamily: 'Manrope',
-      //             fontWeight: FontWeight.w800
-      //           )),
-      //     ),
-      //     Center(
-      //       child: Container(
-      //         // padding: EdgeInsets.only(
-      //         //     left: MediaQuery.of(context).size.width / 19.5,
-      //         //     right: MediaQuery.of(context).size.width / 19.5),
-      //         margin: EdgeInsets.only(top: 5, bottom: 5),
-      //         child: Text("@$displayName",
-      //             style: TextStyle(
-      //                 fontSize: 12,
-      //                 color: AppColors.colorToday,
-      //                 fontFamily: 'Manrope',
-      //                 fontWeight: FontWeight.w600)),
-      //       ),
-      //     ),
-      //     Center(
-      //       child: Container(
-      //         // padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
-      //         margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/33.76),
-      //         child: Text(bio,softWrap: true,maxLines: 10,style: TextStyle(
-      //             fontSize: 12,
-      //             color: AppColors.colorToday,
-      //             fontFamily: 'Manrope',
-      //             fontWeight: FontWeight.w400)
-      //         ),
-      //       ),
-      //     ),
-      //     RowOfUserProfile(noOfPosts: postLen, noOfMedia: postLen, noOfFollowing: userFollowing, noOfFollowers: userFollowers),
-      //     ProfileScreenButtons(uid: FirebaseAuth.instance.currentUser!.uid,textFirstButton: AppString.txtEditProfile,textSecondButton: AppString.txtSignOut, userDocumentSnapshot: {},),
-      //     Expanded(
-      //       child: StreamBuilder(
-      //           stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-      //           builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
-      //             if(snapshot.connectionState==ConnectionState.waiting){
-      //               return Center(child: CircularProgressIndicator());
-      //             }
-      //             return ListView.builder(
-      //               itemCount: snapshot.data!=null?snapshot.data!.docs.length:0,
-      //               itemBuilder:(ctx,index)=>Container(
-      //                 // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.33,vertical: 15),
-      //                 child: PostsCard(snap: snapshot.data!.docs[index].data()),
-      //               ),
-      //             );
-      //           }),
-      //     ),
-      //   ],
-      // ),
     );
   }
-
-  Widget coverProfileImage()=>
-    Container(
-      height: MediaQuery.of(context).size.height/4.22,
-      width: double.infinity,
-      margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/16.23),
-      decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage(coverPhoto),fit: BoxFit.cover),
-      ),
-    );
-
-  Widget profileImage()=>
-    Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(color: AppColors.colorWhite,blurRadius: 2,spreadRadius: 2)
-        ]
-      ),
-      child: CircleAvatar(
-        radius: 50,
-        backgroundImage: NetworkImage(profilePhoto),
-      ),
-    );
-
-    // Container(
-    //   decoration: BoxDecoration(
-    //     shape: BoxShape.circle,
-    //     borderRadius: BorderRadius.all(Radius.circular(50.0)),
-    //     color: AppColors.colorBlack38,
-    //     image: DecorationImage(
-    //       image: NetworkImage(profilePhoto),
-    //       fit: BoxFit.cover)
-    //     ),
-    //   // width: MediaQuery.of(context).size.height / 8.44,
-    //   // height: MediaQuery.of(context).size.height / 8.44,
-    // );
 }

@@ -75,7 +75,8 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
       padding: EdgeInsets.only(
           left: MediaQuery.of(context).size.width / 12.18,
           right: MediaQuery.of(context).size.width / 12.18,
-          bottom: MediaQuery.of(context).size.height / 50),
+          // bottom: MediaQuery.of(context).size.height / 50
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
