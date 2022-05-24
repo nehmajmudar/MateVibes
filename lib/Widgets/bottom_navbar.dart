@@ -26,7 +26,6 @@ class BottomNavBarState extends State<BottomNavBar> {
       _pref = sharedPref;
       var userId = _pref.getString(AppString.userIDKey);
       currentUser = userId!;
-      // print("current user Id = ${currentUser}");
     });
 
     super.initState();
@@ -54,11 +53,7 @@ class BottomNavBarState extends State<BottomNavBar> {
       ///Chat screen
       case 4:
         return UserAccountScreen();
-      // return ChatsPage();
 
-      ///Profile screen
-      // case 4:
-      // return MemberAccountScreen(userData: );
       default:
         return HomePageScreen();
     }

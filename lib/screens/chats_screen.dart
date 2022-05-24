@@ -95,8 +95,6 @@ class _ChatsPageState extends State<ChatsPage> {
 
   @override
   Widget build(BuildContext context) {
-    // print(chatUser.length);
-
     return Scaffold(
         body: SafeArea(
       child: Padding(
@@ -150,7 +148,6 @@ class _ChatsPageState extends State<ChatsPage> {
                     blurRadius: 15,
                   )
                 ]),
-            // width: MediaQuery.of(context).size.width / 28.13,
             child: IconButton(
               visualDensity: VisualDensity.compact,
               icon: new Icon(Icons.search_rounded),
@@ -162,7 +159,7 @@ class _ChatsPageState extends State<ChatsPage> {
                             builder: (context) => (ChatSearchScreen())))
                     .then((value) {
                   initChat();
-                  print("checking~~~~~~`chat");
+
                   setState(() {});
                 });
               },

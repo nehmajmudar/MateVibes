@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -21,9 +20,6 @@ class _PostsCardState extends State<PostsCard> {
 
   @override
   Widget build(BuildContext context) {
-    print("profile image  >>> ${widget.snap['profImage']}");
-    print("post image  >>> ${widget.snap['postUrl']}");
-
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       // color: AppColors.colorWhite,
@@ -142,15 +138,24 @@ class _PostsCardState extends State<PostsCard> {
                 Expanded(
                   child: Row(
                     children: [
-                      IconButton(onPressed: () => FireStoreMethods().likePost(
-                          widget.snap['postId'].toString(),
-                          FirebaseAuth.instance.currentUser!.uid.toString(),
-                          widget.snap['likes']), icon: Icon(Icons.favorite_border_sharp),color: AppColors.colorTimeOfPost,iconSize: 15,),
+                      IconButton(
+                        onPressed: () => FireStoreMethods().likePost(
+                            widget.snap['postId'].toString(),
+                            FirebaseAuth.instance.currentUser!.uid.toString(),
+                            widget.snap['likes']),
+                        icon: Icon(Icons.favorite_border_sharp),
+                        color: AppColors.colorTimeOfPost,
+                        iconSize: 15,
+                      ),
                       Container(
-                        child: Text('${widget.snap['likes'].length}',style: TextStyle(
-                          fontSize: 15,
-                          color: AppColors.colorTimeOfPost,
-                          fontWeight: FontWeight.w300,),),
+                        child: Text(
+                          '${widget.snap['likes'].length}',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: AppColors.colorTimeOfPost,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -158,12 +163,20 @@ class _PostsCardState extends State<PostsCard> {
                 Expanded(
                   child: Row(
                     children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.messenger_outline_sharp),color: AppColors.colorTimeOfPost,iconSize: 15),
-                      Container(
-                        child: Text("80",style: TextStyle(
-                          fontSize: 15,
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.messenger_outline_sharp),
                           color: AppColors.colorTimeOfPost,
-                          fontWeight: FontWeight.w300,),),
+                          iconSize: 15),
+                      Container(
+                        child: Text(
+                          "80",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: AppColors.colorTimeOfPost,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -172,8 +185,16 @@ class _PostsCardState extends State<PostsCard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.star_border_sharp),color: AppColors.colorTimeOfPost,iconSize: 15),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.share_sharp),color: AppColors.colorTimeOfPost,iconSize: 15),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.star_border_sharp),
+                          color: AppColors.colorTimeOfPost,
+                          iconSize: 15),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.share_sharp),
+                          color: AppColors.colorTimeOfPost,
+                          iconSize: 15),
                     ],
                   ),
                 )

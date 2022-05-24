@@ -116,7 +116,6 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
               shrinkWrap: true,
               itemCount: matchUserList.length,
               itemBuilder: (context, index) {
-                print("hello---------------");
                 return userTile(matchUserList[index].username!, index);
               },
               separatorBuilder: (BuildContext context, int index) => Divider(
@@ -135,7 +134,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
         child: Column(
           children: [
             Container(
-              // padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+
               child: PhysicalModel(
                 borderRadius: BorderRadius.circular(10),
                 elevation: 1,

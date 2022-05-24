@@ -194,17 +194,4 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
           backgroundImage: NetworkImage(profilePhoto),
         ),
       );
-
-// Container(
-//   decoration: BoxDecoration(
-//     shape: BoxShape.circle,
-//     borderRadius: BorderRadius.all(Radius.circular(50.0)),
-//     color: AppColors.colorBlack38,
-//     image: DecorationImage(
-//       image: NetworkImage(profilePhoto),
-//       fit: BoxFit.cover)
-//     ),
-//   // width: MediaQuery.of(context).size.height / 8.44,
-//   // height: MediaQuery.of(context).size.height / 8.44,
-// );
 }

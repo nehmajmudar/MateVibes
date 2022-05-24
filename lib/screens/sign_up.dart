@@ -89,7 +89,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 33.76),
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -122,7 +123,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 33.76),
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -157,7 +159,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 33.76),
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -191,7 +194,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 33.76),
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -225,7 +229,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 33.76),
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 33.76),
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -428,7 +433,6 @@ class _SignUpState extends State<SignUp> {
             errorMessage = "An undefined Error happened.";
         }
         Fluttertoast.showToast(msg: errorMessage!);
-        print(error.code);
       }
     }
   }
@@ -444,7 +448,7 @@ class _SignUpState extends State<SignUp> {
     userModel.email = user!.email;
     userModel.uid = user.uid;
     prefs.setString(AppString.userIDKey, user.uid);
-    print(prefs.getString(AppString.userIDKey));
+
     userModel.username = usernameController.text;
     userModel.phoneNumber = phoneNumberController.text;
 
@@ -454,10 +458,6 @@ class _SignUpState extends State<SignUp> {
         .set(userModel.toMap());
     Fluttertoast.showToast(msg: AppString.txtaccountCreatedSuccessfully);
 
-    // Navigator.pushAndRemoveUntil(
-    //     (context),
-    //     MaterialPageRoute(builder: (context) => CreateAccount()),
-    //     (route) => false);
     if (ConnectivityResult.mobile == true || ConnectivityResult.wifi == true) {
       showDialog(
           context: context,

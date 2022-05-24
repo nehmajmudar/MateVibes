@@ -48,6 +48,7 @@ class _SignInState extends State<SignIn> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.colorWhite,
       body: FirebaseAuth.instance.currentUser == null
           ? FutureBuilder(
@@ -93,7 +94,6 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
             msg: AppString.txtnoUserFoundFromThisMail,
             textColor: AppColors.colorWhite,
             backgroundColor: AppColors.colorBlack);
-        print("No User Found For that email");
       }
     }
     return user;
@@ -295,12 +295,11 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               if (user != null) {
                                 await _prefs.setString(
                                     AppString.userIDKey, user.uid);
-                                print("LoggedIn UserIs ${user.uid}");
                               }
                               final result =
                                   await Connectivity().checkConnectivity();
                               showConnectivityToastOnPress(result);
-                              print(user);
+
                               if (user != null &&
                                   ConnectivityResult.none != true) {
                                 Navigator.of(context)

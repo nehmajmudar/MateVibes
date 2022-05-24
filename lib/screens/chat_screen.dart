@@ -33,7 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
       var userId = _pref.getString(AppString.userIDKey);
       currentUser = userId!;
-      // print("current user Id = ${currentUser}");
+
       createGroupChatId();
     });
 
@@ -41,16 +41,12 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   createGroupChatId() {
-    print("peer id :-${widget.peerUserData["uid"]}");
-    print("current user id${currentUser}");
-
     if (currentUser.hashCode <= peerUserId.hashCode) {
       groupChatId = '$currentUser-$peerUserId';
     } else {
       groupChatId = '$peerUserId-$currentUser';
     }
     setState(() {});
-    print("group chat id${groupChatId}");
   }
 
   @override

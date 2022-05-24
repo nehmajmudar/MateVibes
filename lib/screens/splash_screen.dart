@@ -25,7 +25,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void checkUserStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userStatus = prefs.getBool('isLoggedIn');
-    print(userStatus);
     (userStatus != null && userStatus == true)
         ? Timer(
             Duration(seconds: 10),
