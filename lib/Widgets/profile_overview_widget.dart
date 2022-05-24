@@ -45,7 +45,7 @@ class _ProfileOverviewWidgetState extends State<ProfileOverviewWidget> {
         uid=snap.data()!['uid'];
         displayName = snap.data()!['displayName'];
         bio = snap.data()!['bio'];
-        coverPhoto = snap.data()!['coverPhotoUrl']!=null?snap.data()!['coverPhoto']:"";
+        coverPhoto = snap.data()!['coverPhotoUrl']!=null?snap.data()!['coverPhotoUrl']:"";
         profilePhoto = snap.data()!['photoUrl']!=null?snap.data()!['photoUrl']:"";
         userFollowers = snap.data()!['followers']!=null?snap.data()!['followers'].length:0;
         userFollowing = snap.data()!['following']!=null?snap.data()!['following'].length:0;

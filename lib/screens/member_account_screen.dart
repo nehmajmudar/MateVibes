@@ -49,7 +49,7 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
         uid = snap.data()!['uid'];
         displayName = snap.data()!['displayName'];
         bio = snap.data()!['bio'];
-        coverPhoto = snap.data()!['coverPhotoUrl']!=null?snap.data()!['coverPhoto']:"";
+        coverPhoto = snap.data()!['coverPhotoUrl']!=null?snap.data()!['coverPhotoUrl']:"";
         profilePhoto = snap.data()!['photoUrl']!=null?snap.data()!['photoUrl']:"";
         userFollowers = snap.data()!['followers'] != null
             ? snap.data()!['followers'].length
@@ -283,51 +283,51 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
     );
   }
 
-
   Widget coverProfileImage()=>
       coverPhoto==""
           ?Container(
-            height: MediaQuery.of(context).size.height/4.22,
-            width: double.infinity,
-            margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/16.23),
-            decoration: BoxDecoration(
-                color: AppColors.colorWhite
-            ),
-            child: Icon(Icons.photo,color: AppColors.colorIcon,size: 70,),
-          )
+        height: MediaQuery.of(context).size.height/4.22,
+        width: double.infinity,
+        margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/16.23),
+        decoration: BoxDecoration(
+            color: AppColors.colorWhite
+        ),
+        child: Icon(Icons.photo,color: AppColors.colorIcon,size: 70,),
+      )
           :Container(
-            height: MediaQuery.of(context).size.height/4.22,
-            width: double.infinity,
-            margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/16.23),
-            decoration: BoxDecoration(
-              image: DecorationImage(image: NetworkImage(coverPhoto),fit: BoxFit.cover),
-            ),
+        height: MediaQuery.of(context).size.height/4.22,
+        width: double.infinity,
+        margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/16.23),
+        decoration: BoxDecoration(
+          image: DecorationImage(image: NetworkImage(coverPhoto),fit: BoxFit.cover),
+        ),
       );
 
   Widget profileImage()=>
       profilePhoto==""
           ?Container(
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(color: AppColors.colorWhite,blurRadius: 2,spreadRadius: 2)
-                ]
-            ),
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/images/profile_placeholder.jpg'),
-            ),
-          )
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(color: AppColors.colorWhite,blurRadius: 2,spreadRadius: 2)
+            ]
+        ),
+        child: CircleAvatar(
+          radius: 50,
+          backgroundImage: AssetImage('assets/images/profile_placeholder.jpg'),
+        ),
+      )
           :Container(
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(color: AppColors.colorWhite,blurRadius: 2,spreadRadius: 2)
-                ]
-            ),
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage: NetworkImage(profilePhoto),
-            ),
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(color: AppColors.colorWhite,blurRadius: 2,spreadRadius: 2)
+            ]
+        ),
+        child: CircleAvatar(
+          radius: 50,
+          backgroundImage: NetworkImage(profilePhoto),
+        ),
       );
+
 }
