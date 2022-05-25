@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:matevibes/Widgets/posts_card.dart';
 import 'package:matevibes/Widgets/story_button_widget.dart';
 import 'package:matevibes/Widgets/storydata.dart';
-import 'package:matevibes/Widgets/user_story_create_button.dart';
 import 'package:matevibes/res/app_colors.dart';
-import 'package:matevibes/res/app_string.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -16,7 +13,6 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-
   List<StoryData> stories = [
     new StoryData(
         username: 'Bhargav Dobariya',
@@ -50,7 +46,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               Container(
                   width: double.infinity,
                   height: 150,
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/36.7),
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 36.7),
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
@@ -64,30 +61,30 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       storyButton(stories[4], context),
                       storyButton(stories[4], context),
                     ],
-                  )
-              ),
+                  )),
               Expanded(
                 child: StreamBuilder(
-                  stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-                  builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
-                    if(snapshot.connectionState==ConnectionState.waiting){
-                      return Center(child: CircularProgressIndicator());
-                    }
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder:(ctx,index)=>Container(
-                        child: PostsCard(snap: snapshot.data!.docs[index]),
-                      ),
-                    );
-                  }
-                ),
+                    stream: FirebaseFirestore.instance
+                        .collection('posts')
+                        .snapshots(),
+                    builder: (context,
+                        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                            snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (ctx, index) => Container(
+                          child: PostsCard(snap: snapshot.data!.docs[index]),
+                        ),
+                      );
+                    }),
               ),
-
             ],
           ),
-        )
-    );
+        ));
   }
 }

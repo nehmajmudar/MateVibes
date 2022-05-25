@@ -8,7 +8,7 @@ import '../screens/member_account_screen.dart';
 
 class PostsCard extends StatefulWidget {
   final snap;
-  const PostsCard({Key? key, required this.snap}) : super(key: key);
+  PostsCard({Key? key, required this.snap}) : super(key: key);
 
   @override
   _PostsCardState createState() => _PostsCardState();
@@ -48,7 +48,7 @@ class _PostsCardState extends State<PostsCard> {
                 GestureDetector(
                   onTap: () {
                     Map<String, dynamic> userMap = Map();
-                    userMap = widget.snap;
+                    userMap = widget.snap.data();
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             MemberAccountScreen(userData: userMap)));

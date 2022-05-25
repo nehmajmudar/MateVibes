@@ -48,7 +48,6 @@ class _SignInState extends State<SignIn> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.colorWhite,
       body: FirebaseAuth.instance.currentUser == null
           ? FutureBuilder(
@@ -106,7 +105,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: Form(
         key: _formKey,
         child: Stack(

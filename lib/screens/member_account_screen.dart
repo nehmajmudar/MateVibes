@@ -142,13 +142,13 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
                   uid: widget.userData["uid"],
                   textFirstButton: AppString.txtUnfollow,
                   textSecondButton: AppString.txtMessage,
-                  userDocumentSnapshot: snap.data()!,
+                  userDocumentSnapshot: widget.userData,
                 )
               : ProfileScreenButtons(
                   uid: widget.userData["uid"],
                   textFirstButton: AppString.txtFollow,
                   textSecondButton: AppString.txtMessage,
-                  userDocumentSnapshot: snap.data()!),
+                  userDocumentSnapshot: widget.userData),
           Expanded(
             child: FutureBuilder(
                 future: FirebaseFirestore.instance
