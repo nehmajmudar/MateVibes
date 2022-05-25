@@ -32,7 +32,7 @@ class SignUpConfirmDialogue extends StatelessWidget {
                         maxLines: 2,
                         softWrap: true,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18,color: AppColors.colorLetsGetStarted,fontFamily: 'Manrope',fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 18,color: AppColors.colorLetsGetStarted,fontFamily: 'Manrope',fontWeight: FontWeight.w600),
                       ),
                       GestureDetector(
                         onTap: (){
@@ -55,7 +55,7 @@ class SignUpConfirmDialogue extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 14,
                                 color: AppColors.colorWhite,
-                                fontWeight: FontWeight.w800,
+                                fontWeight: FontWeight.w700,
                                 fontFamily: 'Manrope'),
                           ),
                         ),
@@ -69,19 +69,19 @@ class SignUpConfirmDialogue extends StatelessWidget {
               left: MediaQuery.of(context).size.width/3.9,
               right: MediaQuery.of(context).size.width/3.9,
               top: -64.5,
-              child: Image(image: AssetImage('lib/assets/images/Ellipse 1.png'))
+              child: Image(image: AssetImage('assets/images/Ellipse 1.png'))
             ),
             Positioned(
               left: MediaQuery.of(context).size.width/3.45,
               right: MediaQuery.of(context).size.width/3.45,
               top: -50.5,
-              child: Image(image: AssetImage('lib/assets/images/Ellipse 2.png'))
+              child: Image(image: AssetImage('assets/images/Ellipse 2.png'))
             ),
             Positioned(
               left: MediaQuery.of(context).size.width/3.04,
               right: MediaQuery.of(context).size.width/3.04,
               top: -35.5,
-              child: Image(image: AssetImage('lib/assets/images/Ellipse 3.png'))
+              child: Image(image: AssetImage('assets/images/Ellipse 3.png'))
             ),
             Positioned(
               left: MediaQuery.of(context).size.width/2.73,

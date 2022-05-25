@@ -72,7 +72,8 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(
                       color: AppColors.colorLetsGetStarted,
                       fontSize: 24,
-                      fontWeight: FontWeight.w900,
+                      fontWeight: FontWeight.w800,
+                      fontFamily: 'Manrope',
                     ),
                   ),
                 ),
@@ -84,7 +85,8 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(
                       color: AppColors.colorCreateAccountToConnect,
                       fontSize: 14,
-                      fontWeight: FontWeight.w900,
+                      fontFamily: 'Manrope',
+                      fontWeight: FontWeight.w800
                     ),
                   ),
                 ),
@@ -112,6 +114,7 @@ class _SignUpState extends State<SignUp> {
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: AppColors.colorHintText,
+                        fontFamily: 'Manrope',
                       ),
                     ),
                     validator: (value) {
@@ -146,6 +149,7 @@ class _SignUpState extends State<SignUp> {
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: AppColors.colorHintText,
+                        fontFamily: 'Manrope',
                       ),
                     ),
                     validator: (value) {
@@ -182,6 +186,7 @@ class _SignUpState extends State<SignUp> {
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: AppColors.colorHintText,
+                        fontFamily: 'Manrope',
                       ),
                     ),
                     validator: (value) {
@@ -218,6 +223,7 @@ class _SignUpState extends State<SignUp> {
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: AppColors.colorHintText,
+                        fontFamily: 'Manrope',
                       ),
                     ),
                     validator: (value) {
@@ -253,6 +259,7 @@ class _SignUpState extends State<SignUp> {
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: AppColors.colorHintText,
+                        fontFamily: 'Manrope',
                       ),
                     ),
                     validator: (value) {
@@ -283,6 +290,7 @@ class _SignUpState extends State<SignUp> {
                             fontSize: 12,
                             color: AppColors.colorForgotPassword,
                             fontWeight: FontWeight.w400,
+                            fontFamily: 'Manrope',
                           ),
                         ),
                         TextSpan(
@@ -291,7 +299,8 @@ class _SignUpState extends State<SignUp> {
                               decoration: TextDecoration.underline,
                               fontSize: 12,
                               color: AppColors.colorSignInButton,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Manrope',
                             ),
                             recognizer: TapGestureRecognizer()..onTap = () {}),
                         TextSpan(
@@ -308,7 +317,8 @@ class _SignUpState extends State<SignUp> {
                               decoration: TextDecoration.underline,
                               fontSize: 12,
                               color: AppColors.colorSignInButton,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Manrope',
                             ),
                             recognizer: TapGestureRecognizer()..onTap = () {}),
                       ])),
@@ -339,7 +349,8 @@ class _SignUpState extends State<SignUp> {
                         style: TextStyle(
                           fontSize: 14,
                           color: AppColors.colorWhite,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Manrope',
                         ),
                       ),
                     ),
@@ -379,7 +390,8 @@ class _SignUpState extends State<SignUp> {
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.colorSignInButton,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: 'Manrope',
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
@@ -458,7 +470,11 @@ class _SignUpState extends State<SignUp> {
         .set(userModel.toMap());
     Fluttertoast.showToast(msg: AppString.txtaccountCreatedSuccessfully);
 
-    if (ConnectivityResult.mobile == true || ConnectivityResult.wifi == true) {
+    // Navigator.pushAndRemoveUntil(
+    //     (context),
+    //     MaterialPageRoute(builder: (context) => CreateAccount()),
+    //     (route) => false);
+    if (ConnectivityResult.none != true) {
       showDialog(
           context: context,
           barrierDismissible: false,

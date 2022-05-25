@@ -57,7 +57,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               style: TextStyle(
                                   color: AppColors.colorNotifacations,
                                   fontSize: 24,
-                                  fontWeight: FontWeight.w900,),
+                                  fontFamily: 'Manrope',
+                                  fontWeight: FontWeight.w800),
                             ),
                           ),
                           Container(
@@ -66,7 +67,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               style: TextStyle(
                                   color: AppColors.colorMarkAllAsRead,
                                   fontSize: 10,
-                                  fontWeight: FontWeight.w400,),
+                                  fontWeight: FontWeight.w300,
+                                  fontFamily: 'Manrope',),
                             ),
                           ),
                         ],
@@ -79,7 +81,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           style: TextStyle(
                               color: AppColors.colorToday,
                               fontSize: 12,
-                              fontWeight: FontWeight.w900,),
+                              fontFamily: 'Manrope',
+                              fontWeight: FontWeight.w800),
                         ),
                       ),
                       Expanded(

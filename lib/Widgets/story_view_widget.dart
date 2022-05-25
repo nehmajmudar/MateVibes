@@ -15,12 +15,12 @@ class _StoryViewWidgetState extends State<StoryViewWidget> {
   StoryController controller=StoryController();
 
   void addItems(){
-    for(final story in widget.snap.data()){
+    for(final story in widget.snap){
       if(story['storyUrl']==null){
         storyItems.add(StoryItem.text(title: story['caption'], backgroundColor: AppColors.colorWhite));
       }
       else{
-        storyItems.add(StoryItem.pageImage(url: story['storyUrl'], controller: controller,caption: story['caption']));
+        storyItems.add(StoryItem.inlineImage(url: story['storyUrl'], controller: controller,caption: Text(story['caption'])));
       }
     }
   }

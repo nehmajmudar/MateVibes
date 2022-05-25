@@ -71,6 +71,7 @@ flutter:
    - assets/images/create_account_img.png
    - assets/images/user_profile_img.png
    - assets/images/create_post_picture.png
+   - assets/images/profile_placeholder.jpg
    - assets/images/Ellipse 1.png
    - assets/images/Ellipse 2.png
    - assets/images/Ellipse 3.png
@@ -90,7 +91,16 @@ flutter:
   fonts:
     - family: Manrope
       fonts:
-        - asset: assets/app_fonts/Manrope-VariableFont_wght.ttf
+        - asset: assets/app_fonts/Manrope-Bold.ttf
+          weight: 700
+        - asset: assets/app_fonts/Manrope-ExtraBold.ttf
+          weight: 800
+        - asset: assets/app_fonts/Manrope-Light.ttf
+          weight: 300
+        - asset: assets/app_fonts/Manrope-Regular.ttf
+          weight: 400
+        - asset: assets/app_fonts/Manrope-SemiBold.ttf
+          weight: 600
 
     - family: Pacifico
       fonts:

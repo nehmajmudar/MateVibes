@@ -5,6 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/Widgets/firestore_methods.dart';
 import 'package:matevibes/res/Methods/check_Internet_button.dart';
 import 'package:matevibes/res/app_colors.dart';
@@ -23,6 +24,7 @@ class _CreatePostState extends State<CreatePost> {
   String _photoUrl = "";
   String username = "";
   String uid = "";
+  bool isLoading=false;
   final TextEditingController postCaptionController = TextEditingController();
 
   @override
@@ -68,12 +70,22 @@ class _CreatePostState extends State<CreatePost> {
 
   void sharePost(String uid, String username, String profImage) async {
     try {
+      setState(() {
+        isLoading=true;
+      });
       String res = await FireStoreMethods().uploadPost(
           postCaptionController.text, _file!, uid, username, profImage);
       if (res == AppString.txtSuccess) {
+        setState(() {
+          isLoading=false;
+        });
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
         showSnackBar('Posted!', context);
         clearImage();
       } else {
+        setState(() {
+          isLoading=false;
+        });
         showSnackBar(res, context);
       }
     } catch (e) {
@@ -92,17 +104,11 @@ class _CreatePostState extends State<CreatePost> {
                 padding: EdgeInsets.all(20),
                 child: Text(AppString.takeAPhoto),
                 onPressed: () async {
-                  final result = await Connectivity().checkConnectivity();
-                  showConnectivityToastOnPress(result);
-                  if (ConnectivityResult.none == false) {
-                    Navigator.of(context).pop();
-                    Uint8List file = await pickImage(ImageSource.camera);
-                    setState(() {
-                      _file = file;
-                    });
-                  } else {
-                    showConnectivityToastOnPress(result);
-                  }
+                  Navigator.of(context).pop();
+                  Uint8List file = await pickImage(ImageSource.camera);
+                  setState(() {
+                    _file = file;
+                  });
                 },
               ),
               SimpleDialogOption(
@@ -149,7 +155,7 @@ class _CreatePostState extends State<CreatePost> {
                   onPressed: () async {
                     final result = await Connectivity().checkConnectivity();
                     showConnectivityToastOnPress(result);
-                    if (ConnectivityResult.none == false) {
+                    if (ConnectivityResult.none != false) {
                       selectImage(context);
                     }
                   },
@@ -163,13 +169,11 @@ class _CreatePostState extends State<CreatePost> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 6.25,
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 15.6,
-                        right: MediaQuery.of(context).size.width / 15.6,
-                        top: MediaQuery.of(context).size.height / 12.05),
+                    height: MediaQuery.of(context).size.height/6.25,
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/15.6,top: MediaQuery.of(context).size.height/12.05),
                     color: AppColors.colorWhite,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           child: Text(
@@ -177,7 +181,7 @@ class _CreatePostState extends State<CreatePost> {
                             style: TextStyle(
                                 color: AppColors.colorForgotPassword,
                                 fontSize: 12,
-                                fontWeight: FontWeight.w800,
+                                fontWeight: FontWeight.w400,
                                 fontFamily: 'Manrope'),
                           ),
                           margin: EdgeInsets.only(bottom: 5),
@@ -185,8 +189,8 @@ class _CreatePostState extends State<CreatePost> {
                         Text(
                           AppString.txtCreatePost,
                           style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w900,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
                               fontFamily: 'Manrope'),
                         ),
                       ],
@@ -289,14 +293,15 @@ class _CreatePostState extends State<CreatePost> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50))),
                               alignment: Alignment.center,
-                              child: Text(
+                              child: !isLoading?Text(
                                 AppString.txtShare.toUpperCase(),
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: AppColors.colorWhite,
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w700,
                                     fontFamily: 'Manrope'),
-                              ),
+                              )
+                                  :CircularProgressIndicator()
                             ),
                           ),
                         )

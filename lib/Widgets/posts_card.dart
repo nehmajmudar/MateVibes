@@ -25,9 +25,11 @@ class _PostsCardState extends State<PostsCard> {
       // color: AppColors.colorWhite,
       // shape: ShapeBorder.,
       margin: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height / 168.8,
           left: MediaQuery.of(context).size.width / 26,
           right: MediaQuery.of(context).size.width / 26,
-          bottom: MediaQuery.of(context).size.height / 76.72),
+          bottom: MediaQuery.of(context).size.height / 168.8),
+      elevation: 0,
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -35,12 +37,12 @@ class _PostsCardState extends State<PostsCard> {
             boxShadow: [
               BoxShadow(
                 color: AppColors.colorSkipforNow,
-                blurRadius: 15,
+                blurRadius: 2,
               )
             ]),
         padding: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.width / 26,
-            horizontal: MediaQuery.of(context).size.height / 56.26),
+            horizontal: MediaQuery.of(context).size.width / 26,
+            vertical: MediaQuery.of(context).size.height / 56.26),
         child: Column(
           children: [
             Row(
@@ -59,10 +61,11 @@ class _PostsCardState extends State<PostsCard> {
                   ),
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width / 19.5),
+                          left: MediaQuery.of(context).size.width / 39),
                       child: Text(
                         widget.snap['username'].toString(),
                         style: TextStyle(
@@ -74,7 +77,7 @@ class _PostsCardState extends State<PostsCard> {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width / 19.5),
+                          left: MediaQuery.of(context).size.width / 39),
                       child: Text(
                         DateFormat.yMMMMd()
                             .format(widget.snap['datePublished'].toDate()),
@@ -101,7 +104,7 @@ class _PostsCardState extends State<PostsCard> {
                 style: TextStyle(
                     fontSize: 14,
                     color: AppColors.colorBlack,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w400,
                     fontFamily: 'Manrope'),
               ),
             ),
@@ -130,7 +133,7 @@ class _PostsCardState extends State<PostsCard> {
                   top: MediaQuery.of(context).size.height / 31.25,
                   bottom: MediaQuery.of(context).size.height / 65.57),
               width: MediaQuery.of(context).size.width / 1.25,
-              color: AppColors.colorHintText,
+              color: AppColors.colorTimeOfPost,
             ),
             Row(
               // mainAxisAlignment: MainAxisAlignment.start,
@@ -145,15 +148,16 @@ class _PostsCardState extends State<PostsCard> {
                             widget.snap['likes']),
                         icon: Icon(Icons.favorite_border_sharp),
                         color: AppColors.colorTimeOfPost,
-                        iconSize: 15,
+                        iconSize: 13,
                       ),
                       Container(
                         child: Text(
                           '${widget.snap['likes'].length}',
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                             color: AppColors.colorTimeOfPost,
                             fontWeight: FontWeight.w300,
+                            fontFamily: 'Manrope',
                           ),
                         ),
                       ),
@@ -167,14 +171,15 @@ class _PostsCardState extends State<PostsCard> {
                           onPressed: () {},
                           icon: Icon(Icons.messenger_outline_sharp),
                           color: AppColors.colorTimeOfPost,
-                          iconSize: 15),
+                          iconSize: 13),
                       Container(
                         child: Text(
                           "80",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                             color: AppColors.colorTimeOfPost,
                             fontWeight: FontWeight.w300,
+                            fontFamily: 'Manrope',
                           ),
                         ),
                       ),
@@ -189,12 +194,12 @@ class _PostsCardState extends State<PostsCard> {
                           onPressed: () {},
                           icon: Icon(Icons.star_border_sharp),
                           color: AppColors.colorTimeOfPost,
-                          iconSize: 15),
+                          iconSize: 13),
                       IconButton(
                           onPressed: () {},
                           icon: Icon(Icons.share_sharp),
                           color: AppColors.colorTimeOfPost,
-                          iconSize: 15),
+                          iconSize: 13),
                     ],
                   ),
                 )

@@ -61,6 +61,9 @@ class FireStoreMethods {
         StoryModel story =
             StoryModel(uid: uid, storyId: storyId, caption: storyCaption);
 
+        await _firestore.collection('users').doc(uid).update({
+          'storyIds': FieldValue.arrayUnion([storyId])
+        });
         _firestore.collection('stories').doc(storyId).set(story.toMap());
         res = AppString.txtSuccess;
         return res;
@@ -75,6 +78,9 @@ class FireStoreMethods {
             storyUrl: photoUrl,
             caption: storyCaption);
 
+        await _firestore.collection('users').doc(uid).update({
+          'storyIds': FieldValue.arrayUnion([storyId])
+        });
         _firestore.collection('stories').doc(storyId).set(story.toMap());
         res = AppString.txtSuccess;
         return res;

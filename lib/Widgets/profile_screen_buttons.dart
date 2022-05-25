@@ -71,9 +71,10 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width / 12.18,
-          right: MediaQuery.of(context).size.width / 12.18,
-          bottom: MediaQuery.of(context).size.height / 50),
+        left: MediaQuery.of(context).size.width / 12.18,
+        right: MediaQuery.of(context).size.width / 12.18,
+        // bottom: MediaQuery.of(context).size.height / 50
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -86,13 +87,14 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
               decoration: BoxDecoration(
                   color: AppColors.colorWhite,
                   borderRadius: BorderRadius.all(Radius.circular(7)),
-                  border: Border.all(color: AppColors.colorBlack)),
+                  border: Border.all(color: AppColors.colorSelectedItemNavBar)),
               child: Text(
                 widget.textFirstButton,
                 style: TextStyle(
                     color: AppColors.colorSelectedItemNavBar,
                     fontSize: 12,
-                    fontWeight: FontWeight.bold),
+                    fontFamily: 'Manrope',
+                    fontWeight: FontWeight.w800),
               ),
             ),
           ),
@@ -106,13 +108,14 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
               decoration: BoxDecoration(
                   color: AppColors.colorWhite,
                   borderRadius: BorderRadius.all(Radius.circular(7)),
-                  border: Border.all(color: AppColors.colorBlack)),
+                  border: Border.all(color: AppColors.colorSelectedItemNavBar)),
               child: Text(
                 widget.textSecondButton,
                 style: TextStyle(
                     color: AppColors.colorSelectedItemNavBar,
                     fontSize: 12,
-                    fontWeight: FontWeight.bold),
+                    fontFamily: 'Manrope',
+                    fontWeight: FontWeight.w800),
               ),
             ),
           )

@@ -25,57 +25,65 @@ class _RowOfUserProfileState extends State<RowOfUserProfile> {
         children: [
           Column(
             children: [
-              Text(AppString.txtPosts,style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.colorLetsGetStarted,
-                  fontWeight: FontWeight.bold,)
-              ),
               Text("${widget.noOfPosts}",style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.colorLetsGetStarted,
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
+              ),
+              Text(AppString.txtPosts,style: TextStyle(
                   fontSize: 12,
                   color: AppColors.colorTimeOfPost,
-                  fontWeight: FontWeight.bold,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
               ),
             ],
           ),
           Column(
             children: [
-              Text(AppString.txtMedia,style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.colorLetsGetStarted,
-                  fontWeight: FontWeight.bold,)
-              ),
               Text("${widget.noOfMedia}",style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.colorLetsGetStarted,
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
+              ),
+              Text(AppString.txtMedia,style: TextStyle(
                   fontSize: 12,
                   color: AppColors.colorTimeOfPost,
-                  fontWeight: FontWeight.bold,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
               ),
             ],
           ),
           Column(
             children: [
-              Text(AppString.txtFollowing,style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.colorLetsGetStarted,
-                  fontWeight: FontWeight.bold,)
-              ),
               Text("${widget.noOfFollowing}",style: TextStyle(
-                  fontSize: 12,
-                  color: AppColors.colorTimeOfPost,
-                  fontWeight: FontWeight.bold,)
+                  fontSize: 14,
+                  color: AppColors.colorLetsGetStarted,
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
+              ),
+              Text(AppString.txtFollowing,style: TextStyle(
+                fontSize: 12,
+                color: AppColors.colorTimeOfPost,
+                fontFamily: 'Manrope',
+                fontWeight: FontWeight.w800,)
               ),
             ],
           ),
           Column(
             children: [
-              Text(AppString.txtFollowers,style: TextStyle(
+              Text("${widget.noOfFollowers}",style: TextStyle(
                   fontSize: 14,
                   color: AppColors.colorLetsGetStarted,
-                  fontWeight: FontWeight.bold,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
               ),
-              Text("${widget.noOfFollowers}",style: TextStyle(
+              Text(AppString.txtFollowers,style: TextStyle(
                   fontSize: 12,
                   color: AppColors.colorTimeOfPost,
-                  fontWeight: FontWeight.bold,)
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w800)
               ),
             ],
           ),

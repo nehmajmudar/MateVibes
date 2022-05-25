@@ -163,11 +163,16 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                         Container(
                           child: Text(
                             AppString.txtWelcome,
+                            // style: GoogleFonts.manrope(
+                            //   fontWeight: FontWeight.w900,
+                            //   fontSize: 24,
+                            //   color: AppColors.colorLetsGetStarted
+                            // ),
                             style: TextStyle(
-                              color: AppColors.colorLetsGetStarted,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w900,
-                            ),
+                                color: AppColors.colorLetsGetStarted,
+                                fontSize: 24,
+                                fontFamily: 'Manrope',
+                                fontWeight: FontWeight.w800),
                           ),
                           margin: EdgeInsets.only(
                               bottom: MediaQuery.of(context).size.height / 168),
@@ -176,10 +181,10 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                           child: Text(
                             AppString.txtSignInToContinue,
                             style: TextStyle(
-                              color: AppColors.colorCreateAccountToConnect,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w900,
-                            ),
+                                color: AppColors.colorCreateAccountToConnect,
+                                fontSize: 14,
+                                fontFamily: 'Manrope',
+                                fontWeight: FontWeight.w800),
                           ),
                           margin: EdgeInsets.only(
                             bottom: MediaQuery.of(context).size.height / 18,
@@ -214,6 +219,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.colorHintText,
+                                  fontFamily: 'Manrope',
                                 ),
                               ),
                               validator: (value) {
@@ -254,6 +260,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.colorHintText,
+                                  fontFamily: 'Manrope',
                                 ),
                               ),
                               validator: (value) {
@@ -275,7 +282,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               style: TextStyle(
                                   fontSize: 12,
                                   color: AppColors.colorForgotPassword,
-                                  fontWeight: FontWeight.w900,
+                                  fontWeight: FontWeight.w400,
                                   fontFamily: 'Manrope'),
                             ),
                             margin: EdgeInsets.only(
@@ -328,7 +335,8 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: AppColors.colorWhite,
-                                  fontWeight: FontWeight.w800,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Manrope',
                                 ),
                               ),
                             ),
@@ -352,6 +360,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               fontSize: 14,
                               color: AppColors.colorForgotPassword,
                               fontWeight: FontWeight.w400,
+                              fontFamily: 'Manrope',
                             ),
                           ),
                           TextSpan(
@@ -359,7 +368,8 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               style: TextStyle(
                                 fontSize: 14,
                                 color: AppColors.colorSignInButton,
-                                fontWeight: FontWeight.w900,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: 'Manrope',
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {

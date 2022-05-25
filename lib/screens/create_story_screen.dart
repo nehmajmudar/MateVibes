@@ -3,11 +3,13 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/Widgets/firestore_methods.dart';
 import 'package:matevibes/models/story_model.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/res/pick_image.dart';
+import 'package:matevibes/screens/create_option_screen.dart';
 
 class CreateStoryScreen extends StatefulWidget {
   final Uint8List imageFile;
@@ -21,6 +23,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
 
   TextEditingController storyCaptionController=TextEditingController();
   String uid="";
+  bool isLoading=false;
 
   @override
   void initState() {
@@ -40,11 +43,21 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       String uid
       )async{
     try{
+      setState(() {
+        isLoading=true;
+      });
       String res=await FireStoreMethods().uploadStory(uid: uid,file: widget.imageFile,storyCaption: storyCaptionController.text);
       if(res==AppString.txtSuccess){
+        setState(() {
+          isLoading=false;
+        });
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
         showSnackBar('Posted!', context);
       }
       else{
+        setState(() {
+          isLoading=false;
+        });
         showSnackBar(res, context);
       }
     }catch(e){
@@ -166,7 +179,9 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                   ),
                   Center(
                     child: GestureDetector(
-                      onTap: ()=>shareStory("${uid}"),
+                      onTap: (){
+                        shareStory("${uid}");
+                      },
                       child: Container(
                         width: MediaQuery.of(context).size.width / 1.68,
                         height: MediaQuery.of(context).size.height / 18.75,
@@ -177,13 +192,14 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                             color: AppColors.colorSignInButton,
                             borderRadius: BorderRadius.all(Radius.circular(50))),
                         alignment: Alignment.center,
-                        child: Text(
+                        child: !isLoading?Text(
                           AppString.txtShare.toUpperCase(),
                           style: TextStyle(
                               fontSize: 14,
                               color: AppColors.colorWhite,
                               fontWeight: FontWeight.w800,),
-                        ),
+                        )
+                            :CircularProgressIndicator()
                       ),
                     ),
                   )

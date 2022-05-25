@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/Widgets/story_view_widget.dart';
 import 'package:story_view/story_view.dart';
 
 class StoryScreen extends StatefulWidget {
-  const StoryScreen({Key? key}) : super(key: key);
+  final String userId;
+  const StoryScreen({Key? key, required this.userId}) : super(key: key);
 
   @override
   _StoryScreenState createState() => _StoryScreenState();
@@ -14,34 +14,10 @@ class StoryScreen extends StatefulWidget {
 class _StoryScreenState extends State<StoryScreen> {
   StoryController storyController = StoryController();
 
-  String userId = "";
-  String profImage = "";
-  String storyUrl = "";
-  // bool hasStory=false;
-  String storyId = "";
-  List storyIds = [];
-  int storyIdNo = 0;
-  final storyItems = <StoryItem>[];
-
-  void addItems() {}
-
-  void getUserDetails() async {
-    var snap = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
- 
-    setState(() {
-      profImage =
-          snap.data()!['photoUrl'] != null ? snap.data()!['photoUrl'] : "";
-  
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    getUserDetails();
+    // getUserDetails();
   }
 
   @override
@@ -52,11 +28,13 @@ class _StoryScreenState extends State<StoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // print(storyIdNo);
+    // print(storyIds);
     return Scaffold(
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('stories')
-              .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+              .where('uid', isEqualTo: widget.userId)
               .snapshots(),
           builder: (BuildContext context,
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
