@@ -223,6 +223,18 @@ class _ChatsPageState extends State<ChatsPage> {
                   height: 8,
                   thickness: 0,
                 ))
-        : Center(child: CircularProgressIndicator());
+        : Center(
+            child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "No Chat Data",
+                style: TextStyle(fontSize: 20),
+              ),
+              LinearProgressIndicator(
+                backgroundColor: AppColors.colorForgotPassword,
+              )
+            ],
+          ));
   }
 }

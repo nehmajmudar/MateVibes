@@ -24,7 +24,7 @@ class _CreatePostState extends State<CreatePost> {
   String _photoUrl = "";
   String username = "";
   String uid = "";
-  bool isLoading=false;
+  bool isLoading = false;
   final TextEditingController postCaptionController = TextEditingController();
 
   @override
@@ -71,20 +71,25 @@ class _CreatePostState extends State<CreatePost> {
   void sharePost(String uid, String username, String profImage) async {
     try {
       setState(() {
-        isLoading=true;
+        isLoading = true;
       });
       String res = await FireStoreMethods().uploadPost(
           postCaptionController.text, _file!, uid, username, profImage);
       if (res == AppString.txtSuccess) {
         setState(() {
-          isLoading=false;
+          isLoading = false;
         });
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BottomNavBar(
+                      selectedIndex: 0,
+                    )));
         showSnackBar('Posted!', context);
         clearImage();
       } else {
         setState(() {
-          isLoading=false;
+          isLoading = false;
         });
         showSnackBar(res, context);
       }
@@ -169,8 +174,10 @@ class _CreatePostState extends State<CreatePost> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height/6.25,
-                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/15.6,top: MediaQuery.of(context).size.height/12.05),
+                    height: MediaQuery.of(context).size.height / 6.25,
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 15.6,
+                        top: MediaQuery.of(context).size.height / 12.05),
                     color: AppColors.colorWhite,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -281,28 +288,28 @@ class _CreatePostState extends State<CreatePost> {
                             onTap: () => sharePost(
                                 "${uid}", "${username}", "${_photoUrl}"),
                             child: Container(
-                              width: MediaQuery.of(context).size.width / 1.68,
-                              height:
-                                  MediaQuery.of(context).size.height / 18.75,
-                              margin: EdgeInsets.only(
-                                bottom:
-                                    MediaQuery.of(context).size.height / 9.27,
-                              ),
-                              decoration: BoxDecoration(
-                                  color: AppColors.colorSignInButton,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50))),
-                              alignment: Alignment.center,
-                              child: !isLoading?Text(
-                                AppString.txtShare.toUpperCase(),
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: AppColors.colorWhite,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: 'Manrope'),
-                              )
-                                  :CircularProgressIndicator()
-                            ),
+                                width: MediaQuery.of(context).size.width / 1.68,
+                                height:
+                                    MediaQuery.of(context).size.height / 18.75,
+                                margin: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).size.height / 9.27,
+                                ),
+                                decoration: BoxDecoration(
+                                    color: AppColors.colorSignInButton,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50))),
+                                alignment: Alignment.center,
+                                child: !isLoading
+                                    ? Text(
+                                        AppString.txtShare.toUpperCase(),
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: AppColors.colorWhite,
+                                            fontWeight: FontWeight.w700,
+                                            fontFamily: 'Manrope'),
+                                      )
+                                    : CircularProgressIndicator()),
                           ),
                         )
                       ],

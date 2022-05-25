@@ -5,25 +5,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/Widgets/firestore_methods.dart';
-import 'package:matevibes/models/story_model.dart';
 import 'package:matevibes/res/app_colors.dart';
 import 'package:matevibes/res/app_string.dart';
 import 'package:matevibes/res/pick_image.dart';
-import 'package:matevibes/screens/create_option_screen.dart';
 
 class CreateStoryScreen extends StatefulWidget {
   final Uint8List imageFile;
-  const CreateStoryScreen({Key? key,required this.imageFile}) : super(key: key);
+  const CreateStoryScreen({Key? key, required this.imageFile})
+      : super(key: key);
 
   @override
   _CreateStoryScreenState createState() => _CreateStoryScreenState();
 }
 
 class _CreateStoryScreenState extends State<CreateStoryScreen> {
-
-  TextEditingController storyCaptionController=TextEditingController();
-  String uid="";
-  bool isLoading=false;
+  TextEditingController storyCaptionController = TextEditingController();
+  String uid = "";
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -31,36 +29,44 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
     getUserId();
   }
 
-  void getUserId()async{
-    DocumentSnapshot snap= await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get();
+  void getUserId() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
 
     setState(() {
-      uid=(snap.data() as Map<String, dynamic>)['uid'];
+      uid = (snap.data() as Map<String, dynamic>)['uid'];
     });
   }
 
-  void shareStory(
-      String uid
-      )async{
-    try{
+  void shareStory(String uid) async {
+    try {
       setState(() {
-        isLoading=true;
+        isLoading = true;
       });
-      String res=await FireStoreMethods().uploadStory(uid: uid,file: widget.imageFile,storyCaption: storyCaptionController.text);
-      if(res==AppString.txtSuccess){
+      String res = await FireStoreMethods().uploadStory(
+          uid: uid,
+          file: widget.imageFile,
+          storyCaption: storyCaptionController.text);
+      if (res == AppString.txtSuccess) {
         setState(() {
-          isLoading=false;
+          isLoading = false;
         });
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BottomNavBar(
+                      selectedIndex: 0,
+                    )));
         showSnackBar('Posted!', context);
-      }
-      else{
+      } else {
         setState(() {
-          isLoading=false;
+          isLoading = false;
         });
         showSnackBar(res, context);
       }
-    }catch(e){
+    } catch (e) {
       showSnackBar(e.toString(), context);
     }
   }
@@ -80,8 +86,10 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height/6.25,
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/15.6,top: MediaQuery.of(context).size.height/12.05),
+              height: MediaQuery.of(context).size.height / 6.25,
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width / 15.6,
+                  top: MediaQuery.of(context).size.height / 12.05),
               color: AppColors.colorWhite,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,29 +98,35 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                     child: Text(
                       AppString.txtWhatIsInYourMind,
                       style: TextStyle(
-                          color: AppColors.colorForgotPassword,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w800,),
+                        color: AppColors.colorForgotPassword,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                     margin: EdgeInsets.only(bottom: 5),
                   ),
                   Text(
                     AppString.txtCreateStory,
                     style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w900,),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/15.6,right: MediaQuery.of(context).size.width/15.6,top: MediaQuery.of(context).size.height/13),
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width / 15.6,
+                  right: MediaQuery.of(context).size.width / 15.6,
+                  top: MediaQuery.of(context).size.height / 13),
               child: Column(
                 children: [
                   Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height/4.41,
-                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 13),
+                    height: MediaQuery.of(context).size.height / 4.41,
+                    margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height / 13),
                     decoration: BoxDecoration(
                         color: AppColors.colorWhite,
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -121,8 +135,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                             color: AppColors.colorSkipforNow,
                             blurRadius: 15,
                           )
-                        ]
-                    ),
+                        ]),
                     child: TextFormField(
                       controller: storyCaptionController,
                       decoration: InputDecoration(
@@ -140,8 +153,9 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                     ),
                   ),
                   Container(
-                      margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/11.1),
-                      height: MediaQuery.of(context).size.height/12.05,
+                      margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height / 11.1),
+                      height: MediaQuery.of(context).size.height / 12.05,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: AppColors.colorWhite,
@@ -153,15 +167,13 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                         children: [
                           SizedBox(
                             height: double.infinity,
-                            width: MediaQuery.of(context).size.width/5.56,
+                            width: MediaQuery.of(context).size.width / 5.56,
                             child: Container(
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       fit: BoxFit.fill,
                                       image: MemoryImage(widget.imageFile),
-                                      alignment: FractionalOffset.topCenter
-                                  )
-                              ),
+                                      alignment: FractionalOffset.topCenter)),
                             ),
                           ),
                           Container(
@@ -169,38 +181,40 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                             child: Text(
                               AppString.txtAddPhotos,
                               style: TextStyle(
-                                  color: AppColors.colorForgotPassword,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w800,),
+                                color: AppColors.colorForgotPassword,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                           ),
                         ],
-                      )
-                  ),
+                      )),
                   Center(
                     child: GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         shareStory("${uid}");
                       },
                       child: Container(
-                        width: MediaQuery.of(context).size.width / 1.68,
-                        height: MediaQuery.of(context).size.height / 18.75,
-                        margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height / 9.27,
-                        ),
-                        decoration: BoxDecoration(
-                            color: AppColors.colorSignInButton,
-                            borderRadius: BorderRadius.all(Radius.circular(50))),
-                        alignment: Alignment.center,
-                        child: !isLoading?Text(
-                          AppString.txtShare.toUpperCase(),
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.colorWhite,
-                              fontWeight: FontWeight.w800,),
-                        )
-                            :CircularProgressIndicator()
-                      ),
+                          width: MediaQuery.of(context).size.width / 1.68,
+                          height: MediaQuery.of(context).size.height / 18.75,
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height / 9.27,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColors.colorSignInButton,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50))),
+                          alignment: Alignment.center,
+                          child: !isLoading
+                              ? Text(
+                                  AppString.txtShare.toUpperCase(),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: AppColors.colorWhite,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                )
+                              : CircularProgressIndicator()),
                     ),
                   )
                 ],
