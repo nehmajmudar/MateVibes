@@ -178,7 +178,7 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
           )
-        : CircularProgressIndicator();
+        : Center(child: CircularProgressIndicator());
   }
 
   Widget buildInput() {

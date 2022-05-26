@@ -55,15 +55,14 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
         await FireStoreMethods()
             .followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
       }
-      if (buttonName == AppString.txtMessage) {
-        Map<String, dynamic> userMap = widget.userDocumentSnapshot;
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ChatScreen(
-                      peerUserData: userMap,
-                    )));
-      }
+    } else if (buttonName == AppString.txtMessage) {
+      Map<String, dynamic> userMap = widget.userDocumentSnapshot;
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ChatScreen(
+                    peerUserData: userMap,
+                  )));
     }
   }
 

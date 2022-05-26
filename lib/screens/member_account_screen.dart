@@ -77,101 +77,108 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.colorBackgroundColor,
-      body: Column(
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              coverProfileImage(),
-              Positioned(
-                child: profileImage(),
-                top: MediaQuery.of(context).size.height / 6.0,
-                right: MediaQuery.of(context).size.width / 2.5,
-                left: MediaQuery.of(context).size.width / 2.5,
-              )
-            ],
-          ),
-          Center(
-            child: Text(username,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: AppColors.colorLetsGetStarted,
-                  fontWeight: FontWeight.w900,
-                )),
-          ),
-          Center(
-            child: Container(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width / 19.5,
-                  right: MediaQuery.of(context).size.width / 19.5),
-              margin: EdgeInsets.only(top: 5, bottom: 5),
-              child: Text("@$displayName",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.colorToday,
-                    fontWeight: FontWeight.w900,
-                  )),
+    return snap != null && snap?.data().isNotEmpty
+        ? Scaffold(
+            backgroundColor: AppColors.colorBackgroundColor,
+            body: Column(
+              children: [
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    coverProfileImage(),
+                    Positioned(
+                      child: profileImage(),
+                      top: MediaQuery.of(context).size.height / 6.0,
+                      right: MediaQuery.of(context).size.width / 2.5,
+                      left: MediaQuery.of(context).size.width / 2.5,
+                    )
+                  ],
+                ),
+                Center(
+                  child: Text(username,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: AppColors.colorLetsGetStarted,
+                        fontWeight: FontWeight.w900,
+                      )),
+                ),
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 19.5,
+                        right: MediaQuery.of(context).size.width / 19.5),
+                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                    child: Text("@$displayName",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.colorToday,
+                          fontWeight: FontWeight.w900,
+                        )),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 19.5,
+                        right: MediaQuery.of(context).size.width / 19.5),
+                    margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height / 33.76),
+                    child: Text(bio,
+                        softWrap: true,
+                        maxLines: 10,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.colorToday,
+                          fontWeight: FontWeight.w900,
+                        )),
+                  ),
+                ),
+                RowOfUserProfile(
+                    noOfPosts: postLen,
+                    noOfMedia: postLen,
+                    noOfFollowing: userFollowing,
+                    noOfFollowers: userFollowers),
+                isFollowing
+                    ? ProfileScreenButtons(
+                        uid: widget.userData["uid"],
+                        textFirstButton: AppString.txtUnfollow,
+                        textSecondButton: AppString.txtMessage,
+                        userDocumentSnapshot: snap.data()!,
+                      )
+                    : ProfileScreenButtons(
+                        uid: widget.userData["uid"],
+                        textFirstButton: AppString.txtFollow,
+                        textSecondButton: AppString.txtMessage,
+                        userDocumentSnapshot: snap?.data()!),
+                Expanded(
+                  child: FutureBuilder(
+                      future: FirebaseFirestore.instance
+                          .collection('posts')
+                          .where('uid', isEqualTo: widget.userData["uid"])
+                          .get(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        return ListView.builder(
+                          itemCount: (snapshot.data! as dynamic).docs.length,
+                          itemBuilder: (ctx, index) => Container(
+                            // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.33,vertical: 15),
+                            child: PostsCard(
+                                snap: (snapshot.data! as dynamic)
+                                    .docs[index]
+                                    .data()),
+                          ),
+                        );
+                      }),
+                ),
+              ],
             ),
-          ),
-          Center(
-            child: Container(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width / 19.5,
-                  right: MediaQuery.of(context).size.width / 19.5),
-              margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.height / 33.76),
-              child: Text(bio,
-                  softWrap: true,
-                  maxLines: 10,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.colorToday,
-                    fontWeight: FontWeight.w900,
-                  )),
-            ),
-          ),
-          RowOfUserProfile(
-              noOfPosts: postLen,
-              noOfMedia: postLen,
-              noOfFollowing: userFollowing,
-              noOfFollowers: userFollowers),
-          isFollowing
-              ? ProfileScreenButtons(
-                  uid: widget.userData["uid"],
-                  textFirstButton: AppString.txtUnfollow,
-                  textSecondButton: AppString.txtMessage,
-                  userDocumentSnapshot: widget.userData,
-                )
-              : ProfileScreenButtons(
-                  uid: widget.userData["uid"],
-                  textFirstButton: AppString.txtFollow,
-                  textSecondButton: AppString.txtMessage,
-                  userDocumentSnapshot: widget.userData),
-          Expanded(
-            child: FutureBuilder(
-                future: FirebaseFirestore.instance
-                    .collection('posts')
-                    .where('uid', isEqualTo: widget.userData["uid"])
-                    .get(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  return ListView.builder(
-                    itemCount: (snapshot.data! as dynamic).docs.length,
-                    itemBuilder: (ctx, index) => Container(
-                      // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.33,vertical: 15),
-                      child: PostsCard(
-                          snap: (snapshot.data! as dynamic).docs[index].data()),
-                    ),
-                  );
-                }),
-          ),
-        ],
-      ),
-    );
+          )
+        : Scaffold(
+            body: CircularProgressIndicator(),
+          );
   }
 
   Widget coverProfileImage() => Container(
