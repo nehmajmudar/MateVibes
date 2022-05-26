@@ -159,7 +159,9 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
                         }
                         return ListView.builder(
                           itemCount: (snapshot.data! as dynamic).docs.length,
@@ -177,7 +179,7 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
             ),
           )
         : Scaffold(
-            body: CircularProgressIndicator(),
+            body: Center(child: CircularProgressIndicator()),
           );
   }
 
