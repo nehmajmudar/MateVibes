@@ -144,12 +144,27 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
                         textFirstButton: AppString.txtUnfollow,
                         textSecondButton: AppString.txtMessage,
                         userDocumentSnapshot: snap.data()!,
+                        followToggle: () {
+                          setState(() {
+                            isFollowing = false;
+                            showSnackBar(
+                                '${AppString.txtUnFollowAlert} ${username}',
+                                context);
+                            userFollowers--;
+                          });
+                        },
                       )
                     : ProfileScreenButtons(
                         uid: widget.userData["uid"],
                         textFirstButton: AppString.txtFollow,
                         textSecondButton: AppString.txtMessage,
-                        userDocumentSnapshot: snap?.data()!),
+                        userDocumentSnapshot: snap?.data()!,
+                        followToggle: () {
+                          setState(() {
+                            isFollowing = true;
+                            userFollowers++;
+                          });
+                        }),
                 Expanded(
                   child: FutureBuilder(
                       future: FirebaseFirestore.instance

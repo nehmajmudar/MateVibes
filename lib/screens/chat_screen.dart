@@ -16,6 +16,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  var snap;
   String peerUserId = '';
   String currentUser = '';
   String groupChatId = "";
@@ -33,7 +34,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
       var userId = _pref.getString(AppString.userIDKey);
       currentUser = userId!;
-
+      snap =
+          FirebaseFirestore.instance.collection('users').doc(currentUser).get();
       createGroupChatId();
     });
 
@@ -83,7 +85,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   fontSize: MediaQuery.of(context).size.height / 28,
                 ),
               ),
-              backgroundColor: AppColors.colorHintText,
+              backgroundColor: AppColors.purpleColor,
               centerTitle: true),
           body: Stack(
             children: [
@@ -120,7 +122,8 @@ class _ChatScreenState extends State<ChatScreen> {
             margin: EdgeInsets.only(
               bottom: 10,
             ),
-          )
+          ),
+          // CircleAvatar(child: snap.data()!['photoUrl'])
         ]);
       } else {
         widget = Row(

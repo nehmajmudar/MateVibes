@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/models/user_model.dart';
 import 'package:matevibes/screens/chat_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../res/app_colors.dart';
 import '../res/app_string.dart';
@@ -22,9 +23,25 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
   late StreamSubscription<QuerySnapshot<Map<String, dynamic>>> listener;
   List<UserModel> chatListUsers = [];
   List matchUserList = [];
+  String currentUser = '';
+  late SharedPreferences _pref;
+  var currentUserSnap;
 
   @override
   void initState() {
+    SharedPreferences.getInstance().then((sharedPref) async {
+      _pref = sharedPref;
+
+      var userId = _pref.getString(AppString.userIDKey);
+
+      currentUser = userId!;
+
+      currentUserSnap = (await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser)
+          .get());
+    });
+
     FirebaseFirestore.instance.collection('users').get().then(
       (querySnapshot) {
         querySnapshot.docs.forEach((element) async {
@@ -103,9 +120,11 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
     Widget searchList() {
       List tempList = [];
       chatListUsers.forEach((element) async {
-        if (element.username!.contains(searchTextEditingController.text) &&
-            searchTextEditingController.text.isNotEmpty) {
-          tempList.add(element);
+        if (element.username != currentUserSnap.data()['username']) {
+          if (element.username!.contains(searchTextEditingController.text) &&
+              searchTextEditingController.text.isNotEmpty) {
+            tempList.add(element);
+          }
         }
         matchUserList.clear();
         matchUserList.addAll(tempList);
@@ -134,7 +153,6 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
         child: Column(
           children: [
             Container(
-
               child: PhysicalModel(
                 borderRadius: BorderRadius.circular(10),
                 elevation: 1,

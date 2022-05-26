@@ -15,20 +15,20 @@ class ProfileOverviewWidget extends StatefulWidget {
 }
 
 class _ProfileOverviewWidgetState extends State<ProfileOverviewWidget> {
-  String username="";
-  String uid="";
-  String displayName="";
-  String bio="";
-  String coverPhoto="";
-  String profilePhoto="";
-  int userFollowers=0;
-  int userFollowing=0;
-  int postLen=0;
-  bool isFollowing=false;
+  String username = "";
+  String uid = "";
+  String displayName = "";
+  String bio = "";
+  String coverPhoto = "";
+  String profilePhoto = "";
+  int userFollowers = 0;
+  int userFollowing = 0;
+  int postLen = 0;
+  bool isFollowing = false;
 
-  ScrollController scrollController=ScrollController();
+  ScrollController scrollController = ScrollController();
 
-  void getUserDetails()async {
+  void getUserDetails() async {
     try {
       var snap = await FirebaseFirestore.instance
           .collection('users')
@@ -41,135 +41,155 @@ class _ProfileOverviewWidgetState extends State<ProfileOverviewWidget> {
           .get();
 
       setState(() {
-        username=snap.data()!['username'];
-        uid=snap.data()!['uid'];
+        username = snap.data()!['username'];
+        uid = snap.data()!['uid'];
         displayName = snap.data()!['displayName'];
         bio = snap.data()!['bio'];
-        coverPhoto = snap.data()!['coverPhotoUrl']!=null?snap.data()!['coverPhotoUrl']:"";
-        profilePhoto = snap.data()!['photoUrl']!=null?snap.data()!['photoUrl']:"";
-        userFollowers = snap.data()!['followers']!=null?snap.data()!['followers'].length:0;
-        userFollowing = snap.data()!['following']!=null?snap.data()!['following'].length:0;
-        isFollowing = snap.data()!['followers']!=null?snap.data()!['followers'].contains(
-            FirebaseAuth.instance.currentUser!.uid):false;
+        coverPhoto = snap.data()!['coverPhotoUrl'] != null
+            ? snap.data()!['coverPhotoUrl']
+            : "";
+        profilePhoto =
+            snap.data()!['photoUrl'] != null ? snap.data()!['photoUrl'] : "";
+        userFollowers = snap.data()!['followers'] != null
+            ? snap.data()!['followers'].length
+            : 0;
+        userFollowing = snap.data()!['following'] != null
+            ? snap.data()!['following'].length
+            : 0;
+        isFollowing = snap.data()!['followers'] != null
+            ? snap
+                .data()!['followers']
+                .contains(FirebaseAuth.instance.currentUser!.uid)
+            : false;
         postLen = postSnap.docs.length;
       });
-    }catch(e){
+    } catch (e) {
       showSnackBar(e.toString(), context);
     }
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     getUserDetails();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.colorBackgroundColor,
       child: Column(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                coverProfileImage(),
-                Positioned(
-                  child: profileImage(),
-                  top: MediaQuery.of(context).size.height/6.0,
-                  right: MediaQuery.of(context).size.width/2.5,
-                  left: MediaQuery.of(context).size.width/2.5,
-                )
-              ],
-            ),
-            Center(
-              child: Text(username,
-                  style: TextStyle(
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              coverProfileImage(),
+              Positioned(
+                child: profileImage(),
+                top: MediaQuery.of(context).size.height / 6.0,
+                right: MediaQuery.of(context).size.width / 2.5,
+                left: MediaQuery.of(context).size.width / 2.5,
+              )
+            ],
+          ),
+          Center(
+            child: Text(username,
+                style: TextStyle(
                     fontSize: 20,
                     color: AppColors.colorLetsGetStarted,
                     fontFamily: 'Manrope',
-                    fontWeight: FontWeight.w800
-                  )),
+                    fontWeight: FontWeight.w800)),
+          ),
+          Center(
+            child: Container(
+              // padding: EdgeInsets.only(
+              //     left: MediaQuery.of(context).size.width / 19.5,
+              //     right: MediaQuery.of(context).size.width / 19.5),
+              margin: EdgeInsets.only(top: 5, bottom: 5),
+              child: Text("@$displayName",
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: AppColors.colorToday,
+                      fontFamily: 'Manrope',
+                      fontWeight: FontWeight.w600)),
             ),
-            Center(
-              child: Container(
-                // padding: EdgeInsets.only(
-                //     left: MediaQuery.of(context).size.width / 19.5,
-                //     right: MediaQuery.of(context).size.width / 19.5),
-                margin: EdgeInsets.only(top: 5, bottom: 5),
-                child: Text("@$displayName",
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: AppColors.colorToday,
-                        fontFamily: 'Manrope',
-                        fontWeight: FontWeight.w600)),
-              ),
+          ),
+          Center(
+            child: Container(
+              // padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
+              margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height / 33.76),
+              child: Text(bio,
+                  softWrap: true,
+                  maxLines: 10,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: AppColors.colorToday,
+                      fontFamily: 'Manrope',
+                      fontWeight: FontWeight.w400)),
             ),
-            Center(
-              child: Container(
-                // padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19.5,right: MediaQuery.of(context).size.width/19.5),
-                margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/33.76),
-                child: Text(bio,softWrap: true,maxLines: 10,style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.colorToday,
-                    fontFamily: 'Manrope',
-                    fontWeight: FontWeight.w400)
-                ),
-              ),
-            ),
-            RowOfUserProfile(noOfPosts: postLen, noOfMedia: postLen, noOfFollowing: userFollowing, noOfFollowers: userFollowers),
-            ProfileScreenButtons(uid: FirebaseAuth.instance.currentUser!.uid,textFirstButton: AppString.txtEditProfile,textSecondButton: AppString.txtSignOut, userDocumentSnapshot: {},),
-          ],
+          ),
+          RowOfUserProfile(
+              noOfPosts: postLen,
+              noOfMedia: postLen,
+              noOfFollowing: userFollowing,
+              noOfFollowers: userFollowers),
+          ProfileScreenButtons(
+            uid: FirebaseAuth.instance.currentUser!.uid,
+            textFirstButton: AppString.txtEditProfile,
+            textSecondButton: AppString.txtSignOut,
+            userDocumentSnapshot: {},
+            followToggle: () {},
+          ),
+        ],
       ),
     );
   }
 
-  Widget coverProfileImage()=>
-      coverPhoto==""
-          ?Container(
-            height: MediaQuery.of(context).size.height/4.22,
-            width: double.infinity,
-            margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/16.23),
-            decoration: BoxDecoration(
-                color: AppColors.colorWhite
-            ),
-            child: Icon(Icons.photo,color: AppColors.colorIcon,size: 70,),
-          )
-          :Container(
-            height: MediaQuery.of(context).size.height/4.22,
-            width: double.infinity,
-            margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/16.23),
-            decoration: BoxDecoration(
-              image: DecorationImage(image: NetworkImage(coverPhoto),fit: BoxFit.cover),
-            ),
-          );
+  Widget coverProfileImage() => coverPhoto == ""
+      ? Container(
+          height: MediaQuery.of(context).size.height / 4.22,
+          width: double.infinity,
+          margin: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height / 16.23),
+          decoration: BoxDecoration(color: AppColors.colorWhite),
+          child: Icon(
+            Icons.photo,
+            color: AppColors.colorIcon,
+            size: 70,
+          ),
+        )
+      : Container(
+          height: MediaQuery.of(context).size.height / 4.22,
+          width: double.infinity,
+          margin: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height / 16.23),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: NetworkImage(coverPhoto), fit: BoxFit.cover),
+          ),
+        );
 
-  Widget profileImage()=>
-      profilePhoto==""
-          ?Container(
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(color: AppColors.colorWhite,blurRadius: 2,spreadRadius: 2)
-                ]
-            ),
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/images/profile_placeholder.jpg'),
-            ),
-          )
-          :Container(
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(color: AppColors.colorWhite,blurRadius: 2,spreadRadius: 2)
-                ]
-            ),
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage: NetworkImage(profilePhoto),
-            ),
-          );
-
+  Widget profileImage() => profilePhoto == ""
+      ? Container(
+          decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
+            BoxShadow(
+                color: AppColors.colorWhite, blurRadius: 2, spreadRadius: 2)
+          ]),
+          child: CircleAvatar(
+            radius: 50,
+            backgroundImage:
+                AssetImage('assets/images/profile_placeholder.jpg'),
+          ),
+        )
+      : Container(
+          decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
+            BoxShadow(
+                color: AppColors.colorWhite, blurRadius: 2, spreadRadius: 2)
+          ]),
+          child: CircleAvatar(
+            radius: 50,
+            backgroundImage: NetworkImage(profilePhoto),
+          ),
+        );
 }

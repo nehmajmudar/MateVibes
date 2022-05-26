@@ -12,12 +12,14 @@ class ProfileScreenButtons extends StatefulWidget {
   final String textFirstButton;
   final String textSecondButton;
   final Map<String, dynamic> userDocumentSnapshot;
+  final Function()? followToggle;
   const ProfileScreenButtons(
       {Key? key,
       required this.uid,
       required this.textFirstButton,
       required this.textSecondButton,
-      required this.userDocumentSnapshot})
+      required this.userDocumentSnapshot,
+      required this.followToggle})
       : super(key: key);
 
   @override
@@ -40,22 +42,22 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
 
   Future<void> onTapActivity(String buttonName) async {
     if (buttonName == AppString.txtSignOut) {
-      if (buttonName == AppString.txtSignOut) {
-        userLogin.setBool('isLoggedIn', false);
-
-        await _auth.signOut();
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
-      }
-      if (buttonName == AppString.txtFollow) {
-        await FireStoreMethods()
-            .followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
-      }
-      if (buttonName == AppString.txtUnfollow) {
-        await FireStoreMethods()
-            .followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
-      }
-    } else if (buttonName == AppString.txtMessage) {
+      userLogin.setBool('isLoggedIn', false);
+      await _auth.signOut();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => SignIn()));
+    }
+    if (buttonName == AppString.txtFollow) {
+      await FireStoreMethods()
+          .followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
+      widget.followToggle!();
+    }
+    if (buttonName == AppString.txtUnfollow) {
+      await FireStoreMethods()
+          .followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
+      widget.followToggle!();
+    }
+    if (buttonName == AppString.txtMessage) {
       Map<String, dynamic> userMap = widget.userDocumentSnapshot;
       Navigator.push(
           context,
