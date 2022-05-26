@@ -12,9 +12,10 @@ class UserModel {
   String? gender;
   final followers;
   final following;
+  final storyIds;
 
 
-  UserModel({this.uid, this.email, this.username, this.phoneNumber, this.photoUrl, this.coverPhotoUrl, this.bio, this.displayName, this.gender, this.followers, this.following});
+  UserModel({this.uid, this.email, this.username, this.phoneNumber, this.photoUrl, this.coverPhotoUrl, this.bio, this.displayName, this.gender, this.followers, this.following, this.storyIds});
 
   //receiving data from server
   factory UserModel.fromMap(map) {
@@ -30,6 +31,7 @@ class UserModel {
       gender: map['gender'] ?? " ",
       followers: map['followers'] ?? " ",
       following: map['following'] ?? " ",
+      storyIds: map['storyIds'] ?? " ",
     );
   }
   // sending data to server
@@ -46,6 +48,7 @@ class UserModel {
       'gender': gender,
       'followers': followers,
       'following': following,
+      'storyIds': storyIds,
     };
   }
   //

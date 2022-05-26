@@ -65,9 +65,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: Text(
                   AppString.txtForgotPassword,
                   style: TextStyle(
-                      color: AppColors.colorLetsGetStarted,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w900,),
+                    color: AppColors.colorLetsGetStarted,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w900
+                  ),
                 ),
               ),
               Container(
