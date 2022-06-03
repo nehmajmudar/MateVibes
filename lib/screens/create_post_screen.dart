@@ -79,12 +79,7 @@ class _CreatePostState extends State<CreatePost> {
         setState(() {
           isLoading = false;
         });
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => BottomNavBar(
-                      selectedIndex: 0,
-                    )));
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>BottomNavBar(selectedIndex: 0)), (Route<dynamic> route) => false);
         showSnackBar('Posted!', context);
         clearImage();
       } else {
