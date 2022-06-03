@@ -314,6 +314,9 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               });
                               if (user != null &&
                                   ConnectivityResult.none != true) {
+                                setState(() {
+                                  isLoading=false;
+                                });
                                 Navigator.of(context)
                                     .pushReplacement(MaterialPageRoute(
                                         builder: (context) => BottomNavBar(
