@@ -24,6 +24,7 @@ class _ProfileOverviewWidgetState extends State<ProfileOverviewWidget> {
   int userFollowers = 0;
   int userFollowing = 0;
   int postLen = 0;
+  int storyLen = 0;
   bool isFollowing = false;
 
   ScrollController scrollController = ScrollController();
@@ -37,6 +38,11 @@ class _ProfileOverviewWidgetState extends State<ProfileOverviewWidget> {
 
       var postSnap = await FirebaseFirestore.instance
           .collection('posts')
+          .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+      var storySnap = await FirebaseFirestore.instance
+          .collection('stories')
           .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get();
 
@@ -62,6 +68,7 @@ class _ProfileOverviewWidgetState extends State<ProfileOverviewWidget> {
                 .contains(FirebaseAuth.instance.currentUser!.uid)
             : false;
         postLen = postSnap.docs.length;
+        storyLen = storySnap.docs.length;
       });
     } catch (e) {
       showSnackBar(e.toString(), context);
@@ -131,7 +138,7 @@ class _ProfileOverviewWidgetState extends State<ProfileOverviewWidget> {
           ),
           RowOfUserProfile(
               noOfPosts: postLen,
-              noOfMedia: postLen,
+              noOfMedia: (postLen+storyLen),
               noOfFollowing: userFollowing,
               noOfFollowers: userFollowers),
           ProfileScreenButtons(

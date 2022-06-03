@@ -53,12 +53,13 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
         setState(() {
           isLoading = false;
         });
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => BottomNavBar(
-                      selectedIndex: 0,
-                    )));
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>BottomNavBar(selectedIndex: 0)), (Route<dynamic> route) => false);
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => BottomNavBar(
+        //               selectedIndex: 0,
+        //             )));
         showSnackBar('Posted!', context);
       } else {
         setState(() {

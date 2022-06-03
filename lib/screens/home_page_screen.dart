@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:matevibes/Widgets/posts_card.dart';
 import 'package:matevibes/Widgets/story_button_user.dart';
@@ -48,8 +49,26 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: snapshot.data!.docs.length,
                                 itemBuilder: (ctx, index) {
-                                  return StoryButtonUser(
-                                      snap: snapshot.data!.docs[index]);
+                                  if(index==0){
+                                    return StoryButtonUser(snap: snapshot.data!.docs[index],index: index);
+                                  }
+                                  else if(index==1){
+                                    return Container(
+                                      //Divider
+                                      height: 20,
+                                      width: 1,
+                                      margin: EdgeInsets.only(
+                                          top: 3,
+                                          bottom: 10,
+                                          left: 5,
+                                          right: 5),
+                                      color: AppColors.colorIcon,
+                                    );
+                                  }
+                                  else{
+                                    return StoryButtonUser(
+                                        snap: snapshot.data!.docs[index],index: index,);
+                                  }
                                 },
                               );
                             })),

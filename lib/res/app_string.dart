@@ -8,6 +8,7 @@ class AppString {
   static String txtDontHaveAnAccount = "Don't have an account?";
   static String txtSignUp = "Sign Up";
   static String txtLetsGetStarted = "Let's Get Started!";
+  static String txtYou = "You";
   static String txtCreateAccountToConnect =
       "Create account to connect with people";
   static String txtUsername = "Username";

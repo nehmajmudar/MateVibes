@@ -21,7 +21,7 @@ class _StoryTypeSelectionDialogueState extends State<StoryTypeSelectionDialogue>
   selectImage(BuildContext context)async{
     return showDialog(context: context, builder: (context){
       return SimpleDialog(
-        title: Text(AppString.txtCreatePost),
+        title: Text(AppString.txtCreateStory),
         children: [
           SimpleDialogOption(
             padding: EdgeInsets.all(20),

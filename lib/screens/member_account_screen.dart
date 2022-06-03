@@ -29,6 +29,7 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
   int userFollowers = 0;
   int userFollowing = 0;
   int postLen = 0;
+  int storyLen = 0;
   bool isFollowing = false;
   var snap;
 
@@ -41,7 +42,12 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
 
       var postSnap = await FirebaseFirestore.instance
           .collection('posts')
-          .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('uid', isEqualTo: widget.userData['uid'])
+          .get();
+
+      var storySnap = await FirebaseFirestore.instance
+          .collection('stories')
+          .where('uid', isEqualTo: widget.userData['uid'])
           .get();
 
       setState(() {
@@ -63,6 +69,7 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
                 .contains(FirebaseAuth.instance.currentUser!.uid)
             : false;
         postLen = postSnap.docs.length;
+        storyLen = storySnap.docs.length;
       });
     } catch (e) {
       showSnackBar(e.toString(), context);
@@ -135,7 +142,7 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
                 ),
                 RowOfUserProfile(
                     noOfPosts: postLen,
-                    noOfMedia: postLen,
+                    noOfMedia: (postLen+storyLen),
                     noOfFollowing: userFollowing,
                     noOfFollowers: userFollowers),
                 isFollowing
