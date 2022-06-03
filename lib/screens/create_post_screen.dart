@@ -265,17 +265,6 @@ class _CreatePostState extends State<CreatePost> {
                                                 FractionalOffset.topCenter)),
                                   ),
                                 ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    AppString.txtAddPhotos,
-                                    style: TextStyle(
-                                        color: AppColors.colorForgotPassword,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w800,
-                                        fontFamily: 'Manrope'),
-                                  ),
-                                ),
                               ],
                             )),
                         Center(
