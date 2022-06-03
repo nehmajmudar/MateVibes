@@ -74,6 +74,7 @@ class SignInScreenWidget extends StatefulWidget {
 
 class _SignInScreenWidgetState extends State<SignInScreenWidget> {
   late SharedPreferences _prefs;
+  bool isLoading=false;
 
   //Login Function
   static Future<User?> loginUsingEmailPassword(
@@ -294,6 +295,9 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                         Center(
                           child: GestureDetector(
                             onTap: () async {
+                              setState(() {
+                                isLoading=true;
+                              });
                               User? user = await loginUsingEmailPassword(
                                   email: _emailController.text,
                                   password: _passwordController.text,
@@ -305,7 +309,9 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               final result =
                                   await Connectivity().checkConnectivity();
                               showConnectivityToastOnPress(result);
-
+                              setState(() {
+                                isLoading=false;
+                              });
                               if (user != null &&
                                   ConnectivityResult.none != true) {
                                 Navigator.of(context)
@@ -314,6 +320,9 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                               selectedIndex: 0,
                                             )));
                               } else if (ConnectivityResult.none == true) {
+                                setState(() {
+                                  isLoading=false;
+                                });
                                 showConnectivityToastOnPress(result);
                               }
                             },
@@ -330,7 +339,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50))),
                               alignment: Alignment.center,
-                              child: Text(
+                              child: !isLoading?Text(
                                 AppString.txtSignIn.toUpperCase(),
                                 style: TextStyle(
                                   fontSize: 14,
@@ -338,7 +347,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Manrope',
                                 ),
-                              ),
+                              ):CircularProgressIndicator()
                             ),
                           ),
                         ),

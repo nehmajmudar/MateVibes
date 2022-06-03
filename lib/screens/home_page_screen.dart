@@ -56,13 +56,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     return Container(
                                       //Divider
                                       height: 20,
-                                      width: 1,
+                                      width: 2,
                                       margin: EdgeInsets.only(
-                                          top: 3,
-                                          bottom: 10,
+                                          top: 5,
+                                          bottom: 13,
                                           left: 5,
                                           right: 5),
-                                      color: AppColors.colorIcon,
+                                      color: AppColors.colorSkipforNow,
                                     );
                                   }
                                   else{

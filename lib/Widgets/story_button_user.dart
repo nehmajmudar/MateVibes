@@ -93,8 +93,11 @@ class _StoryButtonUserState extends State<StoryButtonUser> {
           Expanded(
             child: Container(
                 margin: EdgeInsets.only(top: 5),
-                child: Text(username,style: TextStyle(fontSize: 10,fontFamily: 'Manrope',
-                    fontWeight: FontWeight.w400),))
+                child: (widget.index==0)?Text(AppString.txtYou,style: TextStyle(fontSize: 10,fontFamily: 'Manrope',
+                    fontWeight: FontWeight.w400),)
+            :Text(username,style: TextStyle(fontSize: 10,fontFamily: 'Manrope',
+                    fontWeight: FontWeight.w400),)
+            )
           )
         ],
       ),

@@ -28,6 +28,7 @@ class _CreateAccountState extends State<CreateAccount> {
   TextEditingController displayNameController = TextEditingController();
   TextEditingController userBioController = TextEditingController();
   TextEditingController userGenderController = TextEditingController();
+  bool isLoading=false;
 
   @override
   void initState() {
@@ -63,6 +64,9 @@ class _CreateAccountState extends State<CreateAccount> {
   }
 
   void insertUserDetails() async {
+    setState(() {
+      isLoading=true;
+    });
     String res = await FireStoreMethods().insertMoreUserDetails(
       displayName: displayNameController.text,
       userName: username,
@@ -73,11 +77,17 @@ class _CreateAccountState extends State<CreateAccount> {
       profileImage: userProfileImage!,
     );
     if (res == AppString.txtSuccess) {
+      setState(() {
+        isLoading=false;
+      });
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => BottomNavBar(selectedIndex: 0)));
     } else {
+      setState(() {
+        isLoading=false;
+      });
       showSnackBar(res, context);
     }
   }
@@ -262,7 +272,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(50))),
                                   alignment: Alignment.center,
-                                  child: Text(
+                                  child: !isLoading?Text(
                                     AppString.txtContinue.toUpperCase(),
                                     style: TextStyle(
                                       fontSize: 14,
@@ -270,7 +280,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                       fontFamily: 'Manrope',
                                       fontWeight: FontWeight.w700,
                                     ),
-                                  ),
+                                  ):CircularProgressIndicator()
                                 ),
                               ),
                               Container(
