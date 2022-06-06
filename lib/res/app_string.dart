@@ -30,7 +30,8 @@ class AppString {
       "We’ll send a link to reset password over\n below entered email address or phone number.";
   static String txtOR = "OR";
   static String txtContinue = "continue";
-  static String txtPassworddontmatch = "Password don't match";
+  static String txtPassworddontmatch =
+      "Password and Confirm Password should be same";
   static String txtLetsCompleteProfile = "Let's Complete Profile";
   static String txtWhatDescribesYouBetter = "What describes you better?";
   static String txtGender = "Gender";
@@ -101,4 +102,9 @@ class AppString {
   static String typeYourMessage = 'Type your message...';
   static String txtUnFollowAlert = "You have unfollowed ";
   static String txtFollowAlert = "You are now following ";
+  static String txtFieldShouldNotBeEmpty = "Field Should not be Empty";
+  static String txtplsEnterValidEmail = "Please enter valid Email And Password";
+  static String txtwrongPassword = "Please enter valid  Password";
+  static String txtToomanyattemps =
+      "Too many attempts found in your Id please try after some time";
 }

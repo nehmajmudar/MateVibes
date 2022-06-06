@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/Widgets/firestore_methods.dart';
@@ -28,9 +29,11 @@ class _CreateAccountState extends State<CreateAccount> {
   TextEditingController displayNameController = TextEditingController();
   TextEditingController userBioController = TextEditingController();
   TextEditingController userGenderController = TextEditingController();
-
+  var _formKey;
   @override
   void initState() {
+    _formKey = GlobalKey<FormState>();
+
     super.initState();
     getUsername();
     getPhoneNumber();
@@ -109,6 +112,7 @@ class _CreateAccountState extends State<CreateAccount> {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     return Form(
+        key: _formKey,
         child: Scaffold(
             backgroundColor: AppColors.colorBackgroundColor,
             body: SingleChildScrollView(
@@ -178,6 +182,12 @@ class _CreateAccountState extends State<CreateAccount> {
                               fontFamily: 'Manrope',
                             ),
                           ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return AppString.txtFieldShouldNotBeEmpty;
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       Container(
@@ -207,6 +217,12 @@ class _CreateAccountState extends State<CreateAccount> {
                               fontFamily: 'Manrope',
                             ),
                           ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return AppString.txtFieldShouldNotBeEmpty;
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       Container(
@@ -236,6 +252,12 @@ class _CreateAccountState extends State<CreateAccount> {
                               color: AppColors.colorHintText,
                             ),
                           ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return AppString.txtFieldShouldNotBeEmpty;
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       Container(
@@ -250,7 +272,17 @@ class _CreateAccountState extends State<CreateAccount> {
                                   final result =
                                       await Connectivity().checkConnectivity();
                                   showConnectivityToastOnPress(result);
-                                  insertUserDetails();
+
+                                  if (_formKey.currentState!.validate()) {
+                                    if (userCoverImage == null ||
+                                        userProfileImage == null) {
+                                      Fluttertoast.showToast(
+                                          msg:
+                                              "Please Add Profile and Cover photo");
+                                    } else {
+                                      insertUserDetails();
+                                    }
+                                  }
                                 },
                                 child: Container(
                                   width:
@@ -273,22 +305,6 @@ class _CreateAccountState extends State<CreateAccount> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height /
-                                      49.64,
-                                  bottom: MediaQuery.of(context).size.height /
-                                      23.44,
-                                ),
-                                child: Text(
-                                  AppString.txtSkipForNow,
-                                  style: TextStyle(
-                                      color: AppColors.colorSignInToContinue,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      fontFamily: 'Manrope'),
-                                ),
-                              )
                             ],
                           ),
                         ),

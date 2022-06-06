@@ -92,20 +92,20 @@ class FireStoreMethods {
   }
 
   Future<String> insertMoreUserDetails({
-    required String displayName,
+    String? displayName,
     required String userName,
     required String phoneNumber,
-    required String userBio,
-    required String userGender,
-    required Uint8List coverImage,
-    required Uint8List profileImage,
+    String? userBio,
+    String? userGender,
+    Uint8List? coverImage,
+    Uint8List? profileImage,
   }) async {
     String res = "Some error Occurred";
     try {
       String profilePhotoUrl = await StorageMethods()
-          .uploadProfileImageToStorage('profilePics', profileImage, false);
+          .uploadProfileImageToStorage('profilePics', profileImage!, false);
       String userCoverPhotoUrl = await StorageMethods()
-          .uploadCoverImageToStorage('userCoverPics', coverImage, false);
+          .uploadCoverImageToStorage('userCoverPics', coverImage!, false);
 
       UserModel _user = UserModel(
         uid: FirebaseAuth.instance.currentUser!.uid,
