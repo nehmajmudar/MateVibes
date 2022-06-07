@@ -23,7 +23,7 @@ class ChatsPage extends StatefulWidget {
 
 class _ChatsPageState extends State<ChatsPage> {
   late FirebaseFirestore obj;
-
+  bool isDataLoded = false;
   var profilePhoto = "";
   late StreamSubscription subscription;
   late SharedPreferences _pref;
@@ -49,6 +49,8 @@ class _ChatsPageState extends State<ChatsPage> {
       currentUser = userId!;
       FirebaseFirestore.instance.collection('chat').get().then(
         (querySnapshot) {
+          isDataLoded = true;
+          setState(() {});
           querySnapshot.docs.forEach((element) async {
             if (element.id.contains(currentUser)) {
               listener = FirebaseFirestore.instance
@@ -86,6 +88,7 @@ class _ChatsPageState extends State<ChatsPage> {
         UserModel userModel = UserModel.fromMap(userDocumentSnapshot.data());
         if (!chatListUsers.any((element) => element.uid == userModel.uid)) {
           chatListUsers.add(userModel);
+          isDataLoded = true;
 
           setState(() {});
         }
@@ -169,72 +172,67 @@ class _ChatsPageState extends State<ChatsPage> {
   }
 
   Widget chatsUi() {
-    return chatListUsers.length > 0
-        ? ListView.separated(
-            itemCount: chatListUsers.length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChatScreen(
-                                peerUserData: chatListUsers[index].toMap(),
-                              )));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: AppColors.colorWhite,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.colorSkipforNow,
-                          blurRadius: 15,
-                        )
-                      ]),
-                  alignment: Alignment.center,
-                  child: ListTile(
-                    leading: CircleAvatar(
-                        foregroundImage:
-                            NetworkImage(chatListUsers[index].photoUrl!),
-                        radius: 20,
-                        backgroundImage: AssetImage(
-                          'assets/images/user_profile_img.png',
-                        )),
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          chatListUsers[index].username!,
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.chatName,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: 'Manrope'),
-                        ),
-                      ],
-                    ),
-                  ),
+    return !isDataLoded
+        ? Center(child: CircularProgressIndicator())
+        : chatListUsers.length == 0
+            ? Center(
+                child: Text(
+                  "No Chat Data",
+                  style: TextStyle(fontSize: 20),
                 ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) => Divider(
-                  color: AppColors.colorWhite,
-                  height: 8,
-                  thickness: 0,
-                ))
-        : Center(
-            child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "No Chat Data",
-                style: TextStyle(fontSize: 20),
-              ),
-              LinearProgressIndicator(
-                backgroundColor: AppColors.colorForgotPassword,
               )
-            ],
-          ));
+            : ListView.separated(
+                itemCount: chatListUsers.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChatScreen(
+                                    peerUserData: chatListUsers[index].toMap(),
+                                  )));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: AppColors.colorWhite,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.colorSkipforNow,
+                              blurRadius: 15,
+                            )
+                          ]),
+                      alignment: Alignment.center,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                            foregroundImage:
+                                NetworkImage(chatListUsers[index].photoUrl!),
+                            radius: 20,
+                            backgroundImage: AssetImage(
+                              'assets/images/user_profile_img.png',
+                            )),
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              chatListUsers[index].username!,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: AppColors.chatName,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: 'Manrope'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) => Divider(
+                      color: AppColors.colorWhite,
+                      height: 8,
+                      thickness: 0,
+                    ));
   }
 }

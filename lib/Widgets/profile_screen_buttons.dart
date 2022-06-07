@@ -29,7 +29,6 @@ class ProfileScreenButtons extends StatefulWidget {
 class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
   late SharedPreferences userLogin;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  bool isLoading=false;
 
   @override
   void initState() {
@@ -42,13 +41,7 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
   }
 
   Future<void> onTapActivity(String buttonName) async {
-    setState(() {
-      isLoading=true;
-    });
     if (buttonName == AppString.txtSignOut) {
-      setState(() {
-        isLoading=false;
-      });
       userLogin.setBool('isLoggedIn', false);
       await _auth.signOut();
       Navigator.pushReplacement(
@@ -110,22 +103,22 @@ class _ProfileScreenButtonsState extends State<ProfileScreenButtons> {
             // onTap: onTapActivity(AppString.txtSignOut),
             onTap: () async => onTapActivity(widget.textSecondButton),
             child: Container(
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width / 2.76,
-              height: MediaQuery.of(context).size.height / 28.13,
-              decoration: BoxDecoration(
-                  color: AppColors.colorWhite,
-                  borderRadius: BorderRadius.all(Radius.circular(7)),
-                  border: Border.all(color: AppColors.colorSelectedItemNavBar)),
-              child: !isLoading?Text(
-                widget.textSecondButton,
-                style: TextStyle(
-                    color: AppColors.colorSelectedItemNavBar,
-                    fontSize: 12,
-                    fontFamily: 'Manrope',
-                    fontWeight: FontWeight.w800),
-              ):CircularProgressIndicator()
-            ),
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width / 2.76,
+                height: MediaQuery.of(context).size.height / 28.13,
+                decoration: BoxDecoration(
+                    color: AppColors.colorWhite,
+                    borderRadius: BorderRadius.all(Radius.circular(7)),
+                    border:
+                        Border.all(color: AppColors.colorSelectedItemNavBar)),
+                child: Text(
+                  widget.textSecondButton,
+                  style: TextStyle(
+                      color: AppColors.colorSelectedItemNavBar,
+                      fontSize: 12,
+                      fontFamily: 'Manrope',
+                      fontWeight: FontWeight.w800),
+                )),
           )
         ],
       ),

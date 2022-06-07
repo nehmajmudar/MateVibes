@@ -65,10 +65,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: Text(
                   AppString.txtForgotPassword,
                   style: TextStyle(
-                    color: AppColors.colorLetsGetStarted,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w900
-                  ),
+                      color: AppColors.colorLetsGetStarted,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900),
                 ),
               ),
               Container(
@@ -78,9 +77,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   child: Text(
                     AppString.txtForgotPasswordText,
                     style: TextStyle(
-                        color: AppColors.colorForgotPassword,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,),
+                      color: AppColors.colorForgotPassword,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
                   )),
               Container(
                 decoration: BoxDecoration(
@@ -91,8 +91,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         color: AppColors.colorSkipforNow,
                         blurRadius: 15,
                       )
-                    ]
-                ),
+                    ]),
                 margin: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height / 27.22,
                     horizontal: MediaQuery.of(context).size.width / 10.83),
@@ -105,9 +104,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(50)),
                     hintStyle: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.colorHintText,),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.colorHintText,
+                    ),
                   ),
                 ),
               ),
@@ -126,11 +126,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           color: AppColors.colorHintText,
                         ),
                       )),
-                  Divider(
-                    indent: MediaQuery.of(context).size.width / 6.61,
-                    height: 20,
-                    thickness: 20,
-                    color: AppColors.colorRed,
+                  Center(
+                    child: Container(
+                      color: AppColors.colorSkipforNow,
+                      height: 2,
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height / 28.13),
+                    ),
                   ),
                 ],
               ),
@@ -143,8 +146,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         color: AppColors.colorSkipforNow,
                         blurRadius: 15,
                       )
-                    ]
-                ),
+                    ]),
                 margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height / 10.04,
                     right: MediaQuery.of(context).size.width / 10.83,
@@ -157,9 +159,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(50)),
                     hintStyle: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.colorHintText,),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.colorHintText,
+                    ),
                   ),
                 ),
               ),
@@ -178,9 +181,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         child: Text(
                           AppString.txtContinue.toUpperCase(),
                           style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.colorWhite,
-                              fontWeight: FontWeight.w800,),
+                            fontSize: 14,
+                            color: AppColors.colorWhite,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
                       ),
                       onTap: () async {
@@ -202,16 +206,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     TextSpan(
                       text: AppString.txtContinueTo,
                       style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.colorForgotPassword,
-                          fontWeight: FontWeight.w400,),
+                        fontSize: 14,
+                        color: AppColors.colorForgotPassword,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                     TextSpan(
                         text: AppString.txtSignIn,
                         style: TextStyle(
-                            fontSize: 14,
-                            color: AppColors.colorSignInButton,
-                            fontWeight: FontWeight.w900,),
+                          fontSize: 14,
+                          color: AppColors.colorSignInButton,
+                          fontWeight: FontWeight.w900,
+                        ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             Navigator.pop(context);

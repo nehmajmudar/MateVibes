@@ -73,8 +73,10 @@ class SignInScreenWidget extends StatefulWidget {
 }
 
 class _SignInScreenWidgetState extends State<SignInScreenWidget> {
+  bool _emailValidator = false;
+  bool _passwordValidator = false;
   late SharedPreferences _prefs;
-  bool isLoading=false;
+  final FocusNode _emailFocusNode = FocusNode();
 
   //Login Function
   static Future<User?> loginUsingEmailPassword(
@@ -89,9 +91,25 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
           email: email, password: password);
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
+      print(e.code);
       if (e.code == "user-not-found") {
         Fluttertoast.showToast(
             msg: AppString.txtnoUserFoundFromThisMail,
+            textColor: AppColors.colorWhite,
+            backgroundColor: AppColors.colorBlack);
+      } else if (e.code == 'unknown') {
+        Fluttertoast.showToast(
+            msg: AppString.txtplsEnterValidEmail,
+            textColor: AppColors.colorWhite,
+            backgroundColor: AppColors.colorBlack);
+      } else if (e.code == ' wrong-password') {
+        Fluttertoast.showToast(
+            msg: AppString.txtplsEnterValidEmail,
+            textColor: AppColors.colorWhite,
+            backgroundColor: AppColors.colorBlack);
+      } else if (e.code == 'too-many-requests') {
+        Fluttertoast.showToast(
+            msg: AppString.txtToomanyattemps,
             textColor: AppColors.colorWhite,
             backgroundColor: AppColors.colorBlack);
       }
@@ -164,11 +182,6 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                         Container(
                           child: Text(
                             AppString.txtWelcome,
-                            // style: GoogleFonts.manrope(
-                            //   fontWeight: FontWeight.w900,
-                            //   fontSize: 24,
-                            //   color: AppColors.colorLetsGetStarted
-                            // ),
                             style: TextStyle(
                                 color: AppColors.colorLetsGetStarted,
                                 fontSize: 24,
@@ -192,9 +205,6 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(
-                              bottom:
-                                  MediaQuery.of(context).size.height / 33.76),
                           decoration: BoxDecoration(
                               color: AppColors.colorWhite,
                               borderRadius:
@@ -205,73 +215,102 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                   blurRadius: 15,
                                 )
                               ]),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height / 18.75,
-                            child: TextFormField(
-                              controller: _emailController,
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(10),
-                                hintText: AppString.txtEmailAddress,
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(50)),
-                                hintStyle: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.colorHintText,
-                                  fontFamily: 'Manrope',
-                                ),
+                          child: TextFormField(
+                            onChanged: (value) {
+                              if (_emailValidator) {
+                                _emailValidator = false;
+                                setState(() {});
+                              }
+                            },
+                            controller: _emailController,
+                            focusNode: _emailFocusNode,
+                            decoration: InputDecoration(
+                              errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white)),
+                              contentPadding: EdgeInsets.all(10),
+                              hintText: AppString.txtEmailAddress,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(50)),
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.colorHintText,
+                                fontFamily: 'Manrope',
                               ),
-                              validator: (value) {
-                                if (value!.isEmpty ||
-                                    !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                        .hasMatch(value)) {
-                                  return AppString.txtEnterValidEmailId;
-                                }
-                                return null;
-                              },
                             ),
+                            validator: (value) {
+                              if (value!.isEmpty ||
+                                  !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                      .hasMatch(value)) {
+                                _emailValidator = true;
+                                setState(() {});
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         Container(
-                          decoration: BoxDecoration(
-                              color: AppColors.colorWhite,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.colorSkipforNow,
-                                  blurRadius: 15,
-                                )
-                              ]),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height / 18.75,
-                            child: TextFormField(
-                              controller: _passwordController,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(13),
-                                hintText: AppString.txtPassword,
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(50)),
-                                hintStyle: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.colorHintText,
-                                  fontFamily: 'Manrope',
+                          margin: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height / 590,
+                              left: MediaQuery.of(context).size.width / 32),
+                          child: Visibility(
+                              visible: _emailValidator,
+                              child: Text(
+                                AppString.txtEnterValidEmailId,
+                                style: TextStyle(
+                                    fontSize: 12, color: AppColors.colorRed),
+                              )),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 33.76,
+                        ),
+                        Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: AppColors.colorWhite,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.colorSkipforNow,
+                                      blurRadius: 15,
+                                    )
+                                  ]),
+                              child: TextFormField(
+                                controller: _passwordController,
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  fillColor: AppColors.colorWhite,
+                                  contentPadding: EdgeInsets.all(13),
+                                  hintText: AppString.txtPassword,
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(50)),
+                                  hintStyle: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.colorHintText,
+                                    fontFamily: 'Manrope',
+                                  ),
                                 ),
                               ),
-                              validator: (value) {
-                                if (value!.length <= 6 || value.isEmpty) {
-                                  return AppString.txtPasswordLengthMoreThan6;
-                                }
-                                return null;
-                              },
                             ),
-                          ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height / 16,
+                                  left: MediaQuery.of(context).size.width / 32),
+                              child: Visibility(
+                                  visible: _passwordValidator,
+                                  child: Text(
+                                    AppString.txtPasswordLengthMoreThan6,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.colorRed),
+                                  )),
+                            )
+                          ],
                         ),
                         GestureDetector(
                           onTap: () {
@@ -295,9 +334,6 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                         Center(
                           child: GestureDetector(
                             onTap: () async {
-                              setState(() {
-                                isLoading=true;
-                              });
                               User? user = await loginUsingEmailPassword(
                                   email: _emailController.text,
                                   password: _passwordController.text,
@@ -309,23 +345,16 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               final result =
                                   await Connectivity().checkConnectivity();
                               showConnectivityToastOnPress(result);
-                              setState(() {
-                                isLoading=false;
-                              });
-                              if (user != null &&
-                                  ConnectivityResult.none != true) {
-                                setState(() {
-                                  isLoading=false;
-                                });
-                                Navigator.of(context)
-                                    .pushReplacement(MaterialPageRoute(
-                                        builder: (context) => BottomNavBar(
-                                              selectedIndex: 0,
-                                            )));
+                              if (_formKey.currentState!.validate()) {
+                                if (user != null &&
+                                    ConnectivityResult.none != true) {
+                                  Navigator.of(context)
+                                      .pushReplacement(MaterialPageRoute(
+                                          builder: (context) => BottomNavBar(
+                                                selectedIndex: 0,
+                                              )));
+                                }
                               } else if (ConnectivityResult.none == true) {
-                                setState(() {
-                                  isLoading=false;
-                                });
                                 showConnectivityToastOnPress(result);
                               }
                             },
@@ -342,7 +371,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50))),
                               alignment: Alignment.center,
-                              child: !isLoading?Text(
+                              child: Text(
                                 AppString.txtSignIn.toUpperCase(),
                                 style: TextStyle(
                                   fontSize: 14,
@@ -350,7 +379,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Manrope',
                                 ),
-                              ):CircularProgressIndicator()
+                              ),
                             ),
                           ),
                         ),

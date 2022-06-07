@@ -32,11 +32,6 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // initialRoute: '/',
-      // initialRoute: FirebaseAuth.instance.currentUser==null?'/':'/navbar',
-      // initialRoute: islogin!=null
-      //                   ? '/navbar'
-      //                   : '/',
       routes: {
         '/': (context) => SplashScreen(),
         '/splash_screen': (context) => SplashScreen(),

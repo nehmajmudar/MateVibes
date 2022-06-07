@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +21,12 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  bool _usenameValidator = false;
+  bool _emailValidator = false;
+  bool _phoneValidator = false;
+  bool _passwordValidator = false;
+  bool _confirmPasswordValidator = false;
+
   late StreamSubscription subscription;
 
   @override
@@ -41,7 +46,6 @@ class _SignUpState extends State<SignUp> {
   String? errorMessage;
   bool checkboxTAndC = false;
   bool showErrorMessage = false;
-  bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final usernameController = new TextEditingController();
   final phoneNumberController = new TextEditingController();
@@ -84,16 +88,13 @@ class _SignUpState extends State<SignUp> {
                   child: Text(
                     AppString.txtCreateAccountToConnect,
                     style: TextStyle(
-                      color: AppColors.colorCreateAccountToConnect,
-                      fontSize: 14,
-                      fontFamily: 'Manrope',
-                      fontWeight: FontWeight.w800
-                    ),
+                        color: AppColors.colorCreateAccountToConnect,
+                        fontSize: 14,
+                        fontFamily: 'Manrope',
+                        fontWeight: FontWeight.w800),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.height / 33.76),
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -104,6 +105,9 @@ class _SignUpState extends State<SignUp> {
                         )
                       ]),
                   child: TextFormField(
+                    onChanged: (val) {
+                      _usenameValidator = false;
+                    },
                     controller: usernameController,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
@@ -120,7 +124,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return AppString.txtEnterValidEmailId;
+                        _usenameValidator = true;
+                        setState(() {});
                       }
                       return null;
                     },
@@ -128,7 +133,19 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Container(
                   margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.height / 33.76),
+                      left: MediaQuery.of(context).size.width / 32),
+                  child: Visibility(
+                      visible: _usenameValidator,
+                      child: Text(
+                        AppString.txtEnterValidUsername,
+                        style:
+                            TextStyle(fontSize: 12, color: AppColors.colorRed),
+                      )),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 40,
+                ),
+                Container(
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -139,6 +156,12 @@ class _SignUpState extends State<SignUp> {
                         )
                       ]),
                   child: TextFormField(
+                    onChanged: (val) {
+                      if (_emailValidator) {
+                        _emailValidator = false;
+                        setState(() {});
+                      }
+                    },
                     controller: emailController,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
@@ -157,7 +180,8 @@ class _SignUpState extends State<SignUp> {
                       if (value!.isEmpty ||
                           !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(value)) {
-                        return AppString.txtEnterValidEmailId;
+                        _emailValidator = true;
+                        setState(() {});
                       }
                       return null;
                     },
@@ -165,7 +189,19 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Container(
                   margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.height / 33.76),
+                      left: MediaQuery.of(context).size.width / 32),
+                  child: Visibility(
+                      visible: _emailValidator,
+                      child: Text(
+                        AppString.txtEnterValidEmailId,
+                        style:
+                            TextStyle(fontSize: 12, color: AppColors.colorRed),
+                      )),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 40,
+                ),
+                Container(
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -176,6 +212,10 @@ class _SignUpState extends State<SignUp> {
                         )
                       ]),
                   child: TextFormField(
+                    onChanged: (val) {
+                      if (_phoneValidator) _phoneValidator = false;
+                      setState(() {});
+                    },
                     controller: phoneNumberController,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(13),
@@ -193,7 +233,8 @@ class _SignUpState extends State<SignUp> {
                     validator: (value) {
                       if (value!.isEmpty ||
                           !RegExp(r"^[0-9]{10}$").hasMatch(value)) {
-                        return AppString.txtEnterValidPhoneNo;
+                        _phoneValidator = true;
+                        setState(() {});
                       }
                       return null;
                     },
@@ -201,7 +242,19 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Container(
                   margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.height / 33.76),
+                      left: MediaQuery.of(context).size.width / 32),
+                  child: Visibility(
+                      visible: _phoneValidator,
+                      child: Text(
+                        AppString.txtEnterValidPhoneNo,
+                        style:
+                            TextStyle(fontSize: 12, color: AppColors.colorRed),
+                      )),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 40,
+                ),
+                Container(
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -212,6 +265,9 @@ class _SignUpState extends State<SignUp> {
                         )
                       ]),
                   child: TextFormField(
+                    onChanged: (val) {
+                      if (_passwordValidator) _passwordValidator = false;
+                    },
                     controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
@@ -229,7 +285,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                     validator: (value) {
                       if (value!.length <= 6 || value.isEmpty) {
-                        return AppString.txtPasswordLengthMoreThan6;
+                        _passwordValidator = true;
+                        setState(() {});
                       }
                       return null;
                     },
@@ -237,7 +294,19 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Container(
                   margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.height / 33.76),
+                      left: MediaQuery.of(context).size.width / 32),
+                  child: Visibility(
+                      visible: _passwordValidator,
+                      child: Text(
+                        AppString.txtPasswordLengthMoreThan6,
+                        style:
+                            TextStyle(fontSize: 12, color: AppColors.colorRed),
+                      )),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 40,
+                ),
+                Container(
                   decoration: BoxDecoration(
                       color: AppColors.colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -248,6 +317,10 @@ class _SignUpState extends State<SignUp> {
                         )
                       ]),
                   child: TextFormField(
+                    onChanged: (val) {
+                      if (_confirmPasswordValidator)
+                        _confirmPasswordValidator = false;
+                    },
                     controller: confirmPasswordController,
                     obscureText: true,
                     decoration: InputDecoration(
@@ -266,11 +339,25 @@ class _SignUpState extends State<SignUp> {
                     validator: (value) {
                       if (confirmPasswordController.text !=
                           passwordController.text) {
-                        return AppString.txtPassworddontmatch;
+                        _confirmPasswordValidator = true;
                       }
                       return null;
                     },
                   ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width / 32),
+                  child: Visibility(
+                      visible: _confirmPasswordValidator,
+                      child: Text(
+                        AppString.txtPassworddontmatch,
+                        style:
+                            TextStyle(fontSize: 12, color: AppColors.colorRed),
+                      )),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 40,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -345,7 +432,7 @@ class _SignUpState extends State<SignUp> {
                           color: AppColors.colorSignInButton,
                           borderRadius: BorderRadius.all(Radius.circular(50))),
                       alignment: Alignment.center,
-                      child: !isLoading?Text(
+                      child: Text(
                         AppString.txtCreateAccount.toUpperCase(),
                         style: TextStyle(
                           fontSize: 14,
@@ -353,7 +440,7 @@ class _SignUpState extends State<SignUp> {
                           fontWeight: FontWeight.w700,
                           fontFamily: 'Manrope',
                         ),
-                      ):CircularProgressIndicator()
+                      ),
                     ),
                     onTap: () async {
                       final result = await Connectivity().checkConnectivity();
@@ -416,9 +503,6 @@ class _SignUpState extends State<SignUp> {
   void signUp(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
-        setState(() {
-          isLoading=true;
-        });
         await _auth
             .createUserWithEmailAndPassword(email: email, password: password)
             .then((value) => {postDetailsToFirestore()})
@@ -475,9 +559,6 @@ class _SignUpState extends State<SignUp> {
     Fluttertoast.showToast(msg: AppString.txtaccountCreatedSuccessfully);
 
     if (ConnectivityResult.none != true) {
-      setState(() {
-        isLoading=false;
-      });
       showDialog(
           context: context,
           barrierDismissible: false,

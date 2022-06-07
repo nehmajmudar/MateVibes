@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:matevibes/Widgets/bottom_navbar.dart';
 import 'package:matevibes/Widgets/firestore_methods.dart';
@@ -21,6 +22,9 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
+  bool _usenameValidator = false;
+  bool _bioValidator = false;
+  bool _genderValidator = false;
   String username = "";
   String phoneNum = "";
   Uint8List? userCoverImage;
@@ -28,10 +32,11 @@ class _CreateAccountState extends State<CreateAccount> {
   TextEditingController displayNameController = TextEditingController();
   TextEditingController userBioController = TextEditingController();
   TextEditingController userGenderController = TextEditingController();
-  bool isLoading=false;
-
+  var _formKey;
   @override
   void initState() {
+    _formKey = GlobalKey<FormState>();
+
     super.initState();
     getUsername();
     getPhoneNumber();
@@ -64,9 +69,6 @@ class _CreateAccountState extends State<CreateAccount> {
   }
 
   void insertUserDetails() async {
-    setState(() {
-      isLoading=true;
-    });
     String res = await FireStoreMethods().insertMoreUserDetails(
       displayName: displayNameController.text,
       userName: username,
@@ -77,17 +79,11 @@ class _CreateAccountState extends State<CreateAccount> {
       profileImage: userProfileImage!,
     );
     if (res == AppString.txtSuccess) {
-      setState(() {
-        isLoading=false;
-      });
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => BottomNavBar(selectedIndex: 0)));
     } else {
-      setState(() {
-        isLoading=false;
-      });
       showSnackBar(res, context);
     }
   }
@@ -119,6 +115,7 @@ class _CreateAccountState extends State<CreateAccount> {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     return Form(
+        key: _formKey,
         child: Scaffold(
             backgroundColor: AppColors.colorBackgroundColor,
             body: SingleChildScrollView(
@@ -188,6 +185,13 @@ class _CreateAccountState extends State<CreateAccount> {
                               fontFamily: 'Manrope',
                             ),
                           ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              _usenameValidator = true;
+                              setState(() {});
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       Container(
@@ -217,6 +221,13 @@ class _CreateAccountState extends State<CreateAccount> {
                               fontFamily: 'Manrope',
                             ),
                           ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              _bioValidator = true;
+                              setState(() {});
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       Container(
@@ -246,6 +257,13 @@ class _CreateAccountState extends State<CreateAccount> {
                               color: AppColors.colorHintText,
                             ),
                           ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              _genderValidator = true;
+                              setState(() {});
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       Container(
@@ -260,7 +278,22 @@ class _CreateAccountState extends State<CreateAccount> {
                                   final result =
                                       await Connectivity().checkConnectivity();
                                   showConnectivityToastOnPress(result);
-                                  insertUserDetails();
+
+                                  if (_formKey.currentState!.validate()) {
+                                    if (userCoverImage == null ||
+                                        userProfileImage == null) {
+                                      Fluttertoast.showToast(
+                                          msg:
+                                              "Please Add Profile and Cover photo");
+                                    } else if (_bioValidator ||
+                                        _genderValidator ||
+                                        _usenameValidator) {
+                                      Fluttertoast.showToast(
+                                          msg:
+                                              "Please complete the all the textfield");
+                                      insertUserDetails();
+                                    }
+                                  }
                                 },
                                 child: Container(
                                   width:
@@ -272,7 +305,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(50))),
                                   alignment: Alignment.center,
-                                  child: !isLoading?Text(
+                                  child: Text(
                                     AppString.txtContinue.toUpperCase(),
                                     style: TextStyle(
                                       fontSize: 14,
@@ -280,25 +313,9 @@ class _CreateAccountState extends State<CreateAccount> {
                                       fontFamily: 'Manrope',
                                       fontWeight: FontWeight.w700,
                                     ),
-                                  ):CircularProgressIndicator()
+                                  ),
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height /
-                                      49.64,
-                                  bottom: MediaQuery.of(context).size.height /
-                                      23.44,
-                                ),
-                                child: Text(
-                                  AppString.txtSkipForNow,
-                                  style: TextStyle(
-                                      color: AppColors.colorSignInToContinue,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      fontFamily: 'Manrope'),
-                                ),
-                              )
                             ],
                           ),
                         ),

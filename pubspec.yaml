@@ -73,9 +73,9 @@ flutter:
    - assets/images/user_profile_img.png
    - assets/images/create_post_picture.png
    - assets/images/profile_placeholder.jpg
-   - assets/images/Ellipse 1.png
-   - assets/images/Ellipse 2.png
-   - assets/images/Ellipse 3.png
+   - assets/images/Ellipse_1.png
+   - assets/images/Ellipse_2.png
+   - assets/images/Ellipse_3.png
    - assets/images/checkmark.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
