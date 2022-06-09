@@ -25,6 +25,7 @@ class _CreateAccountState extends State<CreateAccount> {
   bool _usenameValidator = false;
   bool _bioValidator = false;
   bool _genderValidator = false;
+  bool isLoading = false;
   String username = "";
   String phoneNum = "";
   Uint8List? userCoverImage;
@@ -69,6 +70,9 @@ class _CreateAccountState extends State<CreateAccount> {
   }
 
   void insertUserDetails() async {
+    setState(() {
+      isLoading = true;
+    });
     String res = await FireStoreMethods().insertMoreUserDetails(
       displayName: displayNameController.text,
       userName: username,
@@ -79,11 +83,17 @@ class _CreateAccountState extends State<CreateAccount> {
       profileImage: userProfileImage!,
     );
     if (res == AppString.txtSuccess) {
+      setState(() {
+        isLoading = false;
+      });
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => BottomNavBar(selectedIndex: 0)));
     } else {
+      setState(() {
+        isLoading = false;
+      });
       showSnackBar(res, context);
     }
   }
@@ -296,25 +306,26 @@ class _CreateAccountState extends State<CreateAccount> {
                                   }
                                 },
                                 child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.68,
-                                  height: MediaQuery.of(context).size.height /
-                                      18.75,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.colorSignInButton,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(50))),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    AppString.txtContinue.toUpperCase(),
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: AppColors.colorWhite,
-                                      fontFamily: 'Manrope',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
+                                    width: MediaQuery.of(context).size.width /
+                                        1.68,
+                                    height: MediaQuery.of(context).size.height /
+                                        18.75,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.colorSignInButton,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(50))),
+                                    alignment: Alignment.center,
+                                    child: !isLoading
+                                        ? Text(
+                                            AppString.txtContinue.toUpperCase(),
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: AppColors.colorWhite,
+                                              fontFamily: 'Manrope',
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          )
+                                        : CircularProgressIndicator()),
                               ),
                             ],
                           ),

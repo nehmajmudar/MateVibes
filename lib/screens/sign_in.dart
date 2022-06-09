@@ -77,6 +77,7 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
   bool _passwordValidator = false;
   late SharedPreferences _prefs;
   final FocusNode _emailFocusNode = FocusNode();
+  bool isLoading = false;
 
   //Login Function
   static Future<User?> loginUsingEmailPassword(
@@ -334,6 +335,9 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                         Center(
                           child: GestureDetector(
                             onTap: () async {
+                              setState(() {
+                                isLoading = true;
+                              });
                               User? user = await loginUsingEmailPassword(
                                   email: _emailController.text,
                                   password: _passwordController.text,
@@ -344,10 +348,16 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               }
                               final result =
                                   await Connectivity().checkConnectivity();
+                              setState(() {
+                                isLoading = false;
+                              });
                               showConnectivityToastOnPress(result);
                               if (_formKey.currentState!.validate()) {
                                 if (user != null &&
                                     ConnectivityResult.none != true) {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
                                   Navigator.of(context)
                                       .pushReplacement(MaterialPageRoute(
                                           builder: (context) => BottomNavBar(
@@ -359,28 +369,29 @@ class _SignInScreenWidgetState extends State<SignInScreenWidget> {
                               }
                             },
                             child: Container(
-                              width: MediaQuery.of(context).size.width / 1.68,
-                              height:
-                                  MediaQuery.of(context).size.height / 18.75,
-                              margin: EdgeInsets.only(
-                                bottom:
-                                    MediaQuery.of(context).size.height / 9.27,
-                              ),
-                              decoration: BoxDecoration(
-                                  color: AppColors.colorSignInButton,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50))),
-                              alignment: Alignment.center,
-                              child: Text(
-                                AppString.txtSignIn.toUpperCase(),
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: AppColors.colorWhite,
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: 'Manrope',
+                                width: MediaQuery.of(context).size.width / 1.68,
+                                height:
+                                    MediaQuery.of(context).size.height / 18.75,
+                                margin: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).size.height / 9.27,
                                 ),
-                              ),
-                            ),
+                                decoration: BoxDecoration(
+                                    color: AppColors.colorSignInButton,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50))),
+                                alignment: Alignment.center,
+                                child: !isLoading
+                                    ? Text(
+                                        AppString.txtSignIn.toUpperCase(),
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: AppColors.colorWhite,
+                                          fontWeight: FontWeight.w700,
+                                          fontFamily: 'Manrope',
+                                        ),
+                                      )
+                                    : CircularProgressIndicator()),
                           ),
                         ),
                       ],

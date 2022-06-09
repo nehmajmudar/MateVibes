@@ -26,6 +26,7 @@ class _SignUpState extends State<SignUp> {
   bool _phoneValidator = false;
   bool _passwordValidator = false;
   bool _confirmPasswordValidator = false;
+  bool isLoading = false;
 
   late StreamSubscription subscription;
 
@@ -432,15 +433,17 @@ class _SignUpState extends State<SignUp> {
                           color: AppColors.colorSignInButton,
                           borderRadius: BorderRadius.all(Radius.circular(50))),
                       alignment: Alignment.center,
-                      child: Text(
-                        AppString.txtCreateAccount.toUpperCase(),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.colorWhite,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Manrope',
-                        ),
-                      ),
+                      child: !isLoading
+                          ? Text(
+                              AppString.txtCreateAccount.toUpperCase(),
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: AppColors.colorWhite,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'Manrope',
+                              ),
+                            )
+                          : CircularProgressIndicator(),
                     ),
                     onTap: () async {
                       final result = await Connectivity().checkConnectivity();
@@ -503,6 +506,9 @@ class _SignUpState extends State<SignUp> {
   void signUp(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
+        setState(() {
+          isLoading = true;
+        });
         await _auth
             .createUserWithEmailAndPassword(email: email, password: password)
             .then((value) => {postDetailsToFirestore()})
@@ -559,6 +565,9 @@ class _SignUpState extends State<SignUp> {
     Fluttertoast.showToast(msg: AppString.txtaccountCreatedSuccessfully);
 
     if (ConnectivityResult.none != true) {
+      setState(() {
+        isLoading = false;
+      });
       showDialog(
           context: context,
           barrierDismissible: false,
